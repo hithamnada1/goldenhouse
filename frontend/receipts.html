@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>سندات القبض والصرف - جولدن هوس للعقارات</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body { 
+      font-family: 'Cairo', Tahoma, Arial, sans-serif; 
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      margin: 0; 
+      padding: 0; 
+      min-height: 100vh;
+    }
+    
+    .header {
+      background: linear-gradient(135deg, #23272f 0%, #181c22 100%);
+      color: white;
+      padding: 2rem 0;
+      margin-bottom: 2rem;
+    }
+    
+    .main-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    .stats-card {
+      background: linear-gradient(135deg, #ffe082 0%, #bfa046 100%);
+      color: #23272f;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    .stats-number {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    
+    .form-section {
+      background: white;
+      border-radius: 10px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    .receipts-table {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    .table th {
+      background: #23272f;
+      color: white;
+      border: none;
+      font-weight: bold;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #ffe082 0%, #bfa046 100%);
+      border: none;
+      color: #23272f;
+      font-weight: bold;
+    }
+    
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #bfa046 0%, #ffe082 100%);
+      color: #23272f;
+    }
+    
+    .receipt-modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+    
+    .receipt-content {
+      background-color: white;
+      margin: 5% auto;
+      padding: 0;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 800px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    
+    .receipt-header {
+      background: linear-gradient(135deg, #ffe082 0%, #bfa046 100%);
+      color: #23272f;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      border-radius: 15px 15px 0 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .receipt-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: shimmer 3s infinite;
+    }
+    
+    @keyframes shimmer {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .receipt-body {
+      padding: 3rem 2rem;
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+    
+    .receipt-footer {
+      background: #23272f;
+      color: white;
+      padding: 1.5rem 2rem;
+      text-align: center;
+      border-radius: 0 0 15px 15px;
+    }
+    
+    .close {
+      color: #aaa;
+      float: left;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    .close:hover {
+      color: #ffe082;
+    }
+    
+    .receipt-number {
+      font-size: 1.2em;
+      color: #ffe082;
+      font-weight: bold;
+    }
+    
+    .amount {
+      font-size: 2.5em;
+      font-weight: bold;
+      color: #23272f;
+      text-align: center;
+      margin: 1rem 0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .amount.receipt {
+      color: #28a745;
+      background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%) !important;
+    }
+    
+    .amount.payment {
+      color: #dc3545;
+      background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%) !important;
+    }
+    
+    .signature-line {
+      border-top: 2px solid #23272f;
+      margin-top: 3rem;
+      padding-top: 1rem;
+      text-align: center;
+    }
+    
+    @media print {
+      /* إخفاء كل شيء ما عدا السند */
+      body * {
+        visibility: hidden !important;
+      }
+      
+      /* إظهار السند فقط */
+      .receipt-modal {
+        position: static !important;
+        background: white !important;
+        visibility: visible !important;
+        display: block !important;
+        width: 100% !important;
+        height: 100vh !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+      }
+      
+      .receipt-content {
+        position: static !important;
+        visibility: visible !important;
+        display: block !important;
+        width: 100% !important;
+        height: 100vh !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        background: white !important;
+        overflow: hidden !important;
+        page-break-inside: avoid !important;
+      }
+      
+      .receipt-content * {
+        visibility: visible !important;
+      }
+      
+      /* تحسين الهيدر للطباعة - مضغوط */
+      .receipt-header {
+        background: #ffe082 !important;
+        color: #23272f !important;
+        border-radius: 0 !important;
+        padding: 1rem !important;
+        visibility: visible !important;
+        display: block !important;
+        page-break-inside: avoid !important;
+        margin-bottom: 0 !important;
+        height: auto !important;
+      }
+      
+      .receipt-header::before {
+        display: none !important;
+      }
+      
+      .receipt-header img {
+        visibility: visible !important;
+        display: inline-block !important;
+        height: 40px !important;
+        max-width: 100% !important;
+      }
+      
+      .receipt-header h1 {
+        font-size: 1.8em !important;
+        margin: 0 !important;
+        color: #23272f !important;
+        font-weight: bold !important;
+      }
+      
+      .receipt-header h2 {
+        font-size: 1.4em !important;
+        margin: 0 !important;
+        color: #23272f !important;
+      }
+      
+      .receipt-header .receipt-number {
+        font-size: 1em !important;
+        margin: 0.5rem 0 0 0 !important;
+        color: #23272f !important;
+      }
+      
+      /* تحسين الجسم للطباعة - مضغوط */
+      .receipt-body {
+        background: white !important;
+        padding: 1rem !important;
+        visibility: visible !important;
+        display: block !important;
+        page-break-inside: avoid !important;
+        margin: 0 !important;
+        height: auto !important;
+      }
+      
+      .receipt-body * {
+        visibility: visible !important;
+        color: #23272f !important;
+      }
+      
+      /* مسافات مضغوطة للطباعة */
+      .receipt-body .row {
+        margin: 0 !important;
+      }
+      
+      .receipt-body .col-md-6,
+      .receipt-body .col-md-8,
+      .receipt-body .col-md-12 {
+        padding: 0.5rem !important;
+      }
+      
+      .receipt-body .mb-3 {
+        margin-bottom: 0.5rem !important;
+      }
+      
+      .receipt-body .mb-4 {
+        margin-bottom: 0.5rem !important;
+      }
+      
+      .receipt-body .mt-3 {
+        margin-top: 0.5rem !important;
+      }
+      
+      .receipt-body .mt-4 {
+        margin-top: 0.5rem !important;
+      }
+      
+      /* تحسين المبلغ - مضغوط */
+      .amount {
+        font-size: 1.8em !important;
+        padding: 1rem !important;
+        margin: 0.5rem 0 !important;
+        color: #23272f !important;
+        background: linear-gradient(135deg, #ffe082 0%, #bfa046 100%) !important;
+        border: none !important;
+        border-radius: 10px !important;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.2) !important;
+        page-break-inside: avoid !important;
+      }
+      
+      .amount.receipt {
+        color: #155724 !important;
+        background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%) !important;
+        border: none !important;
+      }
+      
+      .amount.payment {
+        color: #721c24 !important;
+        background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%) !important;
+        border: none !important;
+      }
+      
+      /* تحسين البطاقات للطباعة - مضغوط */
+      .receipt-body .row > div > div {
+        background: white !important;
+        border: 1px solid #dee2e6 !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+        padding: 0.8rem !important;
+        margin-bottom: 0.5rem !important;
+        border-radius: 8px !important;
+        page-break-inside: avoid !important;
+      }
+      
+      .receipt-body h5 {
+        font-size: 1em !important;
+        margin-bottom: 0.5rem !important;
+        color: #23272f !important;
+      }
+      
+      .receipt-body p {
+        margin: 0.3rem 0 !important;
+        font-size: 0.9em !important;
+        line-height: 1.3 !important;
+      }
+      
+      /* تحسين التوقيع للطباعة - مضغوط */
+      .signature-line {
+        border-top: 2px solid #23272f !important;
+        background: white !important;
+        padding: 0.8rem !important;
+        margin-top: 0.5rem !important;
+        border-radius: 8px !important;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+        page-break-inside: avoid !important;
+      }
+      
+      .signature-line p {
+        margin-bottom: 0.5rem !important;
+        font-size: 0.9em !important;
+        font-weight: bold !important;
+      }
+      
+      /* إخفاء العناصر غير المطلوبة */
+      .receipt-footer {
+        display: none !important;
+      }
+      
+      .btn {
+        display: none !important;
+      }
+      
+      .close {
+        display: none !important;
+      }
+      
+      /* إعدادات الصفحة - هوامش أقل */
+      @page {
+        margin: 0.5cm;
+        size: A4 portrait;
+      }
+      
+      /* منع تقسيم العناصر */
+      .row, .col-md-6, .col-md-8, .col-md-12 {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+      
+      /* إخفاء العناصر غير الضرورية */
+      .receipt-body .row:last-child {
+        margin-bottom: 0 !important;
+      }
+      
+      /* ضمان عدم تقسيم الصفحة */
+      .receipt-modal, .receipt-content {
+        page-break-after: avoid !important;
+        page-break-before: avoid !important;
+        break-after: avoid !important;
+        break-before: avoid !important;
+      }
+      
+      /* منع تقسيم أي عنصر */
+      .receipt-header, .receipt-body, .amount, .signature-line {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+      
+      /* ضغط إضافي للمحتوى */
+      .receipt-body .row > div {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+      
+      /* ضمان صفحة واحدة */
+      .receipt-modal {
+        max-height: 100vh !important;
+        overflow: hidden !important;
+      }
+      
+      .receipt-content {
+        max-height: 100vh !important;
+        overflow: hidden !important;
+      }
+      
+      /* تقليل المسافات الإضافية */
+      .receipt-body .row:last-child {
+        margin-bottom: 0 !important;
+      }
+      
+      .receipt-body .col-md-6:last-child,
+      .receipt-body .col-md-8:last-child,
+      .receipt-body .col-md-12:last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <div class="main-container">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h1 class="mb-0">
+            <img src="images/logo.png" alt="شعار الشركة" style="height: 50px; margin-left: 15px; border-radius: 4px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+            <span style="display:none; font-size: 1.5em; margin-left: 15px;">🏠</span>
+            سندات القبض والصرف
+          </h1>
+        </div>
+        <div class="col-md-4 text-end">
+          <a href="/" class="btn btn-outline-light">
+            <i class="fas fa-home"></i> الرئيسية
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-container">
+    <!-- Statistics -->
+    <div class="row mb-4">
+      <div class="col-md-3">
+        <div class="stats-card">
+          <div class="stats-number" id="totalReceipts">0</div>
+          <div>إجمالي السندات</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="stats-card">
+          <div class="stats-number" id="totalReceiptAmount">0</div>
+          <div>إجمالي القبض (درهم)</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="stats-card">
+          <div class="stats-number" id="totalPaymentAmount">0</div>
+          <div>إجمالي الصرف (درهم)</div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="stats-card">
+          <div class="stats-number" id="balance">0</div>
+          <div>الرصيد (درهم)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Receipt Form -->
+    <div class="form-section">
+      <h3 class="mb-4">
+        <i class="fas fa-plus-circle"></i> إضافة سند جديد
+      </h3>
+      <form id="receiptForm">
+        <div class="row">
+          <div class="col-md-3">
+            <label class="form-label">نوع السند</label>
+            <select name="type" class="form-select" required>
+              <option value="قبض">قبض</option>
+              <option value="صرف">صرف</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">المبلغ (درهم)</label>
+            <input type="number" name="value" class="form-control" step="0.01" required>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">اسم العميل/المستفيد</label>
+            <input type="text" name="client_name" class="form-control" required>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">رقم الهاتف</label>
+            <input type="tel" name="phone" class="form-control">
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <label class="form-label">الوصف/السبب</label>
+            <textarea name="description" class="form-control" rows="3" required></textarea>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">طريقة الدفع</label>
+            <select name="payment_method" class="form-select">
+              <option value="نقداً">نقداً</option>
+              <option value="شيك">شيك</option>
+              <option value="تحويل بنكي">تحويل بنكي</option>
+              <option value="بطاقة ائتمان">بطاقة ائتمان</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">رقم المرجع</label>
+            <input type="text" name="reference_number" class="form-control" placeholder="رقم الشيك أو التحويل">
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary btn-lg">
+              <i class="fas fa-save"></i> حفظ السند
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Search and Filter -->
+    <div class="form-section">
+      <div class="row">
+        <div class="col-md-6">
+          <input type="text" id="searchInput" class="form-control" placeholder="البحث باسم العميل أو الوصف...">
+        </div>
+        <div class="col-md-2">
+          <select id="typeFilter" class="form-select">
+            <option value="">جميع الأنواع</option>
+            <option value="قبض">قبض فقط</option>
+            <option value="صرف">صرف فقط</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <input type="date" id="dateFrom" class="form-control" placeholder="من تاريخ">
+        </div>
+        <div class="col-md-2">
+          <button id="refreshBtn" class="btn btn-outline-primary w-100">
+            <i class="fas fa-sync-alt"></i> تحديث
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Receipts Table -->
+    <div class="receipts-table">
+      <div class="table-responsive">
+        <table class="table table-hover mb-0">
+          <thead>
+            <tr>
+              <th>رقم السند</th>
+              <th>النوع</th>
+              <th>المبلغ</th>
+              <th>اسم العميل</th>
+              <th>رقم الهاتف</th>
+              <th>طريقة الدفع</th>
+              <th>الوصف</th>
+              <th>التاريخ</th>
+              <th>الإجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="receiptsTableBody">
+            <!-- سيتم ملء هذا الجدول بواسطة JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Receipt Modal -->
+  <div id="receiptModal" class="receipt-modal">
+    <div class="receipt-content">
+      <div class="receipt-header">
+        <span class="close">&times;</span>
+        <div class="row align-items-center">
+          <div class="col-md-2 text-end">
+            <img src="images/logo.png" alt="شعار الشركة" style="height: 50px; margin-left: 15px; border-radius: 4px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+            <span style="display:none; font-size: 2em;">🏠</span>
+          </div>
+          <div class="col-md-8">
+            <h1 class="mb-2" style="font-size: 2.5em; font-weight: bold; color: #23272f;">جولدن هوس للعقارات</h1>
+            <h2 class="mb-1" style="font-size: 1.8em; color: #23272f;">Golden House Real Estate</h2>
+            <div class="receipt-number" style="font-size: 1.3em; margin-top: 1rem;">
+              <i class="fas fa-receipt"></i> سند <span id="modalReceiptType"></span>
+            </div>
+            <div style="font-size: 1.1em; margin-top: 0.5rem;">
+              رقم السند: <span id="modalReceiptNumber" style="font-weight: bold; color: #23272f;"></span>
+            </div>
+          </div>
+          <div class="col-md-2 text-start">
+            <div style="background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 10px;">
+              <div style="font-size: 0.9em; margin-bottom: 0.5rem;">التاريخ</div>
+              <div id="modalDate" style="font-weight: bold; font-size: 1.1em;"></div>
+              <div style="font-size: 0.8em; margin-top: 0.5rem;" id="modalTime"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="receipt-body">
+        <div class="row justify-content-center mb-3">
+          <div class="col-md-8 text-center">
+            <div class="amount" id="modalAmount" style="background: linear-gradient(135deg, #ffe082 0%, #bfa046 100%); padding: 1.5rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);"></div>
+          </div>
+        </div>
+        
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <div style="background: white; padding: 1rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+              <h5 style="color: #23272f; margin-bottom: 0.8rem; font-size: 1.1em;">
+                <i class="fas fa-user"></i> بيانات العميل
+              </h5>
+              <div class="mb-1">
+                <strong>الاسم:</strong> <span id="modalClientName" style="color: #bfa046;"></span>
+              </div>
+              <div class="mb-1">
+                <strong>الهاتف:</strong> <span id="modalPhone"></span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div style="background: white; padding: 1rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+              <h5 style="color: #23272f; margin-bottom: 0.8rem; font-size: 1.1em;">
+                <i class="fas fa-credit-card"></i> بيانات الدفع
+              </h5>
+              <div class="mb-1">
+                <strong>الطريقة:</strong> <span id="modalPaymentMethod"></span>
+              </div>
+              <div class="mb-1">
+                <strong>المرجع:</strong> <span id="modalReference"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row mb-3">
+          <div class="col-12">
+            <div style="background: white; padding: 1rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+              <h5 style="color: #23272f; margin-bottom: 0.8rem; font-size: 1.1em;">
+                <i class="fas fa-file-alt"></i> تفاصيل العملية
+              </h5>
+              <p id="modalDescription" style="font-size: 1em; line-height: 1.4; margin: 0;"></p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <div class="signature-line" style="background: white; padding: 1rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+              <p style="margin-bottom: 1rem; font-weight: bold; font-size: 0.9em;">توقيع المستلم</p>
+              <div style="border-top: 2px solid #23272f; padding-top: 0.5rem; min-height: 40px;"></div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="signature-line" style="background: white; padding: 1rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+              <p style="margin-bottom: 1rem; font-weight: bold; font-size: 0.9em;">ختم الشركة</p>
+              <div style="border: 2px dashed #bfa046; padding: 0.5rem; min-height: 40px; display: flex; align-items: center; justify-content: center; color: #bfa046;">
+                <i class="fas fa-stamp" style="font-size: 1.5em;"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="row mt-3">
+          <div class="col-12 text-center">
+            <div style="background: linear-gradient(135deg, #ffe082 0%, #bfa046 100%); padding: 0.8rem; border-radius: 10px; color: #23272f;">
+              <p style="margin: 0; font-weight: bold; font-size: 0.9em;">
+                <i class="fas fa-shield-alt"></i> شكراً لثقتكم بنا
+              </p>
+              <p style="margin: 0; font-size: 0.8em;">Golden House - We build your dream</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="receipt-footer">
+        <button class="btn btn-primary" onclick="printReceipt()">
+          <i class="fas fa-print"></i> طباعة السند
+        </button>
+        <button class="btn btn-outline-light" onclick="closeModal()">
+          <i class="fas fa-times"></i> إغلاق
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let allReceipts = [];
+    let filteredReceipts = [];
+
+    // Load receipts from API
+    async function loadReceipts() {
+      try {
+        // إضافة token المصادقة - استخدام query parameter
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+
+        const res = await fetch('/api/receipts?token=' + token, {
+          method: 'GET'
+        });
+        
+        if (!res.ok) {
+          throw new Error('فشل في تحميل السندات');
+        }
+        
+        allReceipts = await res.json();
+        console.log('Loaded receipts:', allReceipts); // للتأكد من البيانات
+        
+        // التأكد من أن البيانات تحتوي على الحقول المطلوبة
+        if (Array.isArray(allReceipts)) {
+          allReceipts.forEach(receipt => {
+            console.log(`Receipt ${receipt.id}:`, {
+              client_name: receipt.client_name,
+              phone: receipt.phone,
+              payment_method: receipt.payment_method,
+              description: receipt.description
+            });
+          });
+        }
+        
+        filterReceipts();
+        updateStatistics();
+      } catch (error) {
+        console.error('Error loading receipts:', error);
+        alert('حدث خطأ في تحميل السندات');
+      }
+    }
+
+    // Filter receipts
+    function filterReceipts() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const typeFilter = document.getElementById('typeFilter').value;
+      const dateFrom = document.getElementById('dateFrom').value;
+
+      filteredReceipts = allReceipts.filter(receipt => {
+        const matchesSearch = !searchTerm || 
+          (receipt.client_name && receipt.client_name.toLowerCase().includes(searchTerm)) ||
+          (receipt.description && receipt.description.toLowerCase().includes(searchTerm));
+        
+        const matchesType = !typeFilter || receipt.type === typeFilter;
+        
+        let matchesDate = true;
+        if (dateFrom) {
+          const receiptDate = new Date(receipt.date);
+          const fromDate = new Date(dateFrom);
+          matchesDate = receiptDate >= fromDate;
+        }
+
+        return matchesSearch && matchesType && matchesDate;
+      });
+
+      displayReceipts();
+    }
+
+    // Display receipts
+    function displayReceipts() {
+      const tbody = document.getElementById('receiptsTableBody');
+      
+      if (filteredReceipts.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" class="text-center py-4">لا توجد سندات</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = filteredReceipts.map(receipt => {
+        console.log('Displaying receipt:', receipt); // للتأكد من البيانات
+        return `
+          <tr>
+            <td><strong>${receipt.receipt_number || receipt.id}</strong></td>
+            <td>
+              <span class="badge ${receipt.type === 'قبض' ? 'bg-success' : 'bg-danger'}">
+                ${receipt.type}
+              </span>
+            </td>
+            <td>
+              <strong class="${receipt.type === 'قبض' ? 'text-success' : 'text-danger'}">
+                ${parseFloat(receipt.value || 0).toLocaleString()} درهم
+              </strong>
+            </td>
+            <td>${receipt.client_name || 'غير محدد'}</td>
+            <td>${receipt.phone ? receipt.phone : 'غير محدد'}</td>
+            <td>${receipt.payment_method ? receipt.payment_method : 'غير محدد'}</td>
+            <td>${receipt.description || 'غير محدد'}</td>
+            <td>${formatDate(receipt.date)}</td>
+            <td>
+              <button class="btn btn-sm btn-primary" onclick="showReceipt(${receipt.id})">
+                <i class="fas fa-eye"></i> عرض
+              </button>
+              <button class="btn btn-sm btn-outline-danger" onclick="deleteReceipt(${receipt.id})">
+                <i class="fas fa-trash"></i> حذف
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // Update statistics
+    function updateStatistics() {
+      const totalReceipts = allReceipts.length;
+      const totalReceiptAmount = allReceipts
+        .filter(r => r.type === 'قبض')
+        .reduce((sum, r) => sum + (r.value || 0), 0);
+      const totalPaymentAmount = allReceipts
+        .filter(r => r.type === 'صرف')
+        .reduce((sum, r) => sum + (r.value || 0), 0);
+      const balance = totalReceiptAmount - totalPaymentAmount;
+
+      document.getElementById('totalReceipts').textContent = totalReceipts;
+      document.getElementById('totalReceiptAmount').textContent = totalReceiptAmount.toLocaleString();
+      document.getElementById('totalPaymentAmount').textContent = totalPaymentAmount.toLocaleString();
+      document.getElementById('balance').textContent = balance.toLocaleString();
+    }
+
+    // Show receipt details
+    async function showReceipt(id) {
+      try {
+        // إضافة token المصادقة - استخدام query parameter
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+
+        const res = await fetch(`/api/receipt/${id}?token=${token}`, {
+          method: 'GET'
+        });
+        
+        if (!res.ok) {
+          throw new Error('فشل في تحميل السند');
+        }
+        
+        const receipt = await res.json();
+        
+        if (receipt.error) {
+          alert(receipt.error);
+          return;
+        }
+
+        // عرض نوع السند
+        document.getElementById('modalReceiptType').textContent = receipt.type || 'قبض';
+        
+        // عرض رقم السند
+        document.getElementById('modalReceiptNumber').textContent = receipt.receipt_number || receipt.id || 'غير محدد';
+        
+        // عرض المبلغ
+        const amount = parseFloat(receipt.value) || 0;
+        document.getElementById('modalAmount').textContent = `${amount.toLocaleString()} درهم`;
+        document.getElementById('modalAmount').className = `amount ${receipt.type === 'قبض' ? 'receipt' : 'payment'}`;
+        
+        // عرض بيانات العميل
+        document.getElementById('modalClientName').textContent = receipt.client_name || 'غير محدد';
+        document.getElementById('modalPhone').textContent = receipt.phone || 'غير محدد';
+        
+        // عرض بيانات الدفع
+        document.getElementById('modalPaymentMethod').textContent = receipt.payment_method || 'غير محدد';
+        document.getElementById('modalReference').textContent = receipt.reference_number || 'غير محدد';
+        
+        // عرض التاريخ والوقت
+        const formattedDate = formatDate(receipt.date);
+        const formattedTime = formatTime(receipt.time);
+        document.getElementById('modalDate').textContent = formattedDate;
+        document.getElementById('modalTime').textContent = formattedTime;
+        
+        // عرض الوصف
+        document.getElementById('modalDescription').textContent = receipt.description || 'غير محدد';
+
+        document.getElementById('receiptModal').style.display = 'block';
+      } catch (error) {
+        console.error('Error loading receipt:', error);
+        alert('حدث خطأ في تحميل السند');
+      }
+    }
+
+    // Close modal
+    function closeModal() {
+      document.getElementById('receiptModal').style.display = 'none';
+    }
+
+    // Print receipt
+    function printReceipt() {
+      window.print();
+    }
+
+    // Delete receipt
+    async function deleteReceipt(id) {
+      if (!confirm('هل أنت متأكد من حذف هذا السند؟')) return;
+      
+      try {
+        // إضافة token المصادقة - استخدام query parameter
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+
+        const res = await fetch(`/api/receipt/${id}?token=${token}`, { 
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        if (!res.ok) {
+          throw new Error('فشل في حذف السند');
+        }
+        
+        const data = await res.json();
+        
+        if (data.success) {
+          loadReceipts();
+          alert('تم حذف السند بنجاح');
+        } else {
+          alert(data.error || 'حدث خطأ في حذف السند');
+        }
+      } catch (error) {
+        console.error('Error deleting receipt:', error);
+        alert('حدث خطأ في حذف السند');
+      }
+    }
+
+    // Format date
+    function formatDate(dateString) {
+      try {
+        const date = new Date(dateString);
+        if (isNaN(date.getTime())) {
+          // إذا كان التاريخ غير صحيح، استخدم التاريخ الحالي
+          const now = new Date();
+          return now.toLocaleDateString('ar-EG', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          });
+        }
+        return date.toLocaleDateString('ar-EG', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+      } catch (error) {
+        // في حالة الخطأ، استخدم التاريخ الحالي
+        const now = new Date();
+        return now.toLocaleDateString('ar-EG', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+      }
+    }
+
+    // Format time
+    function formatTime(timeString) {
+      if (!timeString) {
+        // إذا لم يكن هناك وقت، استخدم الوقت الحالي
+        const now = new Date();
+        return now.toLocaleTimeString('ar-EG', {
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+      }
+      return timeString;
+    }
+
+    // Event listeners
+    document.getElementById('receiptForm').onsubmit = async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+      
+      console.log('Saving receipt data:', data); // للتأكد من البيانات
+      
+      try {
+        const res = await fetch('/api/receipt', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        
+        if (res.ok) {
+          const result = await res.json();
+          console.log('Receipt saved successfully:', result);
+          e.target.reset();
+          loadReceipts();
+          alert('تم حفظ السند بنجاح!');
+        } else {
+          const errorData = await res.json();
+          console.error('Server error:', errorData);
+          alert('حدث خطأ أثناء حفظ السند: ' + (errorData.error || 'خطأ غير معروف'));
+        }
+      } catch (error) {
+        console.error('Error saving receipt:', error);
+        alert('حدث خطأ أثناء حفظ السند');
+      }
+    };
+
+    document.getElementById('searchInput').oninput = filterReceipts;
+    document.getElementById('typeFilter').onchange = filterReceipts;
+    document.getElementById('dateFrom').onchange = filterReceipts;
+    document.getElementById('refreshBtn').onclick = loadReceipts;
+
+    // Modal close events
+    document.querySelector('.close').onclick = closeModal;
+    window.onclick = (event) => {
+      if (event.target === document.getElementById('receiptModal')) {
+        closeModal();
+      }
+    };
+
+    // Load receipts on page load
+    loadReceipts();
+  </script>
+</body>
+</html> 

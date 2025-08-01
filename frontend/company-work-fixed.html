@@ -1,0 +1,2513 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>شغل الشركة | Golden House</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      font-family: 'Cairo', Tahoma, Arial, sans-serif;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    .header {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .logo {
+      height: 60px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .header-buttons {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .add-unit-btn {
+      background: linear-gradient(45deg, #FFD700, #FFA500);
+      border: none;
+      color: #333;
+      padding: 12px 25px;
+      border-radius: 25px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    }
+
+    .add-unit-btn:hover {
+      background: linear-gradient(45deg, #FFA500, #FF6347);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 165, 0, 0.4);
+    }
+
+    .edit-unit-btn {
+      background: linear-gradient(45deg, #4CAF50, #45a049);
+      border: none;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 25px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+    }
+
+    .edit-unit-btn:hover {
+      background: linear-gradient(45deg, #45a049, #4CAF50);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+    }
+
+    .reports-btn {
+      background: linear-gradient(45deg, #9C27B0, #673AB7);
+      border: none;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 25px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(156, 39, 176, 0.3);
+    }
+
+                .reports-btn:hover {
+              background: linear-gradient(45deg, #673AB7, #9C27B0);
+              transform: translateY(-2px);
+              box-shadow: 0 6px 20px rgba(156, 39, 176, 0.4);
+            }
+
+            /* Reports Modal Styles */
+            .reports-controls {
+              background: #f8f9fa;
+              padding: 20px;
+              border-radius: 10px;
+              margin-bottom: 20px;
+            }
+
+            .summary-section {
+              background: linear-gradient(45deg, #FFD700, #FFA500);
+              padding: 20px;
+              border-radius: 15px;
+              margin-bottom: 30px;
+              color: #333;
+            }
+
+            .summary-section h3 {
+              color: #333;
+              margin-bottom: 20px;
+              text-align: center;
+            }
+
+            .summary-overview {
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+              gap: 20px;
+              margin-bottom: 30px;
+            }
+
+            .detailed-breakdown {
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+              gap: 20px;
+              margin-top: 20px;
+            }
+
+            .breakdown-section {
+              background: rgba(255, 255, 255, 0.9);
+              padding: 20px;
+              border-radius: 10px;
+              box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+
+            .breakdown-section h4 {
+              color: #2c3e50;
+              margin-bottom: 15px;
+              font-weight: 700;
+              text-align: center;
+            }
+
+            .breakdown-grid {
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+              gap: 10px;
+            }
+
+            .breakdown-item {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 8px 12px;
+              background: #f8f9fa;
+              border-radius: 6px;
+              border: 1px solid #e9ecef;
+              transition: all 0.2s ease;
+            }
+
+            .breakdown-item:hover {
+              background: #e9ecef;
+              transform: translateY(-1px);
+            }
+
+            .item-label {
+              font-weight: 600;
+              color: #2c3e50;
+              font-size: 0.9em;
+            }
+
+            .item-count {
+              font-weight: bold;
+              color: #e74c3c;
+              background: #fdf2f2;
+              padding: 2px 6px;
+              border-radius: 4px;
+              font-size: 0.9em;
+            }
+
+            .summary-stat {
+              text-align: center;
+              background: rgba(255, 255, 255, 0.9);
+              padding: 15px;
+              border-radius: 10px;
+              box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+
+            .stat-number {
+              display: block;
+              font-size: 2em;
+              font-weight: bold;
+              color: #333;
+            }
+
+            .stat-label {
+              display: block;
+              font-size: 0.9em;
+              color: #666;
+              margin-top: 5px;
+            }
+
+            .user-stats {
+              display: grid;
+              grid-template-columns: repeat(4, 1fr);
+              gap: 10px;
+              margin-top: 15px;
+            }
+
+            .user-stat {
+              text-align: center;
+              background: rgba(255, 215, 0, 0.1);
+              padding: 10px;
+              border-radius: 8px;
+              border: 1px solid rgba(255, 215, 0, 0.3);
+            }
+
+            .user-stat .stat-number {
+              font-size: 1.2em;
+              color: #FFD700;
+            }
+
+            .user-stat .stat-label {
+              font-size: 0.8em;
+              color: #666;
+            }
+
+            .no-properties {
+              text-align: center;
+              padding: 20px;
+              color: #666;
+              font-style: italic;
+            }
+
+            .no-properties i {
+              margin-left: 5px;
+              color: #FFD700;
+            }
+
+            .property-details {
+              display: flex;
+              flex-direction: column;
+              gap: 4px;
+            }
+
+            .property-operation {
+              font-size: 0.8em;
+              color: #7f8c8d;
+              font-weight: 500;
+            }
+
+            .properties-list .property-item {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 12px;
+              border-bottom: 1px solid #ecf0f1;
+              background: #f8f9fa;
+              margin: 4px 0;
+              border-radius: 8px;
+              transition: all 0.2s ease;
+            }
+
+            .properties-list .property-item:hover {
+              background: #e9ecef;
+              transform: translateX(-2px);
+              box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+
+            .properties-list .property-item:last-child {
+              border-bottom: none;
+            }
+
+    .back-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 25px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+    }
+
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .page-title {
+      text-align: center;
+      font-size: 2.5em;
+      font-weight: 900;
+      margin-bottom: 10px;
+      background: linear-gradient(45deg, #FFD700, #FFA500, #FF6347);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 3s ease-in-out infinite;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .page-subtitle {
+      text-align: center;
+      font-size: 1.2em;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 40px;
+    }
+
+    /* Tabs Styling */
+    .nav-tabs {
+      border: none;
+      margin-bottom: 30px;
+      justify-content: center;
+    }
+
+    .nav-tabs .nav-link {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.8);
+      border-radius: 25px;
+      margin: 0 10px;
+      padding: 12px 30px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-tabs .nav-link:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .nav-tabs .nav-link.active {
+      background: linear-gradient(45deg, #FFD700, #FFA500);
+      border-color: #FFD700;
+      color: #333;
+      box-shadow: 0 8px 16px rgba(255, 215, 0, 0.3);
+    }
+
+    /* Property Categories */
+    .property-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .property-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 30px 25px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .property-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .property-card:hover::before {
+      left: 100%;
+    }
+
+    .property-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 
+        0 20px 40px rgba(0,0,0,0.3),
+        0 0 0 1px rgba(255,255,255,0.1);
+    }
+
+    .property-icon {
+      font-size: 4em;
+      margin-bottom: 20px;
+      display: block;
+      transition: all 0.3s ease;
+      color: #FFD700;
+    }
+
+    .property-card:hover .property-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .property-title {
+      font-size: 1.5em;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: #FFD700;
+    }
+
+    .property-description {
+      font-size: 1em;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .property-count {
+      background: rgba(255, 215, 0, 0.2);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      border-radius: 15px;
+      padding: 8px 16px;
+      font-size: 0.9em;
+      color: #FFD700;
+      font-weight: 600;
+    }
+
+    .tab-content {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Loading for form submission */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid #FFD700;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Modal Styles */
+    .modal-content {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+    }
+
+    .modal-header {
+      background: linear-gradient(45deg, #FFD700, #FFA500);
+      border-bottom: none;
+      border-radius: 20px 20px 0 0;
+    }
+
+    .modal-title {
+      color: #333;
+      font-weight: 700;
+    }
+
+    .form-label {
+      color: #333;
+      font-weight: 600;
+    }
+
+    .form-control {
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      padding: 12px 15px;
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .form-control:focus {
+      border-color: #FFD700;
+      box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25);
+    }
+
+    .btn-primary {
+      background: linear-gradient(45deg, #FFD700, #FFA500);
+      border: none;
+      border-radius: 25px;
+      padding: 12px 30px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(45deg, #FFA500, #FF6347);
+      transform: translateY(-2px);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .page-title {
+        font-size: 2em;
+      }
+      
+      .nav-tabs .nav-link {
+        margin: 5px;
+        padding: 10px 20px;
+        font-size: 0.9em;
+      }
+      
+      .property-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .property-card {
+        padding: 25px 20px;
+      }
+      
+      .property-icon {
+        font-size: 3em;
+      }
+    }
+
+    .property-count {
+      font-size: 1.1em;
+      font-weight: 600;
+      color: #FFD700;
+      margin-top: 10px;
+    }
+
+    /* Reports Styling */
+    .reports-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .user-report-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .user-report-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .user-info {
+      text-align: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .user-info h4 {
+      color: #FFD700;
+      margin-bottom: 5px;
+      font-weight: 700;
+    }
+
+    .username {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9em;
+      margin-bottom: 15px;
+    }
+
+    .total-count {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .count-number {
+      font-size: 2em;
+      font-weight: 900;
+      color: #FFD700;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .count-label {
+      font-size: 0.9em;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .properties-breakdown h5 {
+      color: #FFD700;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .properties-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .property-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      border-left: 3px solid #FFD700;
+    }
+
+    .property-type {
+      color: #2c3e50;
+      font-weight: 600;
+      background: #ecf0f1;
+      padding: 4px 8px;
+      border-radius: 4px;
+      margin-right: 8px;
+    }
+
+    .property-count {
+      background: #FFD700;
+      color: #333;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.9em;
+      min-width: 30px;
+      text-align: center;
+    }
+
+    .no-reports {
+      text-align: center;
+      padding: 40px 20px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .no-reports i {
+      font-size: 3em;
+      color: #FFD700;
+      margin-bottom: 20px;
+    }
+
+    .no-reports h3 {
+      color: #FFD700;
+      margin-bottom: 10px;
+    }
+
+    /* Loading Spinner */
+    .loading {
+      text-align: center;
+      padding: 40px 20px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid #FFD700;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .reports-controls .d-flex { gap: 10px; }
+    
+    /* User Search Suggestions */
+    .user-suggestion-item {
+      padding: 8px 12px;
+      cursor: pointer;
+      border-bottom: 1px solid #eee;
+      transition: background-color 0.2s ease;
+    }
+    
+    .user-suggestion-item:hover {
+      background-color: #f8f9fa;
+    }
+    
+    .user-suggestion-item:last-child {
+      border-bottom: none;
+    }
+    
+    .user-suggestion-item.selected {
+      background-color: #e3f2fd;
+    }
+
+    /* Video Upload Styles */
+    .video-preview-container {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 10px;
+      border: 2px dashed #dee2e6;
+      transition: all 0.3s ease;
+    }
+
+    .video-preview-container:hover {
+      border-color: #FFD700;
+      background: #fff3cd;
+    }
+
+    .video-info {
+      text-align: center;
+      color: #6c757d;
+    }
+
+    .video-info i {
+      color: #FFD700;
+      margin-left: 5px;
+    }
+
+    /* Custom file input styling */
+    input[type="file"] {
+      border: 2px dashed #dee2e6;
+      border-radius: 8px;
+      padding: 10px;
+      transition: all 0.3s ease;
+    }
+
+    input[type="file"]:hover {
+      border-color: #FFD700;
+      background: #fff3cd;
+    }
+
+    input[type="file"]:focus {
+      border-color: #FFD700;
+      box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25);
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Overlay for Form Submission -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+                      <img src="images/logo.png" alt="Golden House Logo" class="logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+      <div style="display:none; font-size: 2em;">🏠</div>
+      <div class="header-buttons">
+        <button class="add-unit-btn" onclick="openAddUnitModal()">
+          <i class="fas fa-plus"></i>
+          إضافة وحدة
+        </button>
+        <button class="reports-btn" onclick="openReportsModal()">
+          <i class="fas fa-chart-bar"></i>
+          تقارير
+        </button>
+        <button class="edit-unit-btn" onclick="openEditUnitModal()" id="editUnitBtn" style="display: none;">
+          <i class="fas fa-edit"></i>
+          تعديل وحدة
+        </button>
+        <a href="/" class="back-btn">
+          <i class="fas fa-arrow-right"></i>
+          العودة للرئيسية
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <h1 class="page-title">شغل الشركة</h1>
+    <p class="page-subtitle">اكتشف عقاراتنا المتاحة للإيجار والبيع - جميع الأسعار بالدرهم</p>
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs" id="propertyTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="rent-tab" data-bs-toggle="tab" data-bs-target="#rent" type="button" role="tab">
+          <i class="fas fa-key"></i>
+          للإيجار
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="sale-tab" data-bs-toggle="tab" data-bs-target="#sale" type="button" role="tab">
+          <i class="fas fa-home"></i>
+          للبيع
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="monthly-tab" data-bs-toggle="tab" data-bs-target="#monthly" type="button" role="tab">
+          <i class="fas fa-calendar-alt"></i>
+          شهري
+        </button>
+      </li>
+
+    </ul>
+
+    <!-- Tab Content -->
+    <div class="tab-content" id="propertyTabsContent">
+      <!-- Rent Tab -->
+      <div class="tab-pane fade show active" id="rent" role="tabpanel">
+        <div class="property-grid">
+          <div class="property-card" data-type="rent" data-category="studio" onclick="showProperties('rent', 'studio')">
+            <i class="fas fa-building property-icon"></i>
+            <div class="property-title">استديو</div>
+            <div class="property-description">استديو أنيق ومريح للإيجار مع جميع المرافق الأساسية - الأسعار بالدرهم</div>
+            <div class="property-count">5 وحدات متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="rent" data-category="1bedroom" onclick="showProperties('rent', '1bedroom')">
+            <i class="fas fa-bed property-icon"></i>
+            <div class="property-title">غرفة وصالة</div>
+            <div class="property-description">شقة غرفة وصالة مريحة ومناسبة للعائلات الصغيرة - الأسعار بالدرهم</div>
+            <div class="property-count">8 وحدات متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="rent" data-category="2bedroom" onclick="showProperties('rent', '2bedroom')">
+            <i class="fas fa-door-open property-icon"></i>
+            <div class="property-title">غرفتين وصالة</div>
+            <div class="property-description">شقة غرفتين وصالة واسعة ومناسبة للعائلات - الأسعار بالدرهم</div>
+            <div class="property-count">12 وحدة متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="rent" data-category="3bedroom" onclick="showProperties('rent', '3bedroom')">
+            <i class="fas fa-home property-icon"></i>
+            <div class="property-title">ثلاث غرف وصالة</div>
+            <div class="property-description">شقة ثلاث غرف وصالة فاخرة ومناسبة للعائلات الكبيرة - الأسعار بالدرهم</div>
+            <div class="property-count">6 وحدات متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="rent" data-category="commercial" onclick="showProperties('rent', 'commercial')">
+            <i class="fas fa-store property-icon"></i>
+            <div class="property-title">تجاري</div>
+            <div class="property-description">محلات ومكاتب تجارية في مواقع مميزة - الأسعار بالدرهم</div>
+            <div class="property-count">3 وحدات متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="rent" data-category="villa" onclick="showProperties('rent', 'villa')">
+            <i class="fas fa-crown property-icon"></i>
+            <div class="property-title">فلل</div>
+            <div class="property-description">فلل فاخرة ومميزة مع حدائق ومرافق خاصة - الأسعار بالدرهم</div>
+            <div class="property-count">2 فيلا متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="rent" data-category="arabic-houses" onclick="showProperties('rent', 'arabic-houses')">
+            <i class="fas fa-mosque property-icon"></i>
+            <div class="property-title">بيوت عربي</div>
+            <div class="property-description">بيوت عربية تقليدية أنيقة مع التصميم الأصيل والمرافق التقليدية - الأسعار بالدرهم</div>
+            <div class="property-count">4 وحدات متاحة</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sale Tab -->
+      <div class="tab-pane fade" id="sale" role="tabpanel">
+        <div class="property-grid">
+          <div class="property-card" data-type="sale" data-category="studio" onclick="showProperties('sale', 'studio')">
+            <i class="fas fa-building property-icon"></i>
+            <div class="property-title">استديو</div>
+            <div class="property-description">استديو للبيع في مواقع مميزة مع إمكانية التمويل - الأسعار بالدرهم</div>
+            <div class="property-count">3 وحدات متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="sale" data-category="1bedroom" onclick="showProperties('sale', '1bedroom')">
+            <i class="fas fa-bed property-icon"></i>
+            <div class="property-title">غرفة وصالة</div>
+            <div class="property-description">شقة غرفة وصالة للبيع مع إمكانية التمويل - الأسعار بالدرهم</div>
+            <div class="property-count">5 وحدات متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="sale" data-category="2bedroom" onclick="showProperties('sale', '2bedroom')">
+            <i class="fas fa-door-open property-icon"></i>
+            <div class="property-title">غرفتين وصالة</div>
+            <div class="property-description">شقة غرفتين وصالة للبيع مع إمكانية التمويل - الأسعار بالدرهم</div>
+            <div class="property-count">7 وحدات متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="sale" data-category="3bedroom" onclick="showProperties('sale', '3bedroom')">
+            <i class="fas fa-home property-icon"></i>
+            <div class="property-title">ثلاث غرف وصالة</div>
+            <div class="property-description">شقة ثلاث غرف وصالة للبيع مع إمكانية التمويل - الأسعار بالدرهم</div>
+            <div class="property-count">4 وحدات متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="sale" data-category="commercial" onclick="showProperties('sale', 'commercial')">
+            <i class="fas fa-store property-icon"></i>
+            <div class="property-title">تجاري</div>
+            <div class="property-description">محلات ومكاتب تجارية للبيع في مواقع استراتيجية - الأسعار بالدرهم</div>
+            <div class="property-count">2 وحدات متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="sale" data-category="villa" onclick="showProperties('sale', 'villa')">
+            <i class="fas fa-crown property-icon"></i>
+            <div class="property-title">فلل</div>
+            <div class="property-description">فلل فاخرة للبيع مع إمكانية التمويل البنكي - الأسعار بالدرهم</div>
+            <div class="property-count">1 فيلا متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="sale" data-category="land" onclick="showProperties('sale', 'land')">
+            <i class="fas fa-map-marked-alt property-icon"></i>
+            <div class="property-title">أراضي</div>
+            <div class="property-description">أراضي سكنية وتجارية للبيع في مواقع مميزة مع إمكانية التمويل - الأسعار بالدرهم</div>
+            <div class="property-count">6 قطع متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="sale" data-category="buildings" onclick="showProperties('sale', 'buildings')">
+            <i class="fas fa-building property-icon"></i>
+            <div class="property-title">بنايات</div>
+            <div class="property-description">بنايات سكنية وتجارية للبيع مع إمكانية التمويل البنكي - الأسعار بالدرهم</div>
+            <div class="property-count">3 بنايات متاحة</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Monthly Tab -->
+      <div class="tab-pane fade" id="monthly" role="tabpanel">
+        <div class="property-grid">
+          <div class="property-card" data-type="monthly" data-category="studio" onclick="showProperties('monthly', 'studio')">
+            <i class="fas fa-building property-icon"></i>
+            <div class="property-title">استديو</div>
+            <div class="property-description">استديو شهري أنيق ومريح مع جميع المرافق الأساسية - الأسعار بالدرهم</div>
+            <div class="property-count">3 وحدات متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="monthly" data-category="1bedroom" onclick="showProperties('monthly', '1bedroom')">
+            <i class="fas fa-bed property-icon"></i>
+            <div class="property-title">غرفة وصالة</div>
+            <div class="property-description">شقة غرفة وصالة شهري مريحة ومناسبة للإقامة المؤقتة - الأسعار بالدرهم</div>
+            <div class="property-count">5 وحدات متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="monthly" data-category="2bedroom" onclick="showProperties('monthly', '2bedroom')">
+            <i class="fas fa-door-open property-icon"></i>
+            <div class="property-title">غرفتين وصالة</div>
+            <div class="property-description">شقة غرفتين وصالة شهري واسعة ومناسبة للعائلات - الأسعار بالدرهم</div>
+            <div class="property-count">4 وحدات متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="monthly" data-category="3bedroom" onclick="showProperties('monthly', '3bedroom')">
+            <i class="fas fa-home property-icon"></i>
+            <div class="property-title">ثلاث غرف وصالة</div>
+            <div class="property-description">شقة ثلاث غرف وصالة شهري فاخرة ومناسبة للعائلات الكبيرة - الأسعار بالدرهم</div>
+            <div class="property-count">2 وحدات متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="monthly" data-category="commercial" onclick="showProperties('monthly', 'commercial')">
+            <i class="fas fa-store property-icon"></i>
+            <div class="property-title">تجاري</div>
+            <div class="property-description">محلات ومكاتب تجارية شهري في مواقع مميزة - الأسعار بالدرهم</div>
+            <div class="property-count">1 وحدة متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="monthly" data-category="villa" onclick="showProperties('monthly', 'villa')">
+            <i class="fas fa-crown property-icon"></i>
+            <div class="property-title">فلل</div>
+            <div class="property-description">فلل فاخرة شهري مع حدائق ومرافق خاصة - الأسعار بالدرهم</div>
+            <div class="property-count">1 فيلا متاحة</div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+  <!-- Add Unit Modal -->
+  <div class="modal fade" id="addUnitModal" tabindex="-1" aria-labelledby="addUnitModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addUnitModalLabel">
+            <i class="fas fa-plus"></i>
+            إضافة وحدة جديدة
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addUnitForm">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="operationType" class="form-label">نوع العملية *</label>
+                <select class="form-control" id="operationType" name="operationType" required>
+                  <option value="">اختر نوع العملية</option>
+                  <option value="rent">للإيجار</option>
+                  <option value="sale">للبيع</option>
+                  <option value="monthly">شهري</option>
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="unitType" class="form-label">نوع الوحدة *</label>
+                <select class="form-control" id="unitType" name="unitType" required>
+                  <option value="">اختر نوع الوحدة</option>
+                  <option value="studio">استديو</option>
+                  <option value="1bedroom">غرفة وصالة</option>
+                  <option value="2bedroom">غرفتين وصالة</option>
+                  <option value="3bedroom">ثلاث غرف وصالة</option>
+                  <option value="commercial">تجاري</option>
+                  <option value="villa">فيلا</option>
+                  <option value="arabic-houses">بيوت عربي</option>
+                  <option value="land">أراضي</option>
+                  <option value="buildings">بنايات</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="price" class="form-label">السعر (بالدرهم) *</label>
+                <input type="number" class="form-control" id="price" name="price" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="installments" class="form-label">عدد الدفعات</label>
+                <input type="number" class="form-control" id="installments" name="installments">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="insurance" class="form-label">التأمين</label>
+                <input type="number" class="form-control" id="insurance" name="insurance">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="insuranceMethod" class="form-label">طريقة دفع التأمين</label>
+                <select class="form-control" id="insuranceMethod" name="insuranceMethod">
+                  <option value="">اختر طريقة الدفع</option>
+                  <option value="cash">كاش</option>
+                  <option value="check">شيك</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="externalCommission" class="form-label">العمولة الخارجية</label>
+                <input type="number" class="form-control" id="externalCommission" name="externalCommission">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="onlineCommission" class="form-label">العمولة الأونلاين</label>
+                <input type="number" class="form-control" id="onlineCommission" name="onlineCommission">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="management" class="form-label">نوع الإدارة</label>
+                <select class="form-control" id="management" name="management">
+                  <option value="">اختر نوع الإدارة</option>
+                  <option value="company">شركتنا</option>
+                  <option value="owner">لدى المالك</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="location" class="form-label">الموقع</label>
+              <input type="text" class="form-control" id="location" name="location">
+            </div>
+
+            <div class="mb-3">
+              <label for="description" class="form-label">الوصف</label>
+              <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3 mb-3">
+                <label for="rooms" class="form-label">عدد الغرف</label>
+                <input type="number" class="form-control" id="rooms" name="rooms">
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="bathrooms" class="form-label">عدد الحمامات</label>
+                <input type="number" class="form-control" id="bathrooms" name="bathrooms">
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="area" class="form-label">المساحة (م²)</label>
+                <input type="number" class="form-control" id="area" name="area">
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="floor" class="form-label">الطابق</label>
+                <input type="number" class="form-control" id="floor" name="floor">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="contactName" class="form-label">اسم جهة التواصل</label>
+                <input type="text" class="form-control" id="contactName" name="contactName" placeholder="مثال: أحمد حمدي">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="contactPhone" class="form-label">رقم الهاتف</label>
+                <input type="tel" class="form-control" id="contactPhone" name="contactPhone" placeholder="مثال: 0525158887">
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="documents" class="form-label">المستندات</label>
+              <input type="file" class="form-control" id="documents" name="documents" multiple>
+              <small class="form-text text-muted">يمكنك اختيار عدة ملفات (PDF, صور, مستندات)</small>
+            </div>
+
+            <div class="mb-3">
+              <label for="video" class="form-label">فيديو الوحدة</label>
+              <input type="file" class="form-control" id="video" name="video" accept="video/*">
+              <small class="form-text text-muted">يمكنك رفع فيديو للوحدة (MP4, AVI, MOV, وغيرها)</small>
+              <div id="videoPreview" class="mt-2" style="display: none;">
+                <div class="video-preview-container">
+                  <video id="videoPlayer" controls style="max-width: 100%; max-height: 200px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                    <source id="videoSource" src="" type="video/mp4">
+                    متصفحك لا يدعم تشغيل الفيديو.
+                  </video>
+                  <div class="video-info mt-2">
+                    <small class="text-muted">
+                      <i class="fas fa-info-circle"></i>
+                      يمكنك معاينة الفيديو قبل الرفع
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+          <button type="button" class="btn btn-primary" onclick="submitUnitForm()">
+            <i class="fas fa-save"></i>
+            حفظ الوحدة
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Unit Modal -->
+  <div class="modal fade" id="editUnitModal" tabindex="-1" aria-labelledby="editUnitModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editUnitModalLabel">
+            <i class="fas fa-edit"></i>
+            تعديل الوحدة
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div id="editPropertyInfo" class="alert alert-info mb-3">
+            <small>معلومات الوحدة</small>
+          </div>
+          
+          <form id="editUnitForm">
+            <input type="hidden" id="editPropertyId" name="propertyId">
+            
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="editOperationType" class="form-label">نوع العملية *</label>
+                <select class="form-control" id="editOperationType" name="operationType" required>
+                  <option value="">اختر نوع العملية</option>
+                  <option value="rent">للإيجار</option>
+                  <option value="sale">للبيع</option>
+                  <option value="monthly">شهري</option>
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="editUnitType" class="form-label">نوع الوحدة *</label>
+                <select class="form-control" id="editUnitType" name="unitType" required>
+                  <option value="">اختر نوع الوحدة</option>
+                  <option value="studio">استديو</option>
+                  <option value="1bedroom">غرفة وصالة</option>
+                  <option value="2bedroom">غرفتين وصالة</option>
+                  <option value="3bedroom">ثلاث غرف وصالة</option>
+                  <option value="commercial">تجاري</option>
+                  <option value="villa">فيلا</option>
+                  <option value="arabic-houses">بيوت عربي</option>
+                  <option value="land">أراضي</option>
+                  <option value="buildings">بنايات</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="editPrice" class="form-label">السعر (بالدرهم) *</label>
+                <input type="number" class="form-control" id="editPrice" name="price" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="editInstallments" class="form-label">عدد الدفعات</label>
+                <input type="number" class="form-control" id="editInstallments" name="installments">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="editInsurance" class="form-label">التأمين</label>
+                <input type="number" class="form-control" id="editInsurance" name="insurance">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="editInsuranceMethod" class="form-label">طريقة دفع التأمين</label>
+                <select class="form-control" id="editInsuranceMethod" name="insuranceMethod">
+                  <option value="">اختر طريقة الدفع</option>
+                  <option value="cash">كاش</option>
+                  <option value="check">شيك</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="editExternalCommission" class="form-label">العمولة الخارجية</label>
+                <input type="number" class="form-control" id="editExternalCommission" name="externalCommission">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="editOnlineCommission" class="form-label">العمولة الأونلاين</label>
+                <input type="number" class="form-control" id="editOnlineCommission" name="onlineCommission">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="editManagement" class="form-label">نوع الإدارة</label>
+                <select class="form-control" id="editManagement" name="management">
+                  <option value="">اختر نوع الإدارة</option>
+                  <option value="company">شركتنا</option>
+                  <option value="owner">لدى المالك</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="editLocation" class="form-label">الموقع</label>
+              <input type="text" class="form-control" id="editLocation" name="location">
+            </div>
+
+            <div class="mb-3">
+              <label for="editDescription" class="form-label">الوصف</label>
+              <textarea class="form-control" id="editDescription" name="description" rows="3"></textarea>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3 mb-3">
+                <label for="editRooms" class="form-label">عدد الغرف</label>
+                <input type="number" class="form-control" id="editRooms" name="rooms">
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="editBathrooms" class="form-label">عدد الحمامات</label>
+                <input type="number" class="form-control" id="editBathrooms" name="bathrooms">
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="editArea" class="form-label">المساحة (م²)</label>
+                <input type="number" class="form-control" id="editArea" name="area">
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="editFloor" class="form-label">الطابق</label>
+                <input type="number" class="form-control" id="editFloor" name="floor">
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="editContactName" class="form-label">اسم جهة التواصل</label>
+                <input type="text" class="form-control" id="editContactName" name="contactName" placeholder="مثال: أحمد حمدي">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="editContactPhone" class="form-label">رقم الهاتف</label>
+                <input type="tel" class="form-control" id="editContactPhone" name="contactPhone" placeholder="مثال: 0525158887">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+          <button type="button" class="btn btn-primary" onclick="submitEditUnitForm()">
+            <i class="fas fa-save"></i>
+            حفظ التعديلات
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reports Modal -->
+  <div class="modal fade" id="reportsModal" tabindex="-1" aria-labelledby="reportsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="reportsModalLabel">
+            <i class="fas fa-chart-bar"></i>
+            تقارير المستخدمين
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="reports-controls mb-4">
+            <div class="row">
+              <div class="col-md-6">
+                <label for="userSelect" class="form-label">اختر المستخدم:</label>
+                <select class="form-control" id="userSelect" onchange="loadUserReport()">
+                  <option value="">جميع المستخدمين</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <div class="d-flex justify-content-end mt-4">
+                  <button class="btn btn-primary me-2" onclick="exportToExcel()">
+                    <i class="fas fa-file-excel"></i>
+                    تصدير Excel
+                  </button>
+                  <button class="btn btn-success" onclick="printReport()">
+                    <i class="fas fa-print"></i>
+                    طباعة
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="reportsContent">
+            <!-- Reports will be loaded here -->
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script>
+    // Check user authentication
+    document.addEventListener('DOMContentLoaded', function() {
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      if (!user.id) {
+        window.location.href = '/login';
+        return;
+      }
+      
+      // Store user ID globally
+      window.currentUserId = user.id;
+      
+      // Load property counts
+      loadPropertyCounts();
+      loadUsersForReports(); // Load users for the dropdown
+    });
+
+    // Load property counts from API
+    function loadPropertyCounts() {
+      // إضافة token المصادقة - استخدام query parameter
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      const token = user.id;
+      
+      // التحقق من وجود معرف المستخدم
+      if (!token) {
+        console.error('معرف المستخدم غير موجود');
+        return;
+      }
+
+      fetch('/api/properties-stats?token=' + token, {
+        method: 'GET'
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          updatePropertyCounts(data);
+        })
+        .catch(error => {
+          console.error('Error loading property counts:', error);
+        });
+    }
+
+    // Update property counts in the UI
+    function updatePropertyCounts(stats) {
+      // Update rent tab counts
+      updateCount('rent', 'studio', stats.rent?.studio || 0);
+      updateCount('rent', '1bedroom', stats.rent?.['1bedroom'] || 0);
+      updateCount('rent', '2bedroom', stats.rent?.['2bedroom'] || 0);
+      updateCount('rent', '3bedroom', stats.rent?.['3bedroom'] || 0);
+      updateCount('rent', 'commercial', stats.rent?.commercial || 0);
+      updateCount('rent', 'villa', stats.rent?.villa || 0);
+      updateCount('rent', 'arabic-houses', stats.rent?.['arabic-houses'] || 0);
+
+      // Update sale tab counts
+      updateCount('sale', 'studio', stats.sale?.studio || 0);
+      updateCount('sale', '1bedroom', stats.sale?.['1bedroom'] || 0);
+      updateCount('sale', '2bedroom', stats.sale?.['2bedroom'] || 0);
+      updateCount('sale', '3bedroom', stats.sale?.['3bedroom'] || 0);
+      updateCount('sale', 'commercial', stats.sale?.commercial || 0);
+      updateCount('sale', 'villa', stats.sale?.villa || 0);
+      updateCount('sale', 'land', stats.sale?.land || 0);
+      updateCount('sale', 'buildings', stats.sale?.buildings || 0);
+
+      // Update monthly tab counts
+      updateCount('monthly', 'studio', stats.monthly?.studio || 0);
+      updateCount('monthly', '1bedroom', stats.monthly?.['1bedroom'] || 0);
+      updateCount('monthly', '2bedroom', stats.monthly?.['2bedroom'] || 0);
+      updateCount('monthly', '3bedroom', stats.monthly?.['3bedroom'] || 0);
+      updateCount('monthly', 'commercial', stats.monthly?.commercial || 0);
+      updateCount('monthly', 'villa', stats.monthly?.villa || 0);
+    }
+
+    // Update count for specific property type and category
+    function updateCount(operationType, category, count) {
+      const card = document.querySelector(`[data-type="${operationType}"][data-category="${category}"]`);
+      if (card) {
+        const countElement = card.querySelector('.property-count');
+        if (countElement) {
+          // Get the appropriate label based on category
+          let label = 'وحدات متاحة';
+          if (category === 'villa') {
+            label = count === 1 ? 'فيلا متاحة' : 'فلل متاحة';
+          } else if (category === 'commercial') {
+            label = 'وحدات متاحة';
+          } else if (category === 'arabic-houses') {
+            label = count === 1 ? 'بيت عربي متاح' : 'بيوت عربي متاحة';
+          } else if (category === 'land') {
+            label = count === 1 ? 'قطعة أرض متاحة' : 'أراضي متاحة';
+          } else if (category === 'buildings') {
+            label = count === 1 ? 'بناية متاحة' : 'بنايات متاحة';
+          } else {
+            label = count === 1 ? 'وحدة متاحة' : 'وحدات متاحة';
+          }
+          
+          countElement.textContent = `${count} ${label}`;
+        }
+      }
+    }
+
+    // Property Card Click Handler
+    function showProperties(type, category) {
+      // توجيه المستخدم للصفحة التفصيلية
+      window.location.href = `/properties?operationType=${type}&unitType=${category}`;
+    }
+
+    // Add click ripple effect
+    document.querySelectorAll('.property-card').forEach(card => {
+      card.addEventListener('click', function(e) {
+        const ripple = document.createElement('div');
+        ripple.style.position = 'absolute';
+        ripple.style.borderRadius = '50%';
+        ripple.style.background = 'rgba(255,255,255,0.3)';
+        ripple.style.transform = 'scale(0)';
+        ripple.style.animation = 'ripple 0.6s linear';
+        ripple.style.left = e.clientX - this.offsetLeft + 'px';
+        ripple.style.top = e.clientY - this.offsetTop + 'px';
+        ripple.style.width = ripple.style.height = '20px';
+        
+        this.appendChild(ripple);
+        
+        setTimeout(() => {
+          ripple.remove();
+        }, 600);
+      });
+    });
+
+    // Add CSS for ripple animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes ripple {
+        to {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Open Add Unit Modal
+    function openAddUnitModal() {
+      const modal = new bootstrap.Modal(document.getElementById('addUnitModal'));
+      modal.show();
+      
+      // إضافة معاينة الفيديو
+      setupVideoPreview();
+    }
+
+    // Setup video preview
+    function setupVideoPreview() {
+      const videoInput = document.getElementById('video');
+      const videoPreview = document.getElementById('videoPreview');
+      const videoPlayer = document.getElementById('videoPlayer');
+      const videoSource = document.getElementById('videoSource');
+      
+      if (videoInput) {
+        videoInput.addEventListener('change', function(e) {
+          const file = e.target.files[0];
+          if (file) {
+            // التحقق من نوع الملف
+            if (!file.type.startsWith('video/')) {
+              alert('يرجى اختيار ملف فيديو صحيح');
+              this.value = '';
+              videoPreview.style.display = 'none';
+              return;
+            }
+            
+            // التحقق من حجم الملف (أقصى 100MB)
+            if (file.size > 100 * 1024 * 1024) {
+              alert('حجم الفيديو يجب أن يكون أقل من 100 ميجابايت');
+              this.value = '';
+              videoPreview.style.display = 'none';
+              return;
+            }
+            
+            // إنشاء URL للمعاينة
+            const videoURL = URL.createObjectURL(file);
+            videoSource.src = videoURL;
+            videoPlayer.load();
+            videoPreview.style.display = 'block';
+            
+            // تنظيف URL عند إغلاق النافذة
+            const modal = document.getElementById('addUnitModal');
+            modal.addEventListener('hidden.bs.modal', function() {
+              URL.revokeObjectURL(videoURL);
+              videoPreview.style.display = 'none';
+              videoInput.value = '';
+            });
+          } else {
+            videoPreview.style.display = 'none';
+          }
+        });
+      }
+    }
+
+    // Submit Add Unit Form
+    function submitUnitForm() {
+      // التحقق من تسجيل الدخول أولاً
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      console.log('User from localStorage:', user);
+      
+      if (!user.id) {
+        alert('يرجى تسجيل الدخول أولاً');
+        window.location.href = '/login';
+        return;
+      }
+      
+      const form = document.getElementById('addUnitForm');
+      const formData = new FormData(form);
+      
+      // إضافة token المصادقة - استخدام query parameter
+      const token = user.id;
+      console.log('Using token:', token);
+      
+      // التحقق من وجود معرف المستخدم
+      if (!token) {
+        alert('خطأ: معرف المستخدم مطلوب. يرجى تسجيل الدخول مرة أخرى.');
+        return;
+      }
+
+      // Show loading overlay
+      document.getElementById('loadingOverlay').style.display = 'flex';
+
+      const url = '/api/properties?token=' + token;
+      console.log('Making request to:', url);
+
+      fetch(url, {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('loadingOverlay').style.display = 'none';
+        
+        if (data.error) {
+          alert('خطأ: ' + data.error);
+        } else {
+          alert('تم إضافة الوحدة بنجاح!');
+          const modal = bootstrap.Modal.getInstance(document.getElementById('addUnitModal'));
+          modal.hide();
+          form.reset();
+          // Refresh the page to show new data
+          location.reload();
+        }
+      })
+      .catch(error => {
+        document.getElementById('loadingOverlay').style.display = 'none';
+        console.error('Error:', error);
+        alert('حدث خطأ عند الاتصال بالخادم');
+      });
+    }
+
+    // Open Edit Unit Modal
+    function openEditUnitModal() {
+      // Get selected property from properties page
+      const urlParams = new URLSearchParams(window.location.search);
+      const selectedPropertyId = urlParams.get('edit');
+      
+      if (!selectedPropertyId) {
+        alert('يرجى اختيار وحدة للتعديل من صفحة العقارات');
+        return;
+      }
+      
+      // إضافة token المصادقة - استخدام query parameter
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      const token = user.id;
+      
+      // Load property data
+      fetch(`/api/properties/${selectedPropertyId}?token=${token}`, {
+        method: 'GET'
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(property => {
+          // Check if user can edit this property
+          if (property.created_by != window.currentUserId) {
+            // Check if user is admin
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            if (user.role !== 'admin') {
+              alert('ليس لديك صلاحية لتعديل هذه الوحدة. فقط من أضافها أو المدير يمكنه تعديلها.');
+              return;
+            }
+          }
+          
+          // Fill form with property data
+          document.getElementById('editPropertyId').value = property.id;
+          document.getElementById('editOperationType').value = property.operation_type;
+          document.getElementById('editUnitType').value = property.unit_type;
+          document.getElementById('editPrice').value = property.price;
+          document.getElementById('editInstallments').value = property.installments || '';
+          document.getElementById('editInsurance').value = property.insurance || '';
+          document.getElementById('editExternalCommission').value = property.external_commission || '';
+          document.getElementById('editOnlineCommission').value = property.online_commission || '';
+          document.getElementById('editManagement').value = property.management || '';
+          document.getElementById('editLocation').value = property.location || '';
+          document.getElementById('editDescription').value = property.description || '';
+          document.getElementById('editRooms').value = property.rooms || '';
+          document.getElementById('editBathrooms').value = property.bathrooms || '';
+          document.getElementById('editArea').value = property.area || '';
+          document.getElementById('editFloor').value = property.floor || '';
+          document.getElementById('editContactName').value = property.contact_name || '';
+          document.getElementById('editContactPhone').value = property.contact_phone || '';
+          
+          // Show property info
+          document.getElementById('editPropertyInfo').innerHTML = `
+            <div><strong>أضيف بواسطة:</strong> ${property.created_by_name || 'غير محدد'}</div>
+            <div><strong>اسم المستخدم:</strong> ${property.created_by_username || 'غير محدد'}</div>
+            <div><strong>تاريخ الإضافة:</strong> ${property.created_date || property.created_at || 'غير محدد'}</div>
+            <div><strong>وقت الإضافة:</strong> ${property.created_time || 'غير محدد'}</div>
+            <div><strong>آخر تحديث:</strong> ${property.updated_at}</div>
+          `;
+          
+          const modal = new bootstrap.Modal(document.getElementById('editUnitModal'));
+          modal.show();
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('حدث خطأ عند تحميل بيانات الوحدة');
+        });
+    }
+
+    // Submit Edit Unit Form
+    function submitEditUnitForm() {
+      const propertyId = document.getElementById('editPropertyId').value;
+      const form = document.getElementById('editUnitForm');
+      const formData = new FormData(form);
+      
+      // Add user ID to headers
+      const headers = {
+        'user-id': window.currentUserId
+      };
+
+      // Show loading overlay
+      document.getElementById('loadingOverlay').style.display = 'flex';
+
+      fetch(`/api/properties/${propertyId}`, {
+        method: 'PUT',
+        headers: headers,
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('loadingOverlay').style.display = 'none';
+        
+        if (data.error) {
+          alert('خطأ: ' + data.error);
+        } else {
+          alert('تم تحديث الوحدة بنجاح!');
+          const modal = bootstrap.Modal.getInstance(document.getElementById('editUnitModal'));
+          modal.hide();
+          // Refresh the page to show updated data
+          location.reload();
+        }
+      })
+      .catch(error => {
+        document.getElementById('loadingOverlay').style.display = 'none';
+        console.error('Error:', error);
+        alert('حدث خطأ عند الاتصال بالخادم');
+      });
+    }
+
+    // Open Reports Modal
+    function openReportsModal() {
+      console.log('Opening reports modal...');
+      loadUserReports();
+      const modal = new bootstrap.Modal(document.getElementById('reportsModal'));
+      modal.show();
+    }
+
+    // Load User Reports
+    function loadUserReports() {
+      console.log('Loading user reports...');
+      const reportsContent = document.getElementById('reportsContent');
+      
+      // إضافة token المصادقة - استخدام query parameter
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      const token = user.id;
+      
+      // التحقق من وجود معرف المستخدم
+      if (!token) {
+        console.error('معرف المستخدم غير موجود');
+        reportsContent.innerHTML = `
+          <div class="no-reports">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h3>خطأ في المصادقة</h3>
+            <p>يرجى تسجيل الدخول مرة أخرى.</p>
+          </div>
+        `;
+        return;
+      }
+
+      const url = '/api/user-reports?token=' + token;
+
+      fetch(url, {
+        method: 'GET'
+      })
+        .then(response => {
+          console.log('API Response status:', response.status);
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(reports => {
+          console.log('Reports data:', reports);
+          // إذا تم اختيار مستخدم محدد، اعرض تفاصيله فقط
+          const userSelect = document.getElementById('userSelect');
+          const selectedUserId = userSelect ? userSelect.value : '';
+          
+          if (selectedUserId && reports.length > 0) {
+            const selectedUser = reports.find(user => user.id == selectedUserId);
+            if (selectedUser) {
+              displayUserReports([selectedUser]);
+            } else {
+              displayUserReports([]);
+            }
+          } else {
+            displayUserReports(reports);
+          }
+        })
+        .catch(error => {
+          console.error('Error loading reports:', error);
+          reportsContent.innerHTML = `
+            <div class="no-reports">
+              <i class="fas fa-exclamation-triangle"></i>
+              <h3>حدث خطأ</h3>
+              <p>تعذر تحميل التقارير. يرجى المحاولة مرة أخرى.</p>
+            </div>
+          `;
+        });
+    }
+
+    // Load specific user report (deprecated - use loadUserReportForUser instead)
+    function loadUserReport() {
+      loadUserReports();
+    }
+
+    // Display User Reports
+    function displayUserReports(reports) {
+      console.log('Displaying user reports...');
+      const reportsContent = document.getElementById('reportsContent');
+      
+      if (reports.length === 0) {
+        console.log('No reports found');
+        reportsContent.innerHTML = `
+          <div class="no-reports">
+            <i class="fas fa-chart-bar"></i>
+            <h3>لا توجد تقارير</h3>
+            <p>لم يتم العثور على أي تقارير للمستخدمين.</p>
+          </div>
+        `;
+        return;
+      }
+
+      console.log('Found', reports.length, 'user reports');
+      let html = '<div class="reports-grid">';
+      
+      // Calculate totals and detailed breakdown
+      let totalProperties = 0;
+      let totalRent = 0;
+      let totalSale = 0;
+      let totalMonthly = 0;
+      
+      // Detailed breakdown by type
+      let rentBreakdown = {
+        studio: 0,
+        '1bedroom': 0,
+        '2bedroom': 0,
+        '3bedroom': 0,
+        commercial: 0,
+        villa: 0,
+        'arabic-houses': 0
+      };
+      
+      let saleBreakdown = {
+        studio: 0,
+        '1bedroom': 0,
+        '2bedroom': 0,
+        '3bedroom': 0,
+        commercial: 0,
+        villa: 0,
+        land: 0,
+        buildings: 0
+      };
+      
+      let monthlyBreakdown = {
+        studio: 0,
+        '1bedroom': 0,
+        '2bedroom': 0,
+        '3bedroom': 0,
+        commercial: 0,
+        villa: 0
+      };
+      
+      reports.forEach(user => {
+        totalProperties += user.total_properties;
+        Object.values(user.properties_by_type).forEach(property => {
+          if (property.operation_type === 'rent') {
+            totalRent += property.count;
+            if (rentBreakdown[property.unit_type] !== undefined) {
+              rentBreakdown[property.unit_type] += property.count;
+            }
+          } else if (property.operation_type === 'sale') {
+            totalSale += property.count;
+            if (saleBreakdown[property.unit_type] !== undefined) {
+              saleBreakdown[property.unit_type] += property.count;
+            }
+          } else if (property.operation_type === 'monthly') {
+            totalMonthly += property.count;
+            if (monthlyBreakdown[property.unit_type] !== undefined) {
+              monthlyBreakdown[property.unit_type] += property.count;
+            }
+          }
+        });
+      });
+      
+      // Add detailed summary section
+      html += `
+        <div class="summary-section">
+          <h3><i class="fas fa-chart-pie"></i> ملخص التقارير التفصيلي</h3>
+          
+          <div class="summary-overview">
+            <div class="summary-stat">
+              <span class="stat-number">${totalProperties}</span>
+              <span class="stat-label">إجمالي الوحدات</span>
+            </div>
+            <div class="summary-stat">
+              <span class="stat-number">${totalRent}</span>
+              <span class="stat-label">وحدات للإيجار</span>
+            </div>
+            <div class="summary-stat">
+              <span class="stat-number">${totalSale}</span>
+              <span class="stat-label">وحدات للبيع</span>
+            </div>
+            <div class="summary-stat">
+              <span class="stat-number">${totalMonthly}</span>
+              <span class="stat-label">وحدات شهرية</span>
+            </div>
+          </div>
+          
+          <div class="detailed-breakdown">
+            <div class="breakdown-section">
+              <h4><i class="fas fa-key"></i> تفاصيل وحدات الإيجار</h4>
+              <div class="breakdown-grid">
+                <div class="breakdown-item">
+                  <span class="item-label">استديو</span>
+                  <span class="item-count">${rentBreakdown.studio}</span>
+                </div>
+                <div class="breakdown-item">
+                  <span class="item-label">غرفة وصالة</span>
+                  <span class="item-count">${rentBreakdown['1bedroom']}</span>
+                </div>
+                <div class="breakdown-item">
+                  <span class="item-label">غرفتين وصالة</span>
+                  <span class="item-count">${rentBreakdown['2bedroom']}</span>
+                </div>
+                <div class="breakdown-item">
+                  <span class="item-label">ثلاث غرف وصالة</span>
+                  <span class="item-count">${rentBreakdown['3bedroom']}</span>
+                </div>
+                <div class="breakdown-item">
+                  <span class="item-label">تجاري</span>
+                  <span class="item-count">${rentBreakdown.commercial}</span>
+                </div>
+                <div class="breakdown-item">
+                  <span class="item-label">فلل</span>
+                  <span class="item-count">${rentBreakdown.villa}</span>
+                </div>
+                <div class="breakdown-item">
+                  <span class="item-label">بيوت عربي</span>
+                  <span class="item-count">${rentBreakdown['arabic-houses']}</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="breakdown-section">
+              <h4><i class="fas fa-tags"></i> تفاصيل وحدات البيع</h4>
+              <div class="breakdown-grid">
+                <div class="breakdown-item">
+                  <span class="item-label">استديو</span>
+                  <span class="item-count">${saleBreakdown.studio}</span>
+                </div>
+                <div class="breakdown-item">
+                  <span class="item-label">غرفة وصالة</span>
+                  <span class="item-count">${saleBreakdown['1bedroom']}</span>
+                </div>
+                <div class="breakdown-item">
+                  <span class="item-label">غرفتين وصالة</span>
+                  <span class="item-count">${saleBreakdown['2bedroom']}</span>
+                </div>
+                <div class="breakdown-item">
+                  <span class="item-label">ثلاث غرف وصالة</span>
+                  <span class="item-count">${saleBreakdown['3bedroom']}</span>
+                </div>
+                <div class="breakdown-item">
+                  <span class="item-label">تجاري</span>
+                  <span class="item-count">${saleBreakdown.commercial}</span>
+                </div>
+                <div class="breakdown-item">
+                  <span class="item-label">فلل</span>
+                  <span class="item-count">${saleBreakdown.villa}</span>
+                </div>
+                <div class="breakdown-item">
+                  <span class="item-label">أراضي</span>
+                  <span class="item-count">${saleBreakdown.land}</span>
+                </div>
+                <div class="breakdown-item">
+                  <span class="item-label">بنايات</span>
+                  <span class="item-count">${saleBreakdown.buildings}</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="breakdown-section">
+              <h4><i class="fas fa-calendar-alt"></i> تفاصيل الوحدات الشهرية</h4>
+              <div class="breakdown-grid">
+                <div class="breakdown-item">
+                  <span class="item-label">استديو</span>
+                  <span class="item-count">${monthlyBreakdown.studio}</span>
+                </div>
+                <div class="breakdown-item">
+                  <span class="item-label">غرفة وصالة</span>
+                  <span class="item-count">${monthlyBreakdown['1bedroom']}</span>
+                </div>
+                <div class="breakdown-item">
+                  <span class="item-label">غرفتين وصالة</span>
+                  <span class="item-count">${monthlyBreakdown['2bedroom']}</span>
+                </div>
+                <div class="breakdown-item">
+                  <span class="item-label">ثلاث غرف وصالة</span>
+                  <span class="item-count">${monthlyBreakdown['3bedroom']}</span>
+                </div>
+                <div class="breakdown-item">
+                  <span class="item-label">تجاري</span>
+                  <span class="item-count">${monthlyBreakdown.commercial}</span>
+                </div>
+                <div class="breakdown-item">
+                  <span class="item-label">فلل</span>
+                  <span class="item-count">${monthlyBreakdown.villa}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      reports.forEach(user => {
+        // Calculate user totals
+        let userRent = 0;
+        let userSale = 0;
+        let userMonthly = 0;
+        
+        Object.values(user.properties_by_type).forEach(property => {
+          if (property.operation_type === 'rent') userRent += property.count;
+          else if (property.operation_type === 'sale') userSale += property.count;
+          else if (property.operation_type === 'monthly') userMonthly += property.count;
+        });
+        
+        html += `
+          <div class="user-report-card">
+            <div class="user-info">
+              <h4>${user.full_name || user.username}</h4>
+              <p class="username">@${user.username}</p>
+              <div class="user-stats">
+                <div class="user-stat">
+                  <span class="stat-number">${user.total_properties}</span>
+                  <span class="stat-label">إجمالي الوحدات</span>
+                </div>
+                <div class="user-stat">
+                  <span class="stat-number">${userRent}</span>
+                  <span class="stat-label">للإيجار</span>
+                </div>
+                <div class="user-stat">
+                  <span class="stat-number">${userSale}</span>
+                  <span class="stat-label">للبيع</span>
+                </div>
+                <div class="user-stat">
+                  <span class="stat-number">${userMonthly}</span>
+                  <span class="stat-label">شهرية</span>
+                </div>
+              </div>
+            </div>
+            <div class="properties-breakdown">
+              <h5><i class="fas fa-list"></i> تفاصيل الوحدات:</h5>
+              <div class="properties-list">
+        `;
+        
+        const typeNames = {
+          'rent': 'للإيجار',
+          'sale': 'للبيع',
+          'monthly': 'شهري',
+          'arabic-houses': 'بيوت عربي'
+        };
+        
+        const categoryNames = {
+          'studio': 'استديو',
+          '1bedroom': 'غرفة وصالة',
+          '2bedroom': 'غرفتين وصالة',
+          '3bedroom': 'ثلاث غرف وصالة',
+          'commercial': 'تجاري',
+          'villa': 'فلل',
+          'arabic-houses': 'بيوت عربي',
+          'land': 'أراضي',
+          'buildings': 'بنايات'
+        };
+        
+        if (Object.keys(user.properties_by_type).length === 0) {
+          html += `
+            <div class="no-properties">
+              <i class="fas fa-info-circle"></i>
+              <span>لا توجد وحدات مسجلة</span>
+            </div>
+          `;
+        } else {
+          Object.values(user.properties_by_type).forEach(property => {
+            const operationName = typeNames[property.operation_type] || property.operation_type;
+            const categoryName = categoryNames[property.unit_type] || property.unit_type;
+            html += `
+              <div class="property-item">
+                <div class="property-details">
+                  <span class="property-type">${categoryName}</span>
+                  <span class="property-operation">${operationName}</span>
+                </div>
+                <span class="property-count">${property.count}</span>
+              </div>
+            `;
+          });
+        }
+        
+        html += `
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      
+      html += '</div>';
+      reportsContent.innerHTML = html;
+    }
+
+    // Load users for the reports dropdown
+    function loadUsersForReports() {
+      // إضافة token المصادقة - استخدام query parameter
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      const token = user.id;
+      
+      // التحقق من وجود معرف المستخدم
+      if (!token) {
+        console.error('معرف المستخدم غير موجود');
+        return;
+      }
+
+      fetch('/api/users?token=' + token, {
+        method: 'GET'
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(users => {
+          // Store users globally for search
+          window.allUsers = users;
+          
+          // Setup dropdown with users
+          const userSelect = document.getElementById('userSelect');
+          userSelect.innerHTML = '<option value="">جميع المستخدمين</option>';
+          users.forEach(user => {
+            const option = document.createElement('option');
+            option.value = user.id;
+            option.textContent = `${user.full_name || user.username} (${user.username})`;
+            userSelect.appendChild(option);
+          });
+        })
+        .catch(error => {
+          console.error('Error loading users for reports:', error);
+        });
+    }
+    
+    // Setup user search with auto-complete
+    function setupUserSearch() {
+      const userSearch = document.getElementById('userSearch');
+      const userSuggestions = document.getElementById('userSuggestions');
+      let selectedIndex = -1;
+      
+      if (!userSearch || !userSuggestions) return;
+      
+      userSearch.addEventListener('input', function() {
+        const searchTerm = this.value.trim().toLowerCase();
+        
+        if (searchTerm.length === 0) {
+          userSuggestions.style.display = 'none';
+          return;
+        }
+        
+        // Filter users based on search term
+        const filteredUsers = window.allUsers.filter(user => {
+          const fullName = (user.full_name || '').toLowerCase();
+          const username = (user.username || '').toLowerCase();
+          return fullName.includes(searchTerm) || username.includes(searchTerm);
+        });
+        
+        // Display suggestions
+        if (filteredUsers.length > 0) {
+          userSuggestions.innerHTML = '';
+          filteredUsers.forEach((user, index) => {
+            const suggestionItem = document.createElement('div');
+            suggestionItem.className = 'user-suggestion-item';
+            suggestionItem.textContent = `${user.full_name || user.username} (${user.username})`;
+            suggestionItem.dataset.userId = user.id;
+            suggestionItem.dataset.userName = user.full_name || user.username;
+            
+            suggestionItem.addEventListener('click', function() {
+              userSearch.value = this.dataset.userName;
+              userSuggestions.style.display = 'none';
+              // Load reports for selected user
+              loadUserReportForUser(user.id);
+            });
+            
+            userSuggestions.appendChild(suggestionItem);
+          });
+          userSuggestions.style.display = 'block';
+          selectedIndex = -1;
+        } else {
+          userSuggestions.style.display = 'none';
+        }
+      });
+      
+      // Handle keyboard navigation
+      userSearch.addEventListener('keydown', function(e) {
+        const suggestions = userSuggestions.querySelectorAll('.user-suggestion-item');
+        
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          selectedIndex = Math.min(selectedIndex + 1, suggestions.length - 1);
+          updateSelection(suggestions, selectedIndex);
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          selectedIndex = Math.max(selectedIndex - 1, -1);
+          updateSelection(suggestions, selectedIndex);
+        } else if (e.key === 'Enter') {
+          e.preventDefault();
+          if (selectedIndex >= 0 && suggestions[selectedIndex]) {
+            const selectedItem = suggestions[selectedIndex];
+            userSearch.value = selectedItem.dataset.userName;
+            userSuggestions.style.display = 'none';
+            loadUserReportForUser(selectedItem.dataset.userId);
+          }
+        } else if (e.key === 'Escape') {
+          userSuggestions.style.display = 'none';
+          selectedIndex = -1;
+        }
+      });
+      
+      // Hide suggestions when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!userSearch.contains(e.target) && !userSuggestions.contains(e.target)) {
+          userSuggestions.style.display = 'none';
+          selectedIndex = -1;
+        }
+      });
+    }
+    
+    // Update selection in suggestions
+    function updateSelection(suggestions, selectedIndex) {
+      suggestions.forEach((item, index) => {
+        if (index === selectedIndex) {
+          item.classList.add('selected');
+        } else {
+          item.classList.remove('selected');
+        }
+      });
+    }
+    
+    // Load user report for specific user
+    function loadUserReportForUser(userId) {
+      // إضافة token المصادقة - استخدام query parameter
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      const token = user.id;
+      
+      // التحقق من وجود معرف المستخدم
+      if (!token) {
+        console.error('معرف المستخدم غير موجود');
+        const reportsContent = document.getElementById('reportsContent');
+        reportsContent.innerHTML = `
+          <div class="no-reports">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h3>خطأ في المصادقة</h3>
+            <p>يرجى تسجيل الدخول مرة أخرى.</p>
+          </div>
+        `;
+        return;
+      }
+      
+      const reportsContent = document.getElementById('reportsContent');
+      reportsContent.innerHTML = `
+        <div class="loading">
+          <div class="spinner"></div>
+          <p>جاري تحميل تقرير المستخدم...</p>
+        </div>
+      `;
+      
+      fetch('/api/user-reports?token=' + token, {
+        method: 'GET'
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(reports => {
+          const selectedUser = reports.find(user => user.id == userId);
+          if (selectedUser) {
+            displayUserReports([selectedUser]);
+          } else {
+            displayUserReports([]);
+          }
+        })
+        .catch(error => {
+          console.error('Error loading user report:', error);
+          reportsContent.innerHTML = `
+            <div class="no-reports">
+              <i class="fas fa-exclamation-triangle"></i>
+              <h3>حدث خطأ</h3>
+              <p>تعذر تحميل تقرير المستخدم. يرجى المحاولة مرة أخرى.</p>
+            </div>
+          `;
+        });
+    }
+
+    // Function to export reports to Excel
+    function exportToExcel() {
+      const userSelect = document.getElementById('userSelect');
+      const selectedUserId = userSelect ? userSelect.value : '';
+      const selectedUserName = userSelect && userSelect.options[userSelect.selectedIndex] ? 
+        userSelect.options[userSelect.selectedIndex].text : 'جميع المستخدمين';
+      
+      // Get the current reports data
+      const reportsContent = document.getElementById('reportsContent');
+      const userCards = Array.from(reportsContent.children).filter(el => el.classList.contains('user-report-card'));
+      
+      if (userCards.length === 0) {
+        alert('لا توجد بيانات لتصدير.');
+        return;
+      }
+
+      // Prepare data for Excel
+      const excelData = [];
+      
+      // Add header
+      excelData.push(['اسم المستخدم', 'اسم المستخدم الكامل', 'إجمالي الوحدات', 'وحدات للإيجار', 'وحدات للبيع', 'وحدات شهرية', 'تفاصيل الوحدات']);
+      
+      // Add data rows
+      userCards.forEach(card => {
+        const userName = card.querySelector('.user-info h4')?.textContent || '';
+        const username = card.querySelector('.username')?.textContent?.replace('@', '') || '';
+        const totalProperties = card.querySelector('.user-stat .stat-number')?.textContent || '0';
+        const rentCount = card.querySelectorAll('.user-stat .stat-number')[1]?.textContent || '0';
+        const saleCount = card.querySelectorAll('.user-stat .stat-number')[2]?.textContent || '0';
+        const monthlyCount = card.querySelectorAll('.user-stat .stat-number')[3]?.textContent || '0';
+        
+        // Get detailed properties
+        const propertyItems = card.querySelectorAll('.property-item');
+        let details = '';
+        propertyItems.forEach(item => {
+          const type = item.querySelector('.property-type')?.textContent || '';
+          const operation = item.querySelector('.property-operation')?.textContent || '';
+          const count = item.querySelector('.property-count')?.textContent || '';
+          details += `${type} ${operation}: ${count}, `;
+        });
+        details = details.replace(/,\s*$/, ''); // Remove trailing comma
+        
+        excelData.push([username, userName, totalProperties, rentCount, saleCount, monthlyCount, details]);
+      });
+      
+      // Create workbook
+      const worksheet = XLSX.utils.aoa_to_sheet(excelData);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "تقارير المستخدمين");
+      
+      // Auto-size columns
+      const columnWidths = [20, 25, 15, 15, 15, 15, 50];
+      worksheet['!cols'] = columnWidths.map(width => ({ width }));
+      
+      // Generate filename
+      const timestamp = new Date().toISOString().slice(0, 10);
+      const filename = `تقارير_المستخدمين_${selectedUserName.replace(/[^a-zA-Z0-9]/g, '_')}_${timestamp}.xlsx`;
+      
+      XLSX.writeFile(workbook, filename);
+    }
+
+    // Function to print the report
+    function printReport() {
+      // لا نحتاج لـ userSelect بعد الآن
+      const reportsContent = document.getElementById('reportsContent');
+      const reports = Array.from(reportsContent.children).filter(el => el.classList.contains('user-report-card'));
+
+      if (reports.length === 0) {
+        alert('لا توجد بيانات لطباعة.');
+        return;
+      }
+
+      const printWindow = window.open('', '_blank');
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>تقرير المستخدمين</title>
+            <style>
+              body { font-family: 'Cairo', sans-serif; }
+              .user-report-card {
+                background: #f9f9f9;
+                padding: 20px;
+                margin-bottom: 20px;
+                border-radius: 10px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+              }
+              .user-info h4 { color: #333; margin-bottom: 5px; }
+              .username { color: #666; font-size: 0.9em; }
+              .total-count { text-align: center; margin-top: 10px; }
+              .count-number { font-size: 1.5em; font-weight: bold; color: #FFD700; }
+              .count-label { font-size: 0.9em; color: #555; }
+              .properties-breakdown h5 { color: #FFD700; margin-bottom: 10px; }
+                            .properties-list .property-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px;
+                border-bottom: 1px solid #ecf0f1;
+                background: #f8f9fa;
+                margin: 4px 0;
+                border-radius: 8px;
+              }
+              .property-item:last-child { border-bottom: none; }
+              .property-details {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+              }
+              .property-type { 
+                font-weight: 600; 
+                color: #2c3e50; 
+                background: #ecf0f1;
+                padding: 4px 8px;
+                border-radius: 4px;
+                margin-right: 8px;
+              }
+              .property-operation {
+                font-size: 0.8em;
+                color: #7f8c8d;
+                font-weight: 500;
+              }
+              .property-count { 
+                font-weight: bold; 
+                color: #e74c3c; 
+                background: #fdf2f2;
+                padding: 4px 8px;
+                border-radius: 4px;
+              }
+              .modal-header { background: linear-gradient(45deg, #FFD700, #FFA500); border-bottom: none; border-radius: 20px 20px 0 0; }
+              .modal-title { color: #333; font-weight: 700; }
+              .modal-body { padding: 20px; }
+              .modal-footer { padding: 10px 20px; }
+              .btn-primary, .btn-success { background: linear-gradient(45deg, #FFD700, #FFA500); border: none; border-radius: 25px; padding: 10px 25px; font-weight: 600; transition: all 0.3s ease; }
+              .btn-primary:hover, .btn-success:hover { background: linear-gradient(45deg, #FFA500, #FF6347); transform: translateY(-2px); }
+              .reports-controls { margin-bottom: 20px; }
+              .reports-controls .row { align-items: center; }
+              .reports-controls .col-md-6 { display: flex; align-items: center; }
+              .reports-controls .form-label { margin-bottom: 0; margin-right: 10px; }
+              .reports-controls .d-flex { gap: 10px; }
+    
+    /* User Search Suggestions */
+    .user-suggestion-item {
+      padding: 8px 12px;
+      cursor: pointer;
+      border-bottom: 1px solid #eee;
+      transition: background-color 0.2s ease;
+    }
+    
+    .user-suggestion-item:hover {
+      background-color: #f8f9fa;
+    }
+    
+    .user-suggestion-item:last-child {
+      border-bottom: none;
+    }
+    
+    .user-suggestion-item.selected {
+      background-color: #e3f2fd;
+    }
+            </style>
+          </head>
+          <body>
+            <div class="modal-header">
+              <h5 class="modal-title">
+                <i class="fas fa-chart-bar"></i>
+                تقارير المستخدمين
+              </h5>
+            </div>
+            <div class="modal-body">
+              <div class="reports-controls mb-4">
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="userSelect" class="form-label">اختر المستخدم:</label>
+                    <select class="form-control" id="userSelect" onchange="loadUserReport()">
+                      <option value="">جميع المستخدمين</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="d-flex justify-content-end mt-4">
+                      <button class="btn btn-primary me-2" onclick="exportToExcel()">
+                        <i class="fas fa-file-excel"></i>
+                        تصدير Excel
+                      </button>
+                      <button class="btn btn-success" onclick="printReport()">
+                        <i class="fas fa-print"></i>
+                        طباعة
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="reportsContent">
+                <!-- Reports will be loaded here -->
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" onclick="window.close()">إغلاق</button>
+            </div>
+          </body>
+        </html>
+      `);
+      printWindow.document.close();
+      printWindow.focus();
+      printWindow.print();
+      printWindow.close();
+    }
+  </script>
+</body>
+</html> 

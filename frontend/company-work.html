@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>شغل الشركة | Golden House</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      font-family: 'Cairo', Tahoma, Arial, sans-serif;
+      min-height: 100vh;
+    }
+
+    .header {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 20px 0;
+      margin-bottom: 30px;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    }
+
+    .back-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .header-buttons {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .add-unit-btn {
+      background: linear-gradient(45deg, #FFD700, #FFA500);
+      border: none;
+      color: #333;
+      padding: 12px 25px;
+      border-radius: 25px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    }
+
+    .add-unit-btn:hover {
+      background: linear-gradient(45deg, #FFA500, #FF6347);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 165, 0, 0.4);
+    }
+
+    .edit-unit-btn {
+      background: linear-gradient(45deg, #ffc107, #fd7e14);
+      border: none;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 25px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+    }
+
+    .edit-unit-btn:hover {
+      background: linear-gradient(45deg, #fd7e14, #e55a00);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+    }
+
+    .pdf-btn {
+      background: linear-gradient(45deg, #dc3545, #c82333);
+      border: none;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 25px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+    }
+
+    .pdf-btn:hover {
+      background: linear-gradient(45deg, #c82333, #a71e2a);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+    }
+
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .page-title {
+      text-align: center;
+      font-size: 2.5em;
+      font-weight: 900;
+      margin-bottom: 10px;
+      background: linear-gradient(45deg, #FFD700, #FFA500, #FF6347);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 3s ease-in-out infinite;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .page-subtitle {
+      text-align: center;
+      font-size: 1.2em;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 40px;
+    }
+
+    /* Tabs Styling */
+    .nav-tabs {
+      border: none;
+      margin-bottom: 30px;
+      justify-content: center;
+    }
+
+    .nav-tabs .nav-link {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.8);
+      border-radius: 25px;
+      margin: 0 10px;
+      padding: 12px 30px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-tabs .nav-link:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .nav-tabs .nav-link.active {
+      background: linear-gradient(45deg, #FFD700, #FFA500);
+      border-color: #FFD700;
+      color: #333;
+      box-shadow: 0 8px 16px rgba(255, 215, 0, 0.3);
+    }
+
+    /* Property Categories */
+    .property-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .property-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .property-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .property-card:hover::before {
+      left: 100%;
+    }
+
+    .property-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 
+        0 20px 40px rgba(0,0,0,0.3),
+        0 0 0 1px rgba(255,255,255,0.1);
+    }
+
+    .property-icon {
+      font-size: 4em;
+      margin-bottom: 20px;
+      display: block;
+      transition: all 0.3s ease;
+      color: #FFD700;
+    }
+
+    .property-card:hover .property-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .property-title {
+      font-size: 1.5em;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: #FFD700;
+    }
+
+    .property-description {
+      font-size: 1em;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .property-count {
+      background: rgba(255, 215, 0, 0.2);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      border-radius: 15px;
+      padding: 8px 16px;
+      font-size: 0.9em;
+      color: #FFD700;
+      font-weight: 600;
+    }
+
+    .tab-content {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .page-title {
+        font-size: 2em;
+      }
+      
+      .nav-tabs .nav-link {
+        margin: 5px;
+        padding: 10px 20px;
+        font-size: 0.9em;
+      }
+      
+      .property-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .property-card {
+        padding: 25px 20px;
+      }
+      
+      .property-icon {
+        font-size: 3em;
+      }
+    }
+
+    /* Loading Animation */
+    .loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+
+    .loading.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top: 3px solid #FFD700;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Modal Styling */
+    .modal-content {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+    }
+
+    .modal-header {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      border-radius: 20px 20px 0 0;
+      border-bottom: none;
+    }
+
+    .modal-title {
+      font-weight: 700;
+    }
+
+    .modal-body {
+      padding: 30px;
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .form-control, .form-select {
+      border: 1px solid rgba(102, 126, 234, 0.3);
+      border-radius: 10px;
+      padding: 12px 15px;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus, .form-select:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    }
+
+    .btn-primary {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      border: none;
+      border-radius: 10px;
+      padding: 12px 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(45deg, #764ba2, #667eea);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-secondary {
+      background: rgba(108, 117, 125, 0.8);
+      border: none;
+      border-radius: 10px;
+      padding: 12px 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(108, 117, 125, 1);
+      transform: translateY(-2px);
+    }
+
+    .modal-footer {
+      border-top: 1px solid rgba(102, 126, 234, 0.2);
+      padding: 20px 30px;
+    }
+
+    /* Loading for form submission */
+    .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      display: none;
+    }
+
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Overlay for Form Submission -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="loading-spinner"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+                      <img src="images/logo.png" alt="Golden House Logo" class="logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+      <div style="display:none; font-size: 2em;">🏠</div>
+      <div class="header-buttons">
+
+        <button class="edit-unit-btn" onclick="openEditUnitModal()" id="editUnitBtn" style="display: none;">
+          <i class="fas fa-edit"></i>
+          تعديل وحدة
+        </button>
+        <button class="pdf-btn" onclick="convertToPDF()" id="pdfBtn">
+            <i class="fas fa-file-pdf"></i>
+            تنزيل الصور PDF
+        </button>
+        <a href="/" class="back-btn">
+          <i class="fas fa-arrow-right"></i>
+          العودة للرئيسية
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <h1 class="page-title">شغل الشركة</h1>
+    <p class="page-subtitle">اكتشف عقاراتنا المتاحة للإيجار والبيع - جميع الأسعار بالدرهم</p>
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs" id="propertyTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="rent-tab" data-bs-toggle="tab" data-bs-target="#rent" type="button" role="tab">
+          <i class="fas fa-key"></i>
+          للإيجار
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="sale-tab" data-bs-toggle="tab" data-bs-target="#sale" type="button" role="tab">
+          <i class="fas fa-home"></i>
+          للبيع
+        </button>
+      </li>
+    </ul>
+
+    <!-- Tab Content -->
+    <div class="tab-content" id="propertyTabsContent">
+      <!-- Rent Tab -->
+      <div class="tab-pane fade show active" id="rent" role="tabpanel">
+        <div class="property-grid">
+          <div class="property-card" data-type="rent" data-category="studio" onclick="showProperties('rent', 'studio')">
+            <i class="fas fa-building property-icon"></i>
+            <div class="property-title">استديو</div>
+            <div class="property-description">استديو أنيق ومريح للإيجار مع جميع المرافق الأساسية - الأسعار بالدرهم</div>
+            <div class="property-count">5 وحدات متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="rent" data-category="1bedroom" onclick="showProperties('rent', '1bedroom')">
+            <i class="fas fa-bed property-icon"></i>
+            <div class="property-title">غرفة وصالة</div>
+            <div class="property-description">شقة غرفة وصالة مريحة ومناسبة للعائلات الصغيرة - الأسعار بالدرهم</div>
+            <div class="property-count">8 وحدات متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="rent" data-category="2bedroom" onclick="showProperties('rent', '2bedroom')">
+            <i class="fas fa-door-open property-icon"></i>
+            <div class="property-title">غرفتين وصالة</div>
+            <div class="property-description">شقة غرفتين وصالة واسعة ومناسبة للعائلات - الأسعار بالدرهم</div>
+            <div class="property-count">12 وحدة متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="rent" data-category="3bedroom" onclick="showProperties('rent', '3bedroom')">
+            <i class="fas fa-home property-icon"></i>
+            <div class="property-title">ثلاث غرف وصالة</div>
+            <div class="property-description">شقة ثلاث غرف وصالة فاخرة ومناسبة للعائلات الكبيرة - الأسعار بالدرهم</div>
+            <div class="property-count">6 وحدات متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="rent" data-category="commercial" onclick="showProperties('rent', 'commercial')">
+            <i class="fas fa-store property-icon"></i>
+            <div class="property-title">تجاري</div>
+            <div class="property-description">محلات ومكاتب تجارية في مواقع مميزة - الأسعار بالدرهم</div>
+            <div class="property-count">3 وحدات متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="rent" data-category="villa" onclick="showProperties('rent', 'villa')">
+            <i class="fas fa-crown property-icon"></i>
+            <div class="property-title">فلل</div>
+            <div class="property-description">فلل فاخرة ومميزة مع حدائق ومرافق خاصة - الأسعار بالدرهم</div>
+            <div class="property-count">2 فيلا متاحة</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sale Tab -->
+      <div class="tab-pane fade" id="sale" role="tabpanel">
+        <div class="property-grid">
+          <div class="property-card" data-type="sale" data-category="studio" onclick="showProperties('sale', 'studio')">
+            <i class="fas fa-building property-icon"></i>
+            <div class="property-title">استديو</div>
+            <div class="property-description">استديو للبيع في مواقع مميزة مع إمكانية التمويل - الأسعار بالدرهم</div>
+            <div class="property-count">3 وحدات متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="sale" data-category="1bedroom" onclick="showProperties('sale', '1bedroom')">
+            <i class="fas fa-bed property-icon"></i>
+            <div class="property-title">غرفة وصالة</div>
+            <div class="property-description">شقة غرفة وصالة للبيع مع إمكانية التمويل البنكي - الأسعار بالدرهم</div>
+            <div class="property-count">5 وحدات متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="sale" data-category="2bedroom" onclick="showProperties('sale', '2bedroom')">
+            <i class="fas fa-door-open property-icon"></i>
+            <div class="property-title">غرفتين وصالة</div>
+            <div class="property-description">شقة غرفتين وصالة للبيع مع إمكانية التمويل - الأسعار بالدرهم</div>
+            <div class="property-count">7 وحدات متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="sale" data-category="3bedroom" onclick="showProperties('sale', '3bedroom')">
+            <i class="fas fa-home property-icon"></i>
+            <div class="property-title">ثلاث غرف وصالة</div>
+            <div class="property-description">شقة ثلاث غرف وصالة للبيع مع إمكانية التمويل - الأسعار بالدرهم</div>
+            <div class="property-count">4 وحدات متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="sale" data-category="commercial" onclick="showProperties('sale', 'commercial')">
+            <i class="fas fa-store property-icon"></i>
+            <div class="property-title">تجاري</div>
+            <div class="property-description">محلات ومكاتب تجارية للبيع في مواقع استراتيجية - الأسعار بالدرهم</div>
+            <div class="property-count">2 وحدات متاحة</div>
+          </div>
+
+          <div class="property-card" data-type="sale" data-category="villa" onclick="showProperties('sale', 'villa')">
+            <i class="fas fa-crown property-icon"></i>
+            <div class="property-title">فلل</div>
+            <div class="property-description">فلل فاخرة للبيع مع إمكانية التمويل البنكي - الأسعار بالدرهم</div>
+            <div class="property-count">1 فيلا متاحة</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal تعديل وحدة -->
+  <div class="modal fade" id="editUnitModal" tabindex="-1" aria-labelledby="editUnitModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editUnitModalLabel">
+            <i class="fas fa-edit"></i>
+            تعديل الوحدة
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editUnitForm" enctype="multipart/form-data">
+            <input type="hidden" id="editPropertyId" name="propertyId">
+            
+            <!-- نوع العملية -->
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">نوع العملية *</label>
+                <select class="form-select" name="operationType" id="editOperationType" required>
+                  <option value="">اختر نوع العملية</option>
+                  <option value="rent">للإيجار</option>
+                  <option value="sale">للبيع</option>
+                  <option value="monthly">شهري</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">نوع الوحدة *</label>
+                <select class="form-select" name="unitType" id="editUnitType" required>
+                  <option value="">اختر نوع الوحدة</option>
+                  <option value="studio">استديو</option>
+                  <option value="1bedroom">غرفة وصالة</option>
+                  <option value="2bedroom">غرفتين وصالة</option>
+                  <option value="3bedroom">ثلاث غرف وصالة</option>
+                  <option value="commercial">تجاري</option>
+                  <option value="villa">فلل</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- تفاصيل الوحدة -->
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">سعر الوحدة (درهم) *</label>
+                <input type="number" class="form-control" name="price" id="editPrice" placeholder="أدخل السعر بالدرهم" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">عدد الدفعات</label>
+                <input type="number" class="form-control" name="installments" id="editInstallments" placeholder="عدد الدفعات (اختياري)">
+              </div>
+            </div>
+
+            <!-- التكاليف الإضافية -->
+            <div class="row mb-3">
+              <div class="col-md-4">
+                <label class="form-label">التأمين (درهم)</label>
+                <input type="number" class="form-control" name="insurance" id="editInsurance" placeholder="التأمين بالدرهم">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">طريقة دفع التأمين</label>
+                <select class="form-select" name="insuranceMethod" id="editInsuranceMethod">
+                  <option value="">اختر طريقة الدفع</option>
+                  <option value="cash">نقداً</option>
+                  <option value="check">شيك</option>
+                  <option value="bank_transfer">تحويل بنكي</option>
+                  <option value="online">دفع إلكتروني</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">العمولة الخارجية (درهم)</label>
+                <input type="number" class="form-control" name="externalCommission" id="editExternalCommission" placeholder="العمولة الخارجية بالدرهم">
+              </div>
+            </div>
+            
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">العمولة الخارجية من الأونلاين (درهم)</label>
+                <input type="number" class="form-control" name="onlineCommission" id="editOnlineCommission" placeholder="العمولة من الأونلاين بالدرهم">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">معلومات إضافية للتأمين</label>
+                <textarea class="form-control" name="insuranceNotes" id="editInsuranceNotes" rows="2" placeholder="ملاحظات إضافية حول التأمين وطريقة الدفع"></textarea>
+              </div>
+            </div>
+
+            <!-- الإدارات -->
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">الإدارات</label>
+                <select class="form-select" name="management" id="editManagement">
+                  <option value="">اختر نوع الإدارة</option>
+                  <option value="company">لدى شركتنا</option>
+                  <option value="owner">لدى المالك</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">الموقع/العنوان</label>
+                <input type="text" class="form-control" name="location" id="editLocation" placeholder="أدخل الموقع أو العنوان">
+              </div>
+            </div>
+
+            <!-- وصف الوحدة -->
+            <div class="mb-3">
+              <label class="form-label">وصف الوحدة</label>
+              <textarea class="form-control" name="description" id="editDescription" rows="3" placeholder="أدخل وصف الوحدة"></textarea>
+            </div>
+
+            <!-- تفاصيل إضافية -->
+            <div class="row mb-3">
+              <div class="col-md-3">
+                <label class="form-label">عدد الغرف</label>
+                <input type="number" class="form-control" name="rooms" id="editRooms" placeholder="عدد الغرف">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">عدد الحمامات</label>
+                <input type="number" class="form-control" name="bathrooms" id="editBathrooms" placeholder="عدد الحمامات">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">المساحة (م²)</label>
+                <input type="number" class="form-control" name="area" id="editArea" placeholder="المساحة بالمتر المربع">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">الطابق</label>
+                <input type="text" class="form-control" name="floor" id="editFloor" placeholder="الطابق">
+              </div>
+            </div>
+
+            <!-- المستندات -->
+            <div class="mb-3">
+              <label class="form-label">المستندات (اختياري)</label>
+              <input type="file" class="form-control" name="documents" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+              <small class="form-text text-muted">يمكنك رفع عدة ملفات (PDF, Word, صور)</small>
+            </div>
+
+            <!-- معلومات من أضاف الوحدة -->
+            <div class="alert alert-info">
+              <i class="fas fa-info-circle"></i>
+              <strong>معلومات الوحدة:</strong>
+              <div id="editPropertyInfo">
+                <!-- سيتم ملؤها بالبيانات -->
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+          <button type="button" class="btn btn-warning" onclick="submitEditUnitForm()">
+            <i class="fas fa-save"></i>
+            حفظ التعديلات
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal إضافة وحدة -->
+  <div class="modal fade" id="addUnitModal" tabindex="-1" aria-labelledby="addUnitModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addUnitModalLabel">
+            <i class="fas fa-plus-circle"></i>
+            إضافة وحدة جديدة
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addUnitForm" enctype="multipart/form-data">
+            <!-- نوع العملية -->
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">نوع العملية *</label>
+                <select class="form-select" name="operationType" required>
+                  <option value="">اختر نوع العملية</option>
+                  <option value="rent">للإيجار</option>
+                  <option value="sale">للبيع</option>
+                  <option value="monthly">شهري</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">نوع الوحدة *</label>
+                <select class="form-select" name="unitType" required>
+                  <option value="">اختر نوع الوحدة</option>
+                  <option value="studio">استديو</option>
+                  <option value="1bedroom">غرفة وصالة</option>
+                  <option value="2bedroom">غرفتين وصالة</option>
+                  <option value="3bedroom">ثلاث غرف وصالة</option>
+                  <option value="commercial">تجاري</option>
+                  <option value="villa">فلل</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- تفاصيل الوحدة -->
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">سعر الوحدة (درهم) *</label>
+                <input type="number" class="form-control" name="price" placeholder="أدخل السعر بالدرهم" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">عدد الدفعات</label>
+                <input type="number" class="form-control" name="installments" placeholder="عدد الدفعات (اختياري)">
+              </div>
+            </div>
+
+            <!-- التكاليف الإضافية -->
+            <div class="row mb-3">
+              <div class="col-md-4">
+                <label class="form-label">التأمين (درهم)</label>
+                <input type="number" class="form-control" name="insurance" placeholder="التأمين بالدرهم">
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">طريقة دفع التأمين</label>
+                <select class="form-select" name="insuranceMethod">
+                  <option value="">اختر طريقة الدفع</option>
+                  <option value="cash">نقداً</option>
+                  <option value="check">شيك</option>
+                  <option value="bank_transfer">تحويل بنكي</option>
+                  <option value="online">دفع إلكتروني</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label class="form-label">العمولة الخارجية (درهم)</label>
+                <input type="number" class="form-control" name="externalCommission" placeholder="العمولة الخارجية بالدرهم">
+              </div>
+            </div>
+            
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">العمولة الخارجية من الأونلاين (درهم)</label>
+                <input type="number" class="form-control" name="onlineCommission" placeholder="العمولة من الأونلاين بالدرهم">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">معلومات إضافية للتأمين</label>
+                <textarea class="form-control" name="insuranceNotes" rows="2" placeholder="ملاحظات إضافية حول التأمين وطريقة الدفع"></textarea>
+              </div>
+            </div>
+
+            <!-- الإدارات -->
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">الإدارات</label>
+                <select class="form-select" name="management">
+                  <option value="">اختر نوع الإدارة</option>
+                  <option value="company">لدى شركتنا</option>
+                  <option value="owner">لدى المالك</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">الموقع/العنوان</label>
+                <input type="text" class="form-control" name="location" placeholder="موقع الوحدة">
+              </div>
+            </div>
+
+            <!-- الوصف -->
+            <div class="mb-3">
+              <label class="form-label">وصف الوحدة</label>
+              <textarea class="form-control" name="description" rows="3" placeholder="وصف تفصيلي للوحدة"></textarea>
+            </div>
+
+            <!-- المستندات -->
+            <div class="mb-3">
+              <label class="form-label">المستندات</label>
+              <input type="file" class="form-control" name="documents" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+              <small class="form-text text-muted">يمكنك رفع عدة ملفات (PDF, Word, صور)</small>
+            </div>
+
+            <!-- تفاصيل إضافية -->
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">عدد الغرف</label>
+                <input type="number" class="form-control" name="rooms" placeholder="عدد الغرف">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">عدد الحمامات</label>
+                <input type="number" class="form-control" name="bathrooms" placeholder="عدد الحمامات">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">المساحة (م²)</label>
+                <input type="number" class="form-control" name="area" placeholder="المساحة بالمتر المربع">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">الطابق</label>
+                <input type="text" class="form-control" name="floor" placeholder="رقم الطابق">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+          <button type="button" class="btn btn-primary" onclick="submitUnitForm()">
+            <i class="fas fa-save"></i>
+            حفظ الوحدة
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+
+
+    // Property Card Click Handler
+    function showProperties(type, category) {
+      // توجيه المستخدم للصفحة التفصيلية
+      window.location.href = `/properties?type=${type}&category=${category}`;
+    }
+
+    // Load property counts on page load
+    function loadPropertyCounts() {
+      // Set default counts immediately
+      updatePropertyCount('rent', 'studio', 5);
+      updatePropertyCount('rent', '1bedroom', 8);
+      updatePropertyCount('rent', '2bedroom', 12);
+      updatePropertyCount('rent', '3bedroom', 6);
+      updatePropertyCount('rent', 'commercial', 3);
+      updatePropertyCount('rent', 'villa', 2);
+
+      updatePropertyCount('sale', 'studio', 3);
+      updatePropertyCount('sale', '1bedroom', 5);
+      updatePropertyCount('sale', '2bedroom', 7);
+      updatePropertyCount('sale', '3bedroom', 4);
+      updatePropertyCount('sale', 'commercial', 2);
+      updatePropertyCount('sale', 'villa', 1);
+
+      // Try to fetch real stats (optional)
+      fetch('/api/properties-stats')
+        .then(response => response.json())
+        .then(stats => {
+          console.log('Property stats loaded:', stats);
+          // You can update counts with real data here if needed
+        })
+        .catch(error => {
+          console.error('Error loading property stats:', error);
+          // Continue with default counts
+        });
+    }
+
+    function updatePropertyCount(type, category, defaultCount) {
+      const countElement = document.querySelector(`[data-type="${type}"][data-category="${category}"] .property-count`);
+      if (countElement) {
+        countElement.textContent = `${defaultCount} وحدات متاحة`;
+      }
+    }
+
+    // Load counts when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      loadPropertyCounts();
+      
+      // Check user authentication and permissions
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      if (!user.id) {
+        window.location.href = '/login';
+        return;
+      }
+      
+      // Store user ID globally
+      window.currentUserId = user.id;
+      
+
+    });
+
+    // Add click ripple effect
+    document.querySelectorAll('.property-card').forEach(card => {
+      card.addEventListener('click', function(e) {
+        const ripple = document.createElement('div');
+        ripple.style.position = 'absolute';
+        ripple.style.borderRadius = '50%';
+        ripple.style.background = 'rgba(255,255,255,0.3)';
+        ripple.style.transform = 'scale(0)';
+        ripple.style.animation = 'ripple 0.6s linear';
+        ripple.style.left = e.clientX - this.offsetLeft + 'px';
+        ripple.style.top = e.clientY - this.offsetTop + 'px';
+        ripple.style.width = ripple.style.height = '20px';
+        
+        this.appendChild(ripple);
+        
+        setTimeout(() => {
+          ripple.remove();
+        }, 600);
+      });
+    });
+
+    // Add CSS for ripple animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes ripple {
+        to {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Open Edit Unit Modal
+    function openEditUnitModal() {
+      // Get selected property from properties page
+      const urlParams = new URLSearchParams(window.location.search);
+      const selectedPropertyId = urlParams.get('edit');
+      
+      if (!selectedPropertyId) {
+        alert('يرجى اختيار وحدة للتعديل من صفحة العقارات');
+        return;
+      }
+      
+      // Load property data
+      fetch(`/api/properties/${selectedPropertyId}`)
+        .then(response => response.json())
+        .then(property => {
+          // Check if user can edit this property
+          if (property.created_by != window.currentUserId) {
+            // Check if user is admin
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            if (user.role !== 'admin') {
+              alert('ليس لديك صلاحية لتعديل هذه الوحدة. فقط من أضافها أو المدير يمكنه تعديلها.');
+              return;
+            }
+          }
+          
+          // Fill form with property data
+          document.getElementById('editPropertyId').value = property.id;
+          document.getElementById('editOperationType').value = property.operation_type;
+          document.getElementById('editUnitType').value = property.unit_type;
+          document.getElementById('editPrice').value = property.price;
+          document.getElementById('editInstallments').value = property.installments || '';
+          document.getElementById('editInsurance').value = property.insurance || '';
+          document.getElementById('editInsuranceMethod').value = property.insurance_method || '';
+          document.getElementById('editInsuranceNotes').value = property.insurance_notes || '';
+          document.getElementById('editExternalCommission').value = property.external_commission || '';
+          document.getElementById('editOnlineCommission').value = property.online_commission || '';
+          document.getElementById('editManagement').value = property.management || '';
+          document.getElementById('editLocation').value = property.location || '';
+          document.getElementById('editDescription').value = property.description || '';
+          document.getElementById('editRooms').value = property.rooms || '';
+          document.getElementById('editBathrooms').value = property.bathrooms || '';
+          document.getElementById('editArea').value = property.area || '';
+          document.getElementById('editFloor').value = property.floor || '';
+          
+          // Show property info
+          document.getElementById('editPropertyInfo').innerHTML = `
+            <div><strong>أضيف بواسطة:</strong> ${property.created_by_name || 'غير محدد'}</div>
+            <div><strong>تاريخ الإضافة:</strong> ${property.created_at}</div>
+            <div><strong>آخر تحديث:</strong> ${property.updated_at}</div>
+          `;
+          
+          // Show modal
+          const modal = new bootstrap.Modal(document.getElementById('editUnitModal'));
+          modal.show();
+        })
+        .catch(error => {
+          console.error('Error loading property:', error);
+          alert('حدث خطأ في تحميل بيانات الوحدة');
+        });
+    }
+
+    // Submit Edit Unit Form
+    function submitEditUnitForm() {
+      const form = document.getElementById('editUnitForm');
+      const formData = new FormData(form);
+      
+      // Add user ID to headers
+      const propertyId = document.getElementById('editPropertyId').value;
+      
+      fetch(`/api/properties/${propertyId}`, {
+        method: 'PUT',
+        headers: {
+          'user-id': window.currentUserId
+        },
+        body: formData
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert('تم تحديث الوحدة بنجاح');
+          bootstrap.Modal.getInstance(document.getElementById('editUnitModal')).hide();
+          // Refresh the page or redirect
+          window.location.reload();
+        } else {
+          alert(data.error || 'حدث خطأ في تحديث الوحدة');
+        }
+      })
+      .catch(error => {
+        console.error('Error updating property:', error);
+        alert('حدث خطأ في الاتصال بالخادم');
+      });
+    }
+        ripple.style.background = 'rgba(255,255,255,0.3)';
+        ripple.style.transform = 'scale(0)';
+        ripple.style.animation = 'ripple 0.6s linear';
+        ripple.style.left = e.clientX - this.offsetLeft + 'px';
+        ripple.style.top = e.clientY - this.offsetTop + 'px';
+        ripple.style.width = ripple.style.height = '20px';
+        
+        this.appendChild(ripple);
+        
+        setTimeout(() => {
+          ripple.remove();
+        }, 600);
+      });
+    });
+
+    // Add CSS for ripple animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes ripple {
+        to {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Modal Functions
+    function openAddUnitModal() {
+      const modal = new bootstrap.Modal(document.getElementById('addUnitModal'));
+      modal.show();
+    }
+
+    function submitUnitForm() {
+      const form = document.getElementById('addUnitForm');
+      const formData = new FormData(form);
+      
+      // Show loading overlay
+      document.getElementById('loadingOverlay').style.display = 'flex';
+      
+      // Validate required fields
+      const operationType = formData.get('operationType');
+      const unitType = formData.get('unitType');
+      const price = formData.get('price');
+      
+      if (!operationType || !unitType || !price) {
+        alert('يرجى ملء جميع الحقول المطلوبة');
+        document.getElementById('loadingOverlay').style.display = 'none';
+        return;
+      }
+      
+      // Send data to backend
+      fetch('/api/properties', {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(data => {
+        document.getElementById('loadingOverlay').style.display = 'none';
+        
+        if (data.success) {
+          alert('تم إضافة الوحدة بنجاح!');
+          bootstrap.Modal.getInstance(document.getElementById('addUnitModal')).hide();
+          form.reset();
+          
+          // Refresh the page to show new data
+          setTimeout(() => {
+            location.reload();
+          }, 1000);
+        } else {
+          alert('حدث خطأ: ' + (data.error || 'خطأ غير معروف'));
+        }
+      })
+      .catch(error => {
+        document.getElementById('loadingOverlay').style.display = 'none';
+        console.error('Error:', error);
+        
+        if (error.message.includes('File too large')) {
+          alert('الملف كبير جداً. الحد الأقصى 50 ميجابايت');
+        } else if (error.message.includes('HTTP error')) {
+          alert('حدث خطأ في الاتصال بالخادم. يرجى المحاولة مرة أخرى');
+        } else {
+          alert('حدث خطأ في الاتصال بالخادم: ' + error.message);
+        }
+      });
+    }
+
+    // Form validation
+    document.getElementById('addUnitForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      submitUnitForm();
+    });
+
+    // دالة تحويل الصور إلى PDF
+    async function convertToPDF() {
+        try {
+            // إظهار رسالة التحميل
+            const loadingMsg = document.createElement('div');
+            loadingMsg.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(0, 0, 0, 0.8);
+                color: white;
+                padding: 20px;
+                border-radius: 10px;
+                z-index: 9999;
+                font-size: 16px;
+            `;
+            loadingMsg.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري تحويل الصور إلى PDF...';
+            document.body.appendChild(loadingMsg);
+
+            // جمع جميع الصور من الصفحة
+            const images = document.querySelectorAll('.property-image img, .gallery-image img');
+            const imageUrls = Array.from(images).map(img => img.src);
+
+            if (imageUrls.length === 0) {
+                alert('لا توجد صور للتحويل');
+                if (loadingMsg && loadingMsg.parentNode) {
+                    document.body.removeChild(loadingMsg);
+                }
+                return;
+            }
+
+            // إنشاء PDF جديد
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('p', 'mm', 'a4');
+            
+            // إعداد الخطوط
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(16);
+            
+            let yPosition = 20;
+            const margin = 20;
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const contentWidth = pageWidth - (2 * margin);
+            
+            // إضافة عنوان
+            doc.text('Golden House - Company Properties', margin, yPosition);
+            yPosition += 15;
+            
+            // إضافة التاريخ
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(12);
+            const currentDate = new Date().toLocaleDateString('en-US');
+            doc.text(`Generated on: ${currentDate}`, margin, yPosition);
+            yPosition += 20;
+            
+            // تحميل وإضافة الصور
+            const maxImageWidth = contentWidth;
+            const maxImageHeight = 200;
+            
+            for (let i = 0; i < imageUrls.length; i++) {
+                const imageUrl = imageUrls[i];
+                
+                try {
+                    // إنشاء صورة جديدة
+                    const img = new Image();
+                    img.crossOrigin = 'anonymous';
+                    
+                    await new Promise((resolve, reject) => {
+                        img.onload = resolve;
+                        img.onerror = (error) => {
+                            console.error('Error loading image:', error);
+                            reject(error);
+                        };
+                        img.src = imageUrl;
+                    });
+                    
+                    // حساب أبعاد الصورة مع الحفاظ على النسبة
+                    const imgAspectRatio = img.width / img.height;
+                    let imgWidth = maxImageWidth;
+                    let imgHeight = imgWidth / imgAspectRatio;
+                    
+                    // إذا كانت الصورة طويلة جداً، تقليل العرض
+                    if (imgHeight > maxImageHeight) {
+                        imgHeight = maxImageHeight;
+                        imgWidth = imgHeight * imgAspectRatio;
+                    }
+                    
+                    // التحقق من المساحة المتاحة في الصفحة
+                    if (yPosition + imgHeight > doc.internal.pageSize.getHeight() - 20) {
+                        doc.addPage();
+                        yPosition = 20;
+                    }
+                    
+                    // إضافة رقم الصورة
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(10);
+                    doc.text(`Image ${i + 1}`, margin, yPosition);
+                    yPosition += 5;
+                    
+                    // إضافة الصورة مع تحسين الجودة
+                    doc.addImage(img, 'JPEG', margin, yPosition, imgWidth, imgHeight, undefined, 'FAST');
+                    yPosition += imgHeight + 15;
+                    
+                } catch (error) {
+                    console.error('Error loading image:', error);
+                    // إضافة رسالة خطأ بدلاً من الصورة
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(10);
+                    doc.text(`Error loading image ${i + 1}`, margin, yPosition);
+                    yPosition += 10;
+                }
+            }
+            
+            // حفظ PDF
+            const fileName = `GoldenHouse_Properties_${new Date().toISOString().slice(0, 10)}.pdf`;
+            doc.save(fileName);
+            
+            // إزالة رسالة التحميل
+            if (loadingMsg && loadingMsg.parentNode) {
+                document.body.removeChild(loadingMsg);
+            }
+            
+            alert('تم تحويل الصور إلى PDF بنجاح!');
+
+        } catch (error) {
+            console.error('Error converting to PDF:', error);
+            alert('حدث خطأ في تحويل الصور إلى PDF. يرجى المحاولة مرة أخرى.');
+            
+            // إزالة رسالة التحميل في حالة الخطأ
+            const loadingMsg = document.querySelector('div[style*="position: fixed"]');
+            if (loadingMsg && loadingMsg.parentNode) {
+                document.body.removeChild(loadingMsg);
+            }
+        }
+    }
+  </script>
+</body>
+</html> 

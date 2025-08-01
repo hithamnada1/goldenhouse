@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>Golden House | جولدن هوس للعقارات</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      font-family: 'Cairo', Tahoma, Arial, sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Animated Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
+      animation: backgroundShift 20s ease-in-out infinite;
+      z-index: -1;
+    }
+
+    @keyframes backgroundShift {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.1) rotate(1deg); }
+    }
+
+    /* Floating Particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .particle:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+    .particle:nth-child(2) { top: 60%; left: 80%; animation-delay: 1s; }
+    .particle:nth-child(3) { top: 40%; left: 60%; animation-delay: 2s; }
+    .particle:nth-child(4) { top: 80%; left: 20%; animation-delay: 3s; }
+    .particle:nth-child(5) { top: 30%; left: 90%; animation-delay: 4s; }
+    .particle:nth-child(6) { top: 70%; left: 40%; animation-delay: 5s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.6; }
+      50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 60px;
+      animation: fadeInDown 1s ease-out;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .header-text {
+      flex: 1;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logout-btn {
+      background: rgba(220, 53, 69, 0.1);
+      color: #dc3545;
+      border: 2px solid #dc3545;
+      padding: 10px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-family: 'Cairo', sans-serif;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logout-btn:hover {
+      background: #dc3545;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+    }
+
+
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .title {
+      font-size: 3.5em;
+      font-weight: 900;
+      background: linear-gradient(45deg, #FFD700, #FFA500, #FF6347);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 3s ease-in-out infinite;
+      margin-bottom: 15px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .subtitle {
+      font-size: 1.4em;
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 300;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+    }
+
+    .tagline {
+      font-size: 1.1em;
+      color: rgba(255, 255, 255, 0.7);
+      font-weight: 400;
+      margin-bottom: 50px;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      width: 100%;
+      max-width: 900px;
+      animation: fadeInUp 1s ease-out 0.3s both;
+    }
+
+    .menu-item {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 30px 25px;
+      text-align: center;
+      text-decoration: none;
+      color: white;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .menu-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .menu-item:hover::before {
+      left: 100%;
+    }
+
+    .menu-item:hover {
+      transform: translateY(-10px) scale(1.02);
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 
+        0 20px 40px rgba(0,0,0,0.3),
+        0 0 0 1px rgba(255,255,255,0.1);
+    }
+
+    .menu-icon {
+      font-size: 3em;
+      margin-bottom: 20px;
+      display: block;
+      transition: all 0.3s ease;
+    }
+
+    .menu-item:hover .menu-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .menu-title {
+      font-size: 1.4em;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #FFD700;
+    }
+
+    .menu-description {
+      font-size: 0.95em;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.5;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 60px;
+      padding: 20px;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9em;
+      animation: fadeIn 1s ease-out 0.6s both;
+    }
+
+    .footer a {
+      color: #FFD700;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer a:hover {
+      color: #FFA500;
+    }
+
+    /* Animations */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        padding: 15px;
+      }
+      
+      .title {
+        font-size: 2.5em;
+      }
+      
+      .subtitle {
+        font-size: 1.2em;
+      }
+      
+      .menu-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .menu-item {
+        padding: 25px 20px;
+      }
+      
+
+    }
+
+    @media (max-width: 480px) {
+      .title {
+        font-size: 2em;
+      }
+      
+      .subtitle {
+        font-size: 1em;
+      }
+      
+      .menu-title {
+        font-size: 1.2em;
+      }
+      
+      .menu-icon {
+        font-size: 2.5em;
+      }
+    }
+
+    /* Loading Animation */
+    .loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+
+    .loading.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top: 3px solid #FFD700;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Floating Particles -->
+  <div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+  </div>
+
+  <div class="container">
+    <header class="header">
+
+      
+      <div class="header-content">
+        <div class="header-text">
+          <h1 class="title">جولدن هوس للعقارات</h1>
+          <div class="subtitle">Golden House Real Estate</div>
+          <div class="tagline">نحول أحلامك إلى واقع • We Build Your Dreams</div>
+        </div>
+        
+        <div class="user-info">
+          <span id="userName" style="color: #FFD700; font-weight: 600; margin-left: 15px;"></span>
+          <button onclick="logout()" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i>
+            تسجيل الخروج
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <nav class="menu-grid">
+      <a href="/contracts" class="menu-item">
+        <i class="fas fa-file-contract menu-icon"></i>
+        <div class="menu-title">إضافة تعاقد جديد</div>
+        <div class="menu-description">إنشاء عقود إيجار جديدة مع إدارة كاملة للبيانات والمستندات</div>
+      </a>
+
+      <a href="/view-contracts" class="menu-item">
+        <i class="fas fa-list-alt menu-icon"></i>
+        <div class="menu-title">استعراض العقود</div>
+        <div class="menu-description">عرض وإدارة جميع العقود مع إمكانية البحث والتصفية والطباعة</div>
+      </a>
+
+      <a href="/receipts" class="menu-item">
+        <i class="fas fa-receipt menu-icon"></i>
+        <div class="menu-title">سندات القبض والصرف</div>
+        <div class="menu-description">إدارة سندات القبض والصرف مع نظام تسلسلي احترافي</div>
+      </a>
+
+      <a href="/broker-commissions" class="menu-item">
+        <i class="fas fa-chart-line menu-icon"></i>
+        <div class="menu-title">عمولات الوسطاء</div>
+        <div class="menu-description">إدارة عمولات الوسطاء مع تقارير مفصلة وإحصائيات شاملة</div>
+      </a>
+
+      <a href="/company-work-fixed" class="menu-item">
+        <i class="fas fa-building menu-icon"></i>
+        <div class="menu-title">شغل الشركة</div>
+        <div class="menu-description">استكشف عقاراتنا المتاحة للإيجار والبيع مع جميع التصنيفات</div>
+      </a>
+
+      <a href="/my-properties" class="menu-item" id="myPropertiesMenuItem" style="display: none;">
+        <i class="fas fa-home menu-icon"></i>
+        <div class="menu-title">عقاراتي</div>
+        <div class="menu-description">إدارة عقاراتي وبناياتي ووحداتي ودفعاتي</div>
+      </a>
+
+      <a href="/payment-status" class="menu-item" id="paymentStatusMenuItem" style="display: none;">
+        <i class="fas fa-credit-card menu-icon"></i>
+        <div class="menu-title">حالة الدفعات</div>
+        <div class="menu-description">تحديث حالة الدفعات وإضافة مستندات القبض</div>
+      </a>
+
+      <a href="/users" class="menu-item" id="settingsMenuItem" style="display: none;">
+        <i class="fas fa-cogs menu-icon"></i>
+        <div class="menu-title">الإعدادات</div>
+        <div class="menu-description">إدارة المستخدمين والصلاحيات والنظام</div>
+      </a>
+    </nav>
+
+    <footer class="footer">
+      <p>© 2025 Golden House Real Estate. جميع الحقوق محفوظة</p>
+      <p>تم التطوير بـ ❤️ لخدمة عملائنا الكرام</p>
+    </footer>
+  </div>
+
+  <script>
+    // Check user authentication and permissions
+    document.addEventListener('DOMContentLoaded', function() {
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      
+      if (!user.id) {
+        // User not logged in, redirect to login
+        window.location.href = '/login';
+        return;
+      }
+
+      // Display user name
+      document.getElementById('userName').textContent = `مرحباً، ${user.full_name}`;
+
+      // Debug: Log user info
+      console.log('User info:', user);
+
+      // Show/hide menu items based on permissions
+      if (user.permissions && user.permissions.length > 0) {
+        const menuItems = {
+          'add_contract': document.querySelector('a[href="/contracts"]'),
+          'view_contracts': document.querySelector('a[href="/view-contracts"]'),
+          'receipts': document.querySelector('a[href="/receipts"]'),
+          'broker_commissions': document.querySelector('a[href="/broker-commissions"]'),
+          'company_work': document.querySelector('a[href="/company-work-fixed"]'),
+          'my_properties': document.querySelector('#myPropertiesMenuItem'),
+          'user_management': document.querySelector('#settingsMenuItem')
+        };
+
+        // If user is admin, show all menu items
+        if (user.role === 'admin' || user.username === 'admin') {
+          console.log('Admin user detected, showing all menu items');
+          Object.values(menuItems).forEach(item => {
+            if (item) item.style.display = 'block';
+          });
+        } else {
+          // Hide all menu items first
+          Object.values(menuItems).forEach(item => {
+            if (item) item.style.display = 'none';
+          });
+
+          // Show only items user has permission for
+          user.permissions.forEach(permission => {
+            if (menuItems[permission]) {
+              menuItems[permission].style.display = 'block';
+            }
+          });
+        }
+      } else {
+        // If no permissions defined, show all menu items (for testing)
+        console.log('No permissions found, showing all menu items');
+        const allMenuItems = document.querySelectorAll('.menu-item');
+        allMenuItems.forEach(item => {
+          item.style.display = 'block';
+        });
+      }
+    });
+
+    // Logout function
+    function logout() {
+      if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
+        localStorage.removeItem('user');
+        window.location.href = '/login';
+      }
+    }
+
+    // Loading Animation
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        document.getElementById('loading').classList.add('hidden');
+      }, 1000);
+    });
+
+    // Add hover sound effect (optional)
+    document.querySelectorAll('.menu-item').forEach(item => {
+      item.addEventListener('mouseenter', function() {
+        // You can add sound effect here if needed
+        this.style.transform = 'translateY(-10px) scale(1.02)';
+      });
+      
+      item.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+
+    // Add click ripple effect
+    document.querySelectorAll('.menu-item').forEach(item => {
+      item.addEventListener('click', function(e) {
+        const ripple = document.createElement('div');
+        ripple.style.position = 'absolute';
+        ripple.style.borderRadius = '50%';
+        ripple.style.background = 'rgba(255,255,255,0.3)';
+        ripple.style.transform = 'scale(0)';
+        ripple.style.animation = 'ripple 0.6s linear';
+        ripple.style.left = e.clientX - this.offsetLeft + 'px';
+        ripple.style.top = e.clientY - this.offsetTop + 'px';
+        ripple.style.width = ripple.style.height = '20px';
+        
+        this.appendChild(ripple);
+        
+        setTimeout(() => {
+          ripple.remove();
+        }, 600);
+      });
+    });
+
+    // Add CSS for ripple animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes ripple {
+        to {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Parallax effect for particles
+    document.addEventListener('mousemove', function(e) {
+      const particles = document.querySelectorAll('.particle');
+      const mouseX = e.clientX / window.innerWidth;
+      const mouseY = e.clientY / window.innerHeight;
+      
+      particles.forEach((particle, index) => {
+        const speed = (index + 1) * 0.5;
+        const x = (mouseX - 0.5) * speed;
+        const y = (mouseY - 0.5) * speed;
+        particle.style.transform = `translate(${x}px, ${y}px)`;
+      });
+    });
+  </script>
+</body>
+</html> 

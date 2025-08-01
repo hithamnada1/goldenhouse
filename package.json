@@ -1,0 +1,43 @@
+{
+  "name": "goldenhouse",
+  "version": "1.0.0",
+  "description": "Golden House Property Management System",
+  "main": "index.js",
+  "scripts": {
+    "start": "bash start.sh",
+    "dev": "nodemon index.js",
+    "start:prod": "NODE_ENV=production node index.js",
+    "build": "echo 'No build step required'",
+    "docker:build": "docker build -t goldenhouse-app .",
+    "docker:run": "docker run -p 3000:3000 -v $(pwd)/uploads:/app/uploads -v $(pwd)/database:/app/database goldenhouse-app"
+  },
+  "keywords": ["property", "management", "real-estate"],
+  "author": "Golden House",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.6",
+    "multer": "^1.4.5-lts.1",
+    "cors": "^2.8.5",
+    "bcrypt": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "path": "^0.12.7",
+    "fs": "^0.0.1-security",
+    "jszip": "^3.10.1",
+    "express-rate-limit": "^7.1.5",
+    "body-parser": "^1.20.2",
+    "compression": "^1.7.4",
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "railway": {
+    "build": {
+      "builder": "nixpacks"
+    }
+  }
+}

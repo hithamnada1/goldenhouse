@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>عمولات الوسطاء | جولدن هوس</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: #f8f9fa;
+      font-family: 'Cairo', Tahoma, Arial, sans-serif;
+    }
+    .header {
+      background: linear-gradient(135deg, #23272f 0%, #181c22 100%);
+      color: white;
+      padding: 20px 0;
+      margin-bottom: 30px;
+    }
+    .table-container {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-bottom: 30px;
+    }
+    .table th {
+      background: #23272f;
+      color: white;
+      border: none;
+      font-weight: 600;
+    }
+    .table td {
+      vertical-align: middle;
+      border-color: #e9ecef;
+    }
+    .btn-back {
+      background: #23272f;
+      border: none;
+      color: white;
+    }
+    .btn-back:hover {
+      background: #181c22;
+      color: white;
+    }
+    .search-box {
+      border-radius: 20px;
+      border: 2px solid #e9ecef;
+      padding: 10px 20px;
+    }
+    .search-box:focus {
+      border-color: #23272f;
+      box-shadow: 0 0 0 0.2rem rgba(35, 39, 47, 0.25);
+    }
+    .total-row {
+      background: #e3f2fd;
+      font-weight: bold;
+    }
+    .filter-card {
+      border: none;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .filter-card .card-header {
+      border-bottom: none;
+      background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    }
+    .form-label {
+      font-weight: 600;
+      color: #495057;
+      margin-bottom: 0.5rem;
+    }
+    .input-group-text {
+      background: #f8f9fa;
+      border-color: #ced4da;
+    }
+    .btn-clear-filters {
+      background: #6c757d;
+      border-color: #6c757d;
+      color: white;
+    }
+    .btn-clear-filters:hover {
+      background: #5a6268;
+      border-color: #545b62;
+      color: white;
+    }
+    .btn-group .btn {
+      border-radius: 0;
+    }
+    .btn-group .btn:first-child {
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+    }
+    .btn-group .btn:last-child {
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+    .btn-outline-light {
+      border-color: rgba(255,255,255,0.5);
+      color: white;
+    }
+    .btn-outline-light:hover {
+      background-color: rgba(255,255,255,0.1);
+      border-color: white;
+      color: white;
+    }
+    .brokers-management-collapse {
+      transition: all 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h2 class="mb-0">
+            <i class="fas fa-users"></i>
+            عمولات الوسطاء
+          </h2>
+          <p class="mb-0 text-muted">إدارة عمولات الوسطاء والمندوبين</p>
+        </div>
+        <div class="col-md-4 text-end">
+          <div class="btn-group" role="group">
+            <button class="btn btn-outline-light" type="button" data-bs-toggle="collapse" data-bs-target="#brokersManagementSection" aria-expanded="false" aria-controls="brokersManagementSection">
+              <i class="fas fa-users-cog"></i>
+              إدارة الوسطاء المسجلين
+            </button>
+            <a href="/" class="btn btn-back">
+              <i class="fas fa-arrow-right"></i>
+              العودة للصفحة الرئيسية
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Search and Filter Section -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="card filter-card">
+          <div class="card-header text-white">
+            <h5 class="mb-0">
+              <i class="fas fa-filter"></i>
+              البحث والتصفية
+            </h5>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-3 mb-3">
+                <label for="brokerSearch" class="form-label">اسم الوسيط</label>
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="fas fa-user"></i>
+                  </span>
+                  <input type="text" class="form-control" id="brokerSearch" placeholder="البحث باسم الوسيط...">
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="unitSearch" class="form-label">رقم الوحدة</label>
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="fas fa-building"></i>
+                  </span>
+                  <input type="text" class="form-control" id="unitSearch" placeholder="البحث برقم الوحدة...">
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="clientSearch" class="form-label">اسم العميل</label>
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="fas fa-user-tie"></i>
+                  </span>
+                  <input type="text" class="form-control" id="clientSearch" placeholder="البحث باسم العميل...">
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="generalSearch" class="form-label">بحث عام</label>
+                <div class="input-group">
+                  <span class="input-group-text">
+                    <i class="fas fa-search"></i>
+                  </span>
+                  <input type="text" class="form-control" id="generalSearch" placeholder="البحث في جميع الحقول...">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label for="startDate" class="form-label">من تاريخ</label>
+                <input type="date" class="form-control" id="startDate">
+                <small class="form-text text-muted">اختر تاريخ البداية للبحث</small>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="endDate" class="form-label">إلى تاريخ</label>
+                <input type="date" class="form-control" id="endDate">
+                <small class="form-text text-muted">اختر تاريخ النهاية للبحث</small>
+              </div>
+              <div class="col-md-4 mb-3 d-flex align-items-end">
+                <div class="d-grid gap-2 w-100">
+                  <button class="btn btn-clear-filters" onclick="clearFilters()">
+                    <i class="fas fa-times"></i>
+                    مسح الفلاتر
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="row mb-4">
+      <div class="col-md-4 text-center">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBrokerModal">
+          <i class="fas fa-plus"></i>
+          إضافة وسيط جديد
+        </button>
+      </div>
+      <div class="col-md-4 text-center">
+        <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#brokerReportsModal">
+          <i class="fas fa-chart-bar"></i>
+          تقارير الوسطاء
+        </button>
+      </div>
+      <div class="col-md-4 text-end">
+        <button class="btn btn-success" onclick="exportToExcel()">
+          <i class="fas fa-file-excel"></i>
+          تصدير إلى Excel
+        </button>
+      </div>
+    </div>
+
+    <!-- Brokers Management Section (Collapsible) -->
+    <div class="collapse brokers-management-collapse" id="brokersManagementSection">
+      <div class="table-container mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="mb-0">
+            <i class="fas fa-users"></i>
+            إدارة الوسطاء المسجلين
+          </h4>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBrokerModal">
+            <i class="fas fa-plus"></i>
+            إضافة وسيط جديد
+          </button>
+        </div>
+        
+        <div class="table-responsive">
+          <table class="table table-hover" id="brokersTable">
+            <thead>
+              <tr>
+                <th>اسم الوسيط</th>
+                <th>رقم الهاتف</th>
+                <th>البريد الإلكتروني</th>
+                <th>نسبة العمولة</th>
+                <th>العنوان</th>
+                <th>الحالة</th>
+                <th>تاريخ التسجيل</th>
+                <th>الإجراءات</th>
+              </tr>
+            </thead>
+            <tbody id="brokersTableBody">
+              <!-- سيتم ملء هذا بواسطة JavaScript -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Loading Spinner for Brokers -->
+        <div id="brokersLoadingSpinner" class="text-center" style="display: none;">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">جاري التحميل...</span>
+          </div>
+          <p class="mt-2">جاري تحميل بيانات الوسطاء...</p>
+        </div>
+
+        <!-- No Brokers Message -->
+        <div id="noBrokersMessage" class="text-center" style="display: none;">
+          <i class="fas fa-users-slash fa-3x text-muted mb-3"></i>
+          <h4 class="text-muted">لا توجد وسطاء مسجلين</h4>
+          <p class="text-muted">لم يتم العثور على أي وسطاء مسجلين في النظام</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Commissions Table -->
+    <div class="table-container">
+      <div class="table-responsive">
+        <table class="table table-hover" id="commissionsTable">
+          <thead>
+            <tr>
+              <th>رقم العقد</th>
+              <th>اسم الوسيط</th>
+              <th>رقم الوحدة</th>
+              <th>اسم العميل</th>
+              <th>عمولة المندوب صاحب العميل</th>
+              <th>عمولة المندوب صاحب الوحدة</th>
+              <th>التخليص</th>
+              <th>قيمة التخليص</th>
+              <th>عمولة المكتب</th>
+              <th>الإجمالي</th>
+              <th>الإجراءات</th>
+            </tr>
+          </thead>
+          <tbody id="commissionsTableBody">
+            <!-- سيتم ملء هذا بواسطة JavaScript -->
+          </tbody>
+          <tfoot>
+            <tr class="total-row">
+              <td colspan="4"><strong>الإجمالي</strong></td>
+              <td id="totalClientRepresentativeCommission">0.00</td>
+              <td id="totalUnitRepresentativeCommission">0.00</td>
+              <td id="totalClearance">0.00</td>
+              <td id="totalClearanceValue">0.00</td>
+              <td id="totalOfficeCommission">0.00</td>
+              <td id="totalGrandTotal">0.00</td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="text-center" style="display: none;">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">جاري التحميل...</span>
+      </div>
+      <p class="mt-2">جاري تحميل بيانات عمولات الوسطاء...</p>
+    </div>
+
+    <!-- No Data Message -->
+    <div id="noDataMessage" class="text-center" style="display: none;">
+      <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+      <h4 class="text-muted">لا توجد بيانات عمولات</h4>
+      <p class="text-muted">لم يتم العثور على أي بيانات عمولات للوسطاء</p>
+    </div>
+
+
+
+  <!-- Add Broker Modal -->
+  <div class="modal fade" id="addBrokerModal" tabindex="-1" aria-labelledby="addBrokerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addBrokerModalLabel">
+            <i class="fas fa-user-plus"></i>
+            إضافة وسيط جديد
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addBrokerForm">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="brokerName" class="form-label">اسم الوسيط *</label>
+                  <input type="text" class="form-control" id="brokerName" name="brokerName" required>
+                </div>
+                <div class="mb-3">
+                  <label for="brokerPhone" class="form-label">رقم الهاتف</label>
+                  <input type="tel" class="form-control" id="brokerPhone" name="brokerPhone">
+                </div>
+                <div class="mb-3">
+                  <label for="brokerEmail" class="form-label">البريد الإلكتروني</label>
+                  <input type="email" class="form-control" id="brokerEmail" name="brokerEmail">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="brokerCommissionRate" class="form-label">نسبة العمولة (%)</label>
+                  <input type="number" class="form-control" id="brokerCommissionRate" name="brokerCommissionRate" min="0" max="100" step="0.01">
+                </div>
+                <div class="mb-3">
+                  <label for="brokerAddress" class="form-label">العنوان</label>
+                  <textarea class="form-control" id="brokerAddress" name="brokerAddress" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="brokerStatus" class="form-label">الحالة</label>
+                  <select class="form-control" id="brokerStatus" name="brokerStatus">
+                    <option value="active">نشط</option>
+                    <option value="inactive">غير نشط</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="brokerNotes" class="form-label">ملاحظات</label>
+              <textarea class="form-control" id="brokerNotes" name="brokerNotes" rows="3"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+          <button type="button" class="btn btn-primary" onclick="addBroker()">
+            <i class="fas fa-save"></i>
+            حفظ الوسيط
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Broker Modal -->
+  <div class="modal fade" id="editBrokerModal" tabindex="-1" aria-labelledby="editBrokerModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editBrokerModalLabel">
+            <i class="fas fa-user-edit"></i>
+            تعديل بيانات الوسيط
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editBrokerForm">
+            <input type="hidden" id="editBrokerId" name="editBrokerId">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="editBrokerName" class="form-label">اسم الوسيط *</label>
+                  <input type="text" class="form-control" id="editBrokerName" name="editBrokerName" required>
+                </div>
+                <div class="mb-3">
+                  <label for="editBrokerPhone" class="form-label">رقم الهاتف</label>
+                  <input type="tel" class="form-control" id="editBrokerPhone" name="editBrokerPhone">
+                </div>
+                <div class="mb-3">
+                  <label for="editBrokerEmail" class="form-label">البريد الإلكتروني</label>
+                  <input type="email" class="form-control" id="editBrokerEmail" name="editBrokerEmail">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="editBrokerCommissionRate" class="form-label">نسبة العمولة (%)</label>
+                  <input type="number" class="form-control" id="editBrokerCommissionRate" name="editBrokerCommissionRate" min="0" max="100" step="0.01">
+                </div>
+                <div class="mb-3">
+                  <label for="editBrokerAddress" class="form-label">العنوان</label>
+                  <textarea class="form-control" id="editBrokerAddress" name="editBrokerAddress" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="editBrokerStatus" class="form-label">الحالة</label>
+                  <select class="form-control" id="editBrokerStatus" name="editBrokerStatus">
+                    <option value="active">نشط</option>
+                    <option value="inactive">غير نشط</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="editBrokerNotes" class="form-label">ملاحظات</label>
+              <textarea class="form-control" id="editBrokerNotes" name="editBrokerNotes" rows="3"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+          <button type="button" class="btn btn-primary" onclick="updateBroker()">
+            <i class="fas fa-save"></i>
+            حفظ التعديلات
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Broker Reports Modal -->
+  <div class="modal fade" id="brokerReportsModal" tabindex="-1" aria-labelledby="brokerReportsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="brokerReportsModalLabel">
+            <i class="fas fa-chart-bar"></i>
+            تقارير الوسطاء
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Broker Selection -->
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <label for="brokerSelect" class="form-label">اختر الوسيط:</label>
+              <select class="form-control" id="brokerSelect">
+                <option value="all">جميع الوسطاء</option>
+                <!-- سيتم ملء هذا بواسطة JavaScript -->
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">&nbsp;</label>
+              <div class="d-grid">
+                <button class="btn btn-primary" onclick="generateBrokerReport()">
+                  <i class="fas fa-file-pdf"></i>
+                  إنشاء التقرير
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Statistics Cards -->
+          <div class="row mb-4" id="brokerStatisticsCards" style="display: none;">
+            <div class="col-md-3">
+              <div class="card text-center">
+                <div class="card-body">
+                  <h5 class="card-title text-primary">
+                    <i class="fas fa-file-contract"></i>
+                  </h5>
+                  <h4 class="text-primary" id="totalContracts">0</h4>
+                  <p class="card-text">إجمالي العقود</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card text-center">
+                <div class="card-body">
+                  <h5 class="card-title text-success">
+                    <i class="fas fa-money-bill-wave"></i>
+                  </h5>
+                  <h4 class="text-success" id="totalRentValue">0</h4>
+                  <p class="card-text">إجمالي قيمة الإيجار</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card text-center">
+                <div class="card-body">
+                  <h5 class="card-title text-info">
+                    <i class="fas fa-percentage"></i>
+                  </h5>
+                  <h4 class="text-info" id="totalCommission">0</h4>
+                  <p class="card-text">إجمالي العمولة</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="card text-center">
+                <div class="card-body">
+                  <h5 class="card-title text-warning">
+                    <i class="fas fa-calculator"></i>
+                  </h5>
+                  <h4 class="text-warning" id="netCommission">0</h4>
+                  <p class="card-text">صافي العمولة</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Report Table -->
+          <div class="table-responsive" id="brokerReportTable" style="display: none;">
+            <table class="table table-striped table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th>رقم العقد</th>
+                  <th>اسم العميل</th>
+                  <th>رقم الوحدة</th>
+                  <th>قيمة الإيجار</th>
+                  <th>العمولة الإجمالية</th>
+                  <th>الخارج من العمولة</th>
+                  <th>قيمة التصديقات</th>
+                  <th>الخارج من التصديقات</th>
+                  <th>عمولة المندوب</th>
+                  <th>التصديقات للمندوب</th>
+                  <th>عمولة المكتب</th>
+                  <th>الإجمالي للمندوب</th>
+                  <th>تاريخ العقد</th>
+                </tr>
+              </thead>
+              <tbody id="brokerReportTableBody">
+                <!-- سيتم ملء هذا بواسطة JavaScript -->
+              </tbody>
+              <tfoot class="table-info">
+                <tr>
+                  <td colspan="4"><strong>الإجمالي</strong></td>
+                  <td id="reportTotalCommission">0</td>
+                  <td id="reportTotalCommissionDeduction">0</td>
+                  <td id="reportTotalAttestationValue">0</td>
+                  <td id="reportTotalAttestationDeduction">0</td>
+                  <td id="reportTotalRepresentativeCommission">0</td>
+                  <td id="reportTotalRepresentativeAttestation">0</td>
+                  <td id="reportTotalOfficeCommission">0</td>
+                  <td id="reportTotalForRepresentative">0</td>
+                  <td></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+
+          <!-- Loading Spinner -->
+          <div id="reportLoadingSpinner" class="text-center" style="display: none;">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">جاري التحميل...</span>
+            </div>
+            <p class="mt-2">جاري إنشاء التقرير...</p>
+          </div>
+
+          <!-- No Data Message -->
+          <div id="reportNoDataMessage" class="text-center" style="display: none;">
+            <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+            <h4 class="text-muted">لا توجد بيانات</h4>
+            <p class="text-muted">لم يتم العثور على بيانات للوسيط المحدد</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+          <button type="button" class="btn btn-success" onclick="downloadBrokerReport()" id="downloadReportBtn" style="display: none;">
+            <i class="fas fa-download"></i>
+            تنزيل التقرير
+          </button>
+          <button type="button" class="btn btn-info" onclick="printBrokerReport()" id="printReportBtn" style="display: none;">
+            <i class="fas fa-print"></i>
+            طباعة التقرير
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Global variables for filtering
+    let allCommissionsData = [];
+    let filteredCommissionsData = [];
+
+    // Load commissions data when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      loadCommissionsData();
+      setupSearchFilters();
+      setupBrokersManagement();
+    });
+
+    // Setup brokers management section
+    function setupBrokersManagement() {
+      // Load brokers data when the collapsible section is shown
+      const brokersSection = document.getElementById('brokersManagementSection');
+      brokersSection.addEventListener('shown.bs.collapse', function() {
+        loadBrokersData();
+      });
+    }
+
+    // Setup search filters
+    function setupSearchFilters() {
+      // Broker name search
+      document.getElementById('brokerSearch').addEventListener('input', filterData);
+      
+      // Unit number search
+      document.getElementById('unitSearch').addEventListener('input', filterData);
+      
+      // Client name search
+      document.getElementById('clientSearch').addEventListener('input', filterData);
+      
+      // General search
+      document.getElementById('generalSearch').addEventListener('input', filterData);
+      
+      // Date range filters
+      document.getElementById('startDate').addEventListener('change', filterData);
+      document.getElementById('endDate').addEventListener('change', filterData);
+    }
+
+    // Load commissions data from API
+    function loadCommissionsData() {
+      const loadingSpinner = document.getElementById('loadingSpinner');
+      const noDataMessage = document.getElementById('noDataMessage');
+      
+      loadingSpinner.style.display = 'block';
+      noDataMessage.style.display = 'none';
+      
+      // إضافة token المصادقة - استخدام query parameter
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      const token = user.id;
+
+      fetch('/api/broker-commissions?token=' + token, {
+        method: 'GET'
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          loadingSpinner.style.display = 'none';
+          
+          console.log('=== BROKER COMMISSIONS DATA ===');
+          console.log('Data received:', data);
+          console.log('Data length:', data.length);
+          console.log('First commission details:', data[0]);
+          console.log('Second commission details:', data[1]);
+          
+          if (!Array.isArray(data) || data.length === 0) {
+            noDataMessage.style.display = 'block';
+            return;
+          }
+
+          // Store all data globally
+          allCommissionsData = data;
+          filteredCommissionsData = [...data];
+          
+          displayCommissionsData(data);
+        })
+        .catch(error => {
+          console.error('Error loading commissions data:', error);
+          loadingSpinner.style.display = 'none';
+          noDataMessage.style.display = 'block';
+          noDataMessage.innerHTML = `
+            <i class="fas fa-exclamation-triangle fa-3x text-danger mb-3"></i>
+            <h4 class="text-danger">خطأ في تحميل البيانات</h4>
+            <p class="text-muted">حدث خطأ أثناء تحميل بيانات العمولات</p>
+          `;
+        });
+    }
+
+    // Convert Arabic date format to standard format
+    function convertArabicDate(arabicDate) {
+      if (!arabicDate) return null;
+      
+      // Convert Arabic numerals to English
+      const arabicToEnglish = {
+        '٠': '0', '١': '1', '٢': '2', '٣': '3', '٤': '4',
+        '٥': '5', '٦': '6', '٧': '7', '٨': '8', '٩': '9'
+      };
+      
+      let englishDate = arabicDate;
+      for (let arabic in arabicToEnglish) {
+        englishDate = englishDate.replace(new RegExp(arabic, 'g'), arabicToEnglish[arabic]);
+      }
+      
+      // Parse date format like "27/7/2025" to "2025-07-27"
+      const parts = englishDate.split('/');
+      if (parts.length === 3) {
+        const day = parts[0].padStart(2, '0');
+        const month = parts[1].padStart(2, '0');
+        const year = parts[2];
+        return `${year}-${month}-${day}`;
+      }
+      
+      return englishDate;
+    }
+
+    // Filter data based on search criteria
+    function filterData() {
+      const brokerSearch = document.getElementById('brokerSearch').value.toLowerCase();
+      const unitSearch = document.getElementById('unitSearch').value.toLowerCase();
+      const clientSearch = document.getElementById('clientSearch').value.toLowerCase();
+      const generalSearch = document.getElementById('generalSearch').value.toLowerCase();
+      const startDate = document.getElementById('startDate').value;
+      const endDate = document.getElementById('endDate').value;
+
+      filteredCommissionsData = allCommissionsData.filter(contract => {
+        // Broker name filter
+        if (brokerSearch && !contract.broker_name?.toLowerCase().includes(brokerSearch)) {
+          return false;
+        }
+
+        // Unit number filter
+        if (unitSearch && !contract.unit_number?.toLowerCase().includes(unitSearch)) {
+          return false;
+        }
+
+        // Client name filter
+        if (clientSearch && !contract.client_name?.toLowerCase().includes(clientSearch)) {
+          return false;
+        }
+
+        // General search filter
+        if (generalSearch) {
+          // Convert contract date for search
+          const convertedDate = convertArabicDate(contract.contract_date);
+          const searchableText = [
+            contract.contract_number,
+            contract.broker_name,
+            contract.unit_number,
+            contract.client_name,
+            contract.client_phone,
+            contract.rent_value,
+            contract.total_commission,
+            contract.representative_commission,
+            contract.representative_attestation,
+            contract.contract_date,
+            convertedDate // Add converted date for search
+          ].join(' ').toLowerCase();
+          
+          if (!searchableText.includes(generalSearch)) {
+            return false;
+          }
+        }
+
+        // Date range filter
+        if (startDate || endDate) {
+          const contractDate = convertArabicDate(contract.contract_date);
+          if (!contractDate) return false;
+          
+          if (startDate && contractDate < startDate) {
+            return false;
+          }
+          
+          if (endDate && contractDate > endDate) {
+            return false;
+          }
+        }
+
+        return true;
+      });
+
+      displayCommissionsData(filteredCommissionsData);
+    }
+
+    // Clear all filters
+    function clearFilters() {
+      document.getElementById('brokerSearch').value = '';
+      document.getElementById('unitSearch').value = '';
+      document.getElementById('clientSearch').value = '';
+      document.getElementById('generalSearch').value = '';
+      document.getElementById('startDate').value = '';
+      document.getElementById('endDate').value = '';
+      
+      filteredCommissionsData = [...allCommissionsData];
+      displayCommissionsData(filteredCommissionsData);
+    }
+
+    // Display commissions data in table
+    function displayCommissionsData(data) {
+      const tableBody = document.getElementById('commissionsTableBody');
+      let totalClientRepresentativeCommission = 0;
+      let totalUnitRepresentativeCommission = 0;
+      let totalClearanceValue = 0;
+      let totalOfficeCommission = 0;
+      let totalGrandTotal = 0;
+
+      tableBody.innerHTML = '';
+
+      // Show no data message if filtered data is empty
+      if (data.length === 0) {
+        const noDataMessage = document.getElementById('noDataMessage');
+        noDataMessage.style.display = 'block';
+        noDataMessage.innerHTML = `
+          <i class="fas fa-search fa-3x text-muted mb-3"></i>
+          <h4 class="text-muted">لا توجد نتائج</h4>
+          <p class="text-muted">لم يتم العثور على بيانات تطابق معايير البحث</p>
+        `;
+      } else {
+        document.getElementById('noDataMessage').style.display = 'none';
+      }
+
+      data.forEach(commission => {
+        const commissionValue = parseFloat(commission.commission_value) || 0;
+        
+        // تحديد نوع العمولة بناءً على commission_type
+        let clientRepValue = 0;
+        let unitRepValue = 0;
+        let clearanceDisplay = '';
+        let clearanceValueDisplay = 0;
+        let officeCommission = 0;
+
+        if (commission.commission_type === 'representative_commission') {
+          clientRepValue = commissionValue;
+        } else if (commission.commission_type === 'unit_representative_commission') {
+          unitRepValue = commissionValue;
+        } else if (commission.commission_type === 'clearance_commission') {
+          clearanceDisplay = commission.broker_name;
+          clearanceValueDisplay = commissionValue;
+        } else if (commission.commission_type === 'office_commission') {
+          officeCommission = commissionValue;
+        }
+
+        const grandTotal = clientRepValue + unitRepValue + clearanceValueDisplay + officeCommission;
+
+        totalClientRepresentativeCommission += clientRepValue;
+        totalUnitRepresentativeCommission += unitRepValue;
+        totalClearanceValue += clearanceValueDisplay;
+        totalOfficeCommission += officeCommission;
+        totalGrandTotal += grandTotal;
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${commission.contract_number || ''}</td>
+          <td>${commission.broker_name || 'غير محدد'}</td>
+          <td>${commission.unit_number || ''}</td>
+          <td>${commission.client_name || ''}</td>
+          <td>${formatCurrency(clientRepValue)}</td>
+          <td>${formatCurrency(unitRepValue)}</td>
+          <td>${clearanceDisplay || '--'}</td>
+          <td>${formatCurrency(clearanceValueDisplay)}</td>
+          <td>${formatCurrency(officeCommission)}</td>
+          <td>${formatCurrency(grandTotal)}</td>
+          <td>
+            <button class="btn btn-sm btn-outline-primary" onclick="viewContractDetails(${commission.contract_id})" title="عرض التفاصيل">
+              <i class="fas fa-eye"></i>
+            </button>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+
+      // Update totals
+      document.getElementById('totalClientRepresentativeCommission').textContent = formatCurrency(totalClientRepresentativeCommission);
+      document.getElementById('totalUnitRepresentativeCommission').textContent = formatCurrency(totalUnitRepresentativeCommission);
+      document.getElementById('totalClearanceValue').textContent = formatCurrency(totalClearanceValue);
+      document.getElementById('totalOfficeCommission').textContent = formatCurrency(totalOfficeCommission);
+      document.getElementById('totalGrandTotal').textContent = formatCurrency(totalGrandTotal);
+    }
+
+    // Format currency
+    function formatCurrency(amount) {
+      if (amount === null || amount === undefined || amount === '' || isNaN(amount)) return '0.00';
+      return parseFloat(amount).toFixed(2);
+    }
+
+    // Format date for display
+    function formatDate(dateString) {
+      if (!dateString) return '';
+      
+      // If it's already in Arabic format, return as is
+      if (dateString.includes('/')) {
+        return dateString;
+      }
+      
+      // If it's in YYYY-MM-DD format, convert to Arabic format
+      const parts = dateString.split('-');
+      if (parts.length === 3) {
+        const year = parts[0];
+        const month = parts[1];
+        const day = parts[2];
+        
+        // Convert to Arabic numerals
+        const englishToArabic = {
+          '0': '٠', '1': '١', '2': '٢', '3': '٣', '4': '٤',
+          '5': '٥', '6': '٦', '7': '٧', '8': '٨', '9': '٩'
+        };
+        
+        let arabicYear = year;
+        let arabicMonth = month;
+        let arabicDay = day;
+        
+        for (let english in englishToArabic) {
+          arabicYear = arabicYear.replace(new RegExp(english, 'g'), englishToArabic[english]);
+          arabicMonth = arabicMonth.replace(new RegExp(english, 'g'), englishToArabic[english]);
+          arabicDay = arabicDay.replace(new RegExp(english, 'g'), englishToArabic[english]);
+        }
+        
+        return `${arabicDay}/${arabicMonth}/${arabicYear}`;
+      }
+      
+      return dateString;
+    }
+
+
+
+    // View contract details
+    function viewContractDetails(contractId) {
+      window.open(`/view-contracts?id=${contractId}`, '_blank');
+    }
+
+    // Export to Excel
+    function exportToExcel() {
+      const table = document.getElementById('commissionsTable');
+      const html = table.outerHTML;
+      const url = 'data:application/vnd.ms-excel,' + encodeURIComponent(html);
+      const downloadLink = document.createElement("a");
+      document.body.appendChild(downloadLink);
+      downloadLink.href = url;
+      downloadLink.download = 'عمولات_الوسطاء.xls';
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    }
+
+    // Add new broker
+    async function addBroker() {
+      const form = document.getElementById('addBrokerForm');
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      // Validation
+      if (!data.brokerName || data.brokerName.trim() === '') {
+        alert('يرجى إدخال اسم الوسيط');
+        return;
+      }
+
+      // Show loading state
+      const saveBtn = document.querySelector('#addBrokerModal .btn-primary');
+      const originalText = saveBtn.innerHTML;
+      saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
+      saveBtn.disabled = true;
+
+      try {
+        const response = await fetch('/api/brokers', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name: data.brokerName,
+            phone: data.brokerPhone || '',
+            email: data.brokerEmail || '',
+            commission_rate: parseFloat(data.brokerCommissionRate) || 0,
+            address: data.brokerAddress || '',
+            status: data.brokerStatus || 'active',
+            notes: data.brokerNotes || ''
+          })
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          alert('تم إضافة الوسيط بنجاح!');
+          
+          // Close modal and reset form
+          const modal = bootstrap.Modal.getInstance(document.getElementById('addBrokerModal'));
+          modal.hide();
+          form.reset();
+          
+          // Refresh commissions data to show new broker
+          loadCommissionsData();
+        } else {
+          const error = await response.json();
+          alert(`حدث خطأ: ${error.error}`);
+        }
+      } catch (error) {
+        console.error('Error adding broker:', error);
+        alert('حدث خطأ في الاتصال بالخادم');
+      } finally {
+        // Reset button state
+        saveBtn.innerHTML = originalText;
+        saveBtn.disabled = false;
+      }
+    }
+
+    // Reset form when modal is closed
+    document.getElementById('addBrokerModal').addEventListener('hidden.bs.modal', function () {
+      document.getElementById('addBrokerForm').reset();
+    });
+
+    // Load brokers management data
+    async function loadBrokersData() {
+      const loadingSpinner = document.getElementById('brokersLoadingSpinner');
+      const noDataMessage = document.getElementById('noBrokersMessage');
+      const tableBody = document.getElementById('brokersTableBody');
+      
+      loadingSpinner.style.display = 'block';
+      noDataMessage.style.display = 'none';
+      tableBody.innerHTML = '';
+
+      // إضافة token المصادقة - استخدام query parameter
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      const token = user.id;
+
+      try {
+        const response = await fetch('/api/brokers?token=' + token, {
+          method: 'GET'
+        });
+        if (response.ok) {
+          const brokers = await response.json();
+          loadingSpinner.style.display = 'none';
+          
+          if (!Array.isArray(brokers) || brokers.length === 0) {
+            noDataMessage.style.display = 'block';
+            return;
+          }
+
+          displayBrokersData(brokers);
+        } else {
+          throw new Error('فشل في تحميل بيانات الوسطاء');
+        }
+      } catch (error) {
+        console.error('Error loading brokers:', error);
+        loadingSpinner.style.display = 'none';
+        noDataMessage.style.display = 'block';
+        noDataMessage.innerHTML = `
+          <i class="fas fa-exclamation-triangle fa-3x text-danger mb-3"></i>
+          <h4 class="text-danger">خطأ في تحميل البيانات</h4>
+          <p class="text-muted">حدث خطأ أثناء تحميل بيانات الوسطاء</p>
+        `;
+      }
+    }
+
+    // Display brokers data in table
+    function displayBrokersData(brokers) {
+      const tableBody = document.getElementById('brokersTableBody');
+      tableBody.innerHTML = '';
+
+      brokers.forEach(broker => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${broker.name || ''}</td>
+          <td>${broker.phone || ''}</td>
+          <td>${broker.email || ''}</td>
+          <td>${broker.commission_rate ? (parseFloat(broker.commission_rate) * 100).toFixed(2) + '%' : '0%'}</td>
+          <td>${broker.address || ''}</td>
+          <td>
+            <span class="badge ${broker.status === 'active' ? 'bg-success' : 'bg-secondary'}">
+              ${broker.status === 'active' ? 'نشط' : 'غير نشط'}
+            </span>
+          </td>
+          <td>${broker.created_at || ''}</td>
+          <td>
+            <button class="btn btn-sm btn-outline-primary me-1" onclick="editBroker(${broker.id})" title="تعديل">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-danger" onclick="deleteBroker(${broker.id}, '${broker.name}')" title="حذف">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    // Edit broker
+    async function editBroker(brokerId) {
+      try {
+        const response = await fetch(`/api/brokers/${brokerId}`);
+        if (response.ok) {
+          const broker = await response.json();
+          
+          // Fill edit form
+          document.getElementById('editBrokerId').value = broker.id;
+          document.getElementById('editBrokerName').value = broker.name || '';
+          document.getElementById('editBrokerPhone').value = broker.phone || '';
+          document.getElementById('editBrokerEmail').value = broker.email || '';
+          document.getElementById('editBrokerCommissionRate').value = broker.commission_rate ? (parseFloat(broker.commission_rate) * 100) : '';
+          document.getElementById('editBrokerAddress').value = broker.address || '';
+          document.getElementById('editBrokerStatus').value = broker.status || 'active';
+          document.getElementById('editBrokerNotes').value = broker.notes || '';
+          
+          // Show modal
+          const modal = new bootstrap.Modal(document.getElementById('editBrokerModal'));
+          modal.show();
+        } else {
+          alert('فشل في تحميل بيانات الوسيط');
+        }
+      } catch (error) {
+        console.error('Error loading broker for edit:', error);
+        alert('حدث خطأ في تحميل بيانات الوسيط');
+      }
+    }
+
+    // Update broker
+    async function updateBroker() {
+      const form = document.getElementById('editBrokerForm');
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      const brokerId = data.editBrokerId;
+
+      // Validation
+      if (!data.editBrokerName || data.editBrokerName.trim() === '') {
+        alert('يرجى إدخال اسم الوسيط');
+        return;
+      }
+
+      // Show loading state
+      const saveBtn = document.querySelector('#editBrokerModal .btn-primary');
+      const originalText = saveBtn.innerHTML;
+      saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
+      saveBtn.disabled = true;
+
+      try {
+        const response = await fetch(`/api/brokers/${brokerId}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name: data.editBrokerName,
+            phone: data.editBrokerPhone || '',
+            email: data.editBrokerEmail || '',
+            commission_rate: parseFloat(data.editBrokerCommissionRate) / 100 || 0,
+            address: data.editBrokerAddress || '',
+            status: data.editBrokerStatus || 'active',
+            notes: data.editBrokerNotes || ''
+          })
+        });
+
+        if (response.ok) {
+          alert('تم تحديث بيانات الوسيط بنجاح!');
+          
+          // Close modal and reset form
+          const modal = bootstrap.Modal.getInstance(document.getElementById('editBrokerModal'));
+          modal.hide();
+          form.reset();
+          
+          // Reload brokers data
+          await loadBrokersData();
+        } else {
+          const error = await response.json();
+          alert(`حدث خطأ: ${error.error}`);
+        }
+      } catch (error) {
+        console.error('Error updating broker:', error);
+        alert('حدث خطأ في الاتصال بالخادم');
+      } finally {
+        // Reset button state
+        saveBtn.innerHTML = originalText;
+        saveBtn.disabled = false;
+      }
+    }
+
+    // Delete broker
+    async function deleteBroker(brokerId, brokerName) {
+      if (!confirm(`هل أنت متأكد من حذف الوسيط "${brokerName}"؟\n\nهذا الإجراء لا يمكن التراجع عنه.`)) {
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/brokers/${brokerId}`, {
+          method: 'DELETE'
+        });
+
+        if (response.ok) {
+          alert('تم حذف الوسيط بنجاح!');
+          await loadBrokersData();
+        } else {
+          const error = await response.json();
+          alert(`حدث خطأ: ${error.error}`);
+        }
+      } catch (error) {
+        console.error('Error deleting broker:', error);
+        alert('حدث خطأ في الاتصال بالخادم');
+      }
+    }
+
+    // Load brokers data when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      loadCommissionsData();
+      loadBrokersData();
+    });
+
+    // Reset edit form when modal is closed
+    document.getElementById('editBrokerModal').addEventListener('hidden.bs.modal', function () {
+      document.getElementById('editBrokerForm').reset();
+    });
+
+    // ===== نظام تقارير الوسطاء =====
+
+    // Global variables for reports
+    let currentBrokerReport = [];
+    let currentBrokerStatistics = {};
+
+    // Load brokers for report selection
+    async function loadBrokersForReports() {
+      try {
+        const response = await fetch('/api/brokers');
+        if (response.ok) {
+          const brokers = await response.json();
+          const brokerSelect = document.getElementById('brokerSelect');
+          
+          // Clear existing options except "all"
+          brokerSelect.innerHTML = '<option value="all">جميع الوسطاء</option>';
+          
+          // Add broker options
+          brokers.forEach(broker => {
+            const option = document.createElement('option');
+            option.value = broker.id;
+            option.textContent = broker.name;
+            brokerSelect.appendChild(option);
+          });
+        }
+      } catch (error) {
+        console.error('Error loading brokers for reports:', error);
+      }
+    }
+
+    // Generate broker report
+    async function generateBrokerReport() {
+      const brokerId = document.getElementById('brokerSelect').value;
+      const loadingSpinner = document.getElementById('reportLoadingSpinner');
+      const statisticsCards = document.getElementById('brokerStatisticsCards');
+      const reportTable = document.getElementById('brokerReportTable');
+      const noDataMessage = document.getElementById('reportNoDataMessage');
+      const downloadBtn = document.getElementById('downloadReportBtn');
+      const printBtn = document.getElementById('printReportBtn');
+
+      // Show loading
+      loadingSpinner.style.display = 'block';
+      statisticsCards.style.display = 'none';
+      reportTable.style.display = 'none';
+      noDataMessage.style.display = 'none';
+      downloadBtn.style.display = 'none';
+      printBtn.style.display = 'none';
+
+      try {
+        // Load report data
+        const reportResponse = await fetch(`/api/broker-reports/${brokerId}`);
+        const statisticsResponse = await fetch(`/api/broker-statistics/${brokerId}`);
+
+        console.log('Report Response Status:', reportResponse.status);
+        console.log('Statistics Response Status:', statisticsResponse.status);
+
+        if (reportResponse.ok && statisticsResponse.ok) {
+          const reportData = await reportResponse.json();
+          const statisticsData = await statisticsResponse.json();
+
+          console.log('Report Data:', reportData);
+          console.log('Statistics Data:', statisticsData);
+
+          currentBrokerReport = reportData;
+          currentBrokerStatistics = statisticsData;
+
+          // Hide loading
+          loadingSpinner.style.display = 'none';
+
+          if (!reportData || reportData.length === 0) {
+            noDataMessage.style.display = 'block';
+            noDataMessage.innerHTML = `
+              <i class="fas fa-info-circle fa-3x text-info mb-3"></i>
+              <h4 class="text-info">لا توجد بيانات</h4>
+              <p class="text-muted">لا توجد عقود للوسيط المحدد</p>
+            `;
+            return;
+          }
+
+          // Display statistics
+          displayBrokerStatistics(statisticsData);
+          statisticsCards.style.display = 'block';
+
+          // Display report table
+          displayBrokerReportTable(reportData);
+          reportTable.style.display = 'block';
+
+          // Show action buttons
+          downloadBtn.style.display = 'inline-block';
+          printBtn.style.display = 'inline-block';
+
+        } else {
+          const reportError = await reportResponse.text();
+          const statisticsError = await statisticsResponse.text();
+          console.error('Report Error:', reportError);
+          console.error('Statistics Error:', statisticsError);
+          throw new Error(`فشل في تحميل بيانات التقرير: ${reportResponse.status} - ${statisticsResponse.status}`);
+        }
+      } catch (error) {
+        console.error('Error generating report:', error);
+        loadingSpinner.style.display = 'none';
+        noDataMessage.style.display = 'block';
+        noDataMessage.innerHTML = `
+          <i class="fas fa-exclamation-triangle fa-3x text-danger mb-3"></i>
+          <h4 class="text-danger">خطأ في إنشاء التقرير</h4>
+          <p class="text-muted">${error.message}</p>
+        `;
+      }
+    }
+
+    // Display broker statistics
+    function displayBrokerStatistics(statistics) {
+      console.log('Displaying statistics:', statistics);
+      document.getElementById('totalContracts').textContent = statistics.total_contracts || 0;
+      document.getElementById('totalRentValue').textContent = formatCurrency(statistics.total_rent_value || 0);
+      document.getElementById('totalCommission').textContent = formatCurrency(statistics.total_commission || 0);
+      document.getElementById('netCommission').textContent = formatCurrency(statistics.net_commission || 0);
+    }
+
+    // Display broker report table
+    function displayBrokerReportTable(reportData) {
+      console.log('Displaying report table:', reportData);
+      const tableBody = document.getElementById('brokerReportTableBody');
+      tableBody.innerHTML = '';
+
+      let totalCommission = 0;
+      let totalCommissionDeduction = 0;
+      let totalAttestationValue = 0;
+      let totalAttestationDeduction = 0;
+      let totalRepresentativeCommission = 0;
+      let totalRepresentativeAttestation = 0;
+      let totalOfficeCommission = 0;
+      let totalForRepresentative = 0;
+
+      reportData.forEach(contract => {
+        console.log('Processing contract:', contract);
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${contract.contract_number || ''}</td>
+          <td>${contract.client_name || ''}</td>
+          <td>${contract.unit_number || ''}</td>
+          <td>${formatCurrency(contract.rent_value || 0)}</td>
+          <td>${formatCurrency(contract.total_commission || 0)}</td>
+          <td>${formatCurrency(contract.commission_deduction || 0)}</td>
+          <td>${formatCurrency(contract.attestation_value || 0)}</td>
+          <td>${formatCurrency(contract.attestation_deduction || 0)}</td>
+          <td>${formatCurrency(contract.representative_commission || 0)}</td>
+          <td>${formatCurrency(contract.representative_attestation || 0)}</td>
+          <td>${formatCurrency(contract.office_commission_internal || 0)}</td>
+          <td>${formatCurrency((parseFloat(contract.representative_commission || 0) + parseFloat(contract.representative_attestation || 0)))}</td>
+          <td>${contract.contract_date || ''}</td>
+        `;
+        tableBody.appendChild(row);
+
+        // Calculate totals
+        totalCommission += parseFloat(contract.total_commission || 0);
+        totalCommissionDeduction += parseFloat(contract.commission_deduction || 0);
+        totalAttestationValue += parseFloat(contract.attestation_value || 0);
+        totalAttestationDeduction += parseFloat(contract.attestation_deduction || 0);
+        totalRepresentativeCommission += parseFloat(contract.representative_commission || 0);
+        totalRepresentativeAttestation += parseFloat(contract.representative_attestation || 0);
+        totalOfficeCommission += parseFloat(contract.office_commission_internal || 0);
+        totalForRepresentative += parseFloat(contract.representative_commission || 0) + parseFloat(contract.representative_attestation || 0);
+      });
+
+      // Update totals
+      document.getElementById('reportTotalCommission').textContent = formatCurrency(totalCommission);
+      document.getElementById('reportTotalCommissionDeduction').textContent = formatCurrency(totalCommissionDeduction);
+      document.getElementById('reportTotalAttestationValue').textContent = formatCurrency(totalAttestationValue);
+      document.getElementById('reportTotalAttestationDeduction').textContent = formatCurrency(totalAttestationDeduction);
+      document.getElementById('reportTotalRepresentativeCommission').textContent = formatCurrency(totalRepresentativeCommission);
+      document.getElementById('reportTotalRepresentativeAttestation').textContent = formatCurrency(totalRepresentativeAttestation);
+      document.getElementById('reportTotalOfficeCommission').textContent = formatCurrency(totalOfficeCommission);
+      document.getElementById('reportTotalForRepresentative').textContent = formatCurrency(totalForRepresentative);
+    }
+
+    // Download broker report as Excel
+    function downloadBrokerReport() {
+      if (currentBrokerReport.length === 0) {
+        alert('لا توجد بيانات للتنزيل');
+        return;
+      }
+
+      const brokerId = document.getElementById('brokerSelect').value;
+      const brokerName = brokerId === 'all' ? 'جميع الوسطاء' : 
+        document.getElementById('brokerSelect').options[document.getElementById('brokerSelect').selectedIndex].text;
+
+      // Create CSV content
+      let csvContent = '\uFEFF'; // BOM for Arabic
+      csvContent += 'رقم العقد,اسم العميل,رقم الوحدة,قيمة الإيجار,العمولة الإجمالية,الخارج من العمولة,قيمة التصديقات,الخارج من التصديقات,عمولة المندوب,التصديقات للمندوب,عمولة المكتب,الإجمالي للمندوب,تاريخ العقد\n';
+
+      currentBrokerReport.forEach(contract => {
+        const row = [
+          contract.contract_number || '',
+          contract.client_name || '',
+          contract.unit_number || '',
+          contract.rent_value || 0,
+          contract.total_commission || 0,
+          contract.commission_deduction || 0,
+          contract.attestation_value || 0,
+          contract.attestation_deduction || 0,
+          contract.representative_commission || 0,
+          contract.representative_attestation || 0,
+          contract.office_commission_internal || 0,
+          (parseFloat(contract.representative_commission || 0) + parseFloat(contract.representative_attestation || 0)),
+          contract.contract_date || ''
+        ];
+        csvContent += row.join(',') + '\n';
+      });
+
+      // Add totals row
+      const totals = [
+        'الإجمالي',
+        '',
+        '',
+        currentBrokerStatistics.total_rent_value || 0,
+        currentBrokerStatistics.total_commission || 0,
+        currentBrokerStatistics.total_commission_deduction || 0,
+        currentBrokerStatistics.total_attestation_value || 0,
+        currentBrokerStatistics.total_attestation_deduction || 0,
+        currentBrokerStatistics.total_representative_commission || 0,
+        currentBrokerStatistics.total_representative_attestation || 0,
+        currentBrokerStatistics.total_office_commission || 0,
+        currentBrokerStatistics.net_commission || 0,
+        ''
+      ];
+      csvContent += totals.join(',') + '\n';
+
+      // Create and download file
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', `تقرير_الوسيط_${brokerName}_${new Date().toISOString().split('T')[0]}.csv`);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // Print broker report
+    function printBrokerReport() {
+      if (currentBrokerReport.length === 0) {
+        alert('لا توجد بيانات للطباعة');
+        return;
+      }
+
+      const brokerId = document.getElementById('brokerSelect').value;
+      const brokerName = brokerId === 'all' ? 'جميع الوسطاء' : 
+        document.getElementById('brokerSelect').options[document.getElementById('brokerSelect').selectedIndex].text;
+
+      // Create print window
+      const printWindow = window.open('', '_blank');
+      printWindow.document.write(`
+        <!DOCTYPE html>
+        <html dir="rtl" lang="ar">
+        <head>
+          <meta charset="UTF-8">
+          <title>تقرير الوسيط - ${brokerName}</title>
+          <style>
+            body { font-family: 'Cairo', Arial, sans-serif; margin: 20px; }
+            .header { text-align: center; margin-bottom: 30px; }
+            .header h1 { color: #23272f; margin-bottom: 10px; }
+            .header p { color: #666; }
+            .stats { display: flex; justify-content: space-around; margin-bottom: 30px; }
+            .stat-card { text-align: center; padding: 15px; border: 1px solid #ddd; border-radius: 8px; }
+            .stat-card h3 { margin: 0; color: #23272f; }
+            .stat-card p { margin: 5px 0 0 0; color: #666; }
+            table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+            th, td { border: 1px solid #ddd; padding: 8px; text-align: right; }
+            th { background-color: #23272f; color: white; }
+            .totals { font-weight: bold; background-color: #f8f9fa; }
+            @media print {
+              body { margin: 0; }
+              .no-print { display: none; }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h1>تقرير عمولات الوسطاء</h1>
+            <p>الوسيط: ${brokerName}</p>
+            <p>تاريخ التقرير: ${new Date().toLocaleDateString('ar-EG')}</p>
+          </div>
+
+          <div class="stats">
+            <div class="stat-card">
+              <h3>${currentBrokerStatistics.total_contracts || 0}</h3>
+              <p>إجمالي العقود</p>
+            </div>
+            <div class="stat-card">
+              <h3>${formatCurrency(currentBrokerStatistics.total_rent_value || 0)}</h3>
+              <p>إجمالي قيمة الإيجار</p>
+            </div>
+            <div class="stat-card">
+              <h3>${formatCurrency(currentBrokerStatistics.total_commission || 0)}</h3>
+              <p>إجمالي العمولة</p>
+            </div>
+            <div class="stat-card">
+              <h3>${formatCurrency(currentBrokerStatistics.net_commission || 0)}</h3>
+              <p>صافي العمولة</p>
+            </div>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>رقم العقد</th>
+                <th>اسم العميل</th>
+                <th>رقم الوحدة</th>
+                <th>قيمة الإيجار</th>
+                <th>العمولة الإجمالية</th>
+                <th>الخارج من العمولة</th>
+                <th>قيمة التصديقات</th>
+                <th>الخارج من التصديقات</th>
+                <th>عمولة المندوب</th>
+                <th>التصديقات للمندوب</th>
+                <th>عمولة المكتب</th>
+                <th>الإجمالي للمندوب</th>
+                <th>تاريخ العقد</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${currentBrokerReport.map(contract => `
+                <tr>
+                  <td>${contract.contract_number || ''}</td>
+                  <td>${contract.client_name || ''}</td>
+                  <td>${contract.unit_number || ''}</td>
+                  <td>${formatCurrency(contract.rent_value || 0)}</td>
+                  <td>${formatCurrency(contract.total_commission || 0)}</td>
+                  <td>${formatCurrency(contract.commission_deduction || 0)}</td>
+                  <td>${formatCurrency(contract.attestation_value || 0)}</td>
+                  <td>${formatCurrency(contract.attestation_deduction || 0)}</td>
+                  <td>${formatCurrency(contract.representative_commission || 0)}</td>
+                  <td>${formatCurrency(contract.representative_attestation || 0)}</td>
+                  <td>${formatCurrency(contract.office_commission_internal || 0)}</td>
+                  <td>${formatCurrency((parseFloat(contract.representative_commission || 0) + parseFloat(contract.representative_attestation || 0)))}</td>
+                  <td>${contract.contract_date || ''}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+            <tfoot>
+              <tr class="totals">
+                <td colspan="4">الإجمالي</td>
+                <td>${formatCurrency(currentBrokerStatistics.total_commission || 0)}</td>
+                <td>${formatCurrency(currentBrokerStatistics.total_commission_deduction || 0)}</td>
+                <td>${formatCurrency(currentBrokerStatistics.total_attestation_value || 0)}</td>
+                <td>${formatCurrency(currentBrokerStatistics.total_attestation_deduction || 0)}</td>
+                <td>${formatCurrency(currentBrokerStatistics.total_representative_commission || 0)}</td>
+                <td>${formatCurrency(currentBrokerStatistics.total_representative_attestation || 0)}</td>
+                <td>${formatCurrency(currentBrokerStatistics.total_office_commission || 0)}</td>
+                <td>${formatCurrency(currentBrokerStatistics.net_commission || 0)}</td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+
+          <div class="no-print" style="margin-top: 30px; text-align: center;">
+            <button onclick="window.print()">طباعة التقرير</button>
+            <button onclick="window.close()">إغلاق</button>
+          </div>
+        </body>
+        </html>
+      `);
+      printWindow.document.close();
+    }
+
+    // Load brokers when reports modal is shown
+    document.getElementById('brokerReportsModal').addEventListener('shown.bs.modal', function () {
+      loadBrokersForReports();
+    });
+
+    // Reset report modal when closed
+    document.getElementById('brokerReportsModal').addEventListener('hidden.bs.modal', function () {
+      const statisticsCards = document.getElementById('brokerStatisticsCards');
+      const reportTable = document.getElementById('brokerReportTable');
+      const noDataMessage = document.getElementById('reportNoDataMessage');
+      const downloadBtn = document.getElementById('downloadReportBtn');
+      const printBtn = document.getElementById('printReportBtn');
+
+      statisticsCards.style.display = 'none';
+      reportTable.style.display = 'none';
+      noDataMessage.style.display = 'none';
+      downloadBtn.style.display = 'none';
+      printBtn.style.display = 'none';
+    });
+  </script>
+</body>
+</html> 

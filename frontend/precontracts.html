@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>عقود مبدئية - جولدن هوس للعقارات</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: 'Cairo', Tahoma, Arial, sans-serif; background: #f7f7f7; margin: 0; padding: 0; }
+    .container { max-width: 800px; margin: 40px auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0001; padding: 32px; }
+    h1 { text-align: center; color: #bfa046; }
+    .tabs { display: flex; justify-content: center; margin-bottom: 24px; }
+    .tab-btn { background: #eee; color: #333; border: none; padding: 12px 32px; font-size: 1.1em; border-radius: 8px 8px 0 0; margin: 0 2px; cursor: pointer; font-weight: bold; }
+    .tab-btn.active { background: #bfa046; color: #fff; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    label { display: block; margin-top: 16px; font-weight: bold; }
+    input, select, textarea { width: 100%; padding: 8px; margin-top: 4px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; }
+    button[type=submit] { margin-top: 24px; background: #bfa046; color: #fff; border: none; padding: 12px 32px; border-radius: 4px; font-size: 1.1em; cursor: pointer; }
+    button[type=submit]:hover { background: #a08a2a; }
+    table { width: 100%; border-collapse: collapse; margin-top: 32px; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+    th { background: #eee; }
+    .actions button { margin: 0 4px; }
+    @media (max-width: 600px) {
+      .container { padding: 8px; }
+      table, thead, tbody, th, td, tr { font-size: 0.95em; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div style="text-align:left; margin-bottom:16px;">
+      <a href="/" style="background:#bfa046;color:#fff;padding:8px 18px;border-radius:4px;text-decoration:none;font-weight:bold;">الصفحة الرئيسية</a>
+    </div>
+    <h1>عقود مبدئية</h1>
+    <div class="tabs">
+      <button class="tab-btn" onclick="showTab(0)">إضافة عقد مبدئي</button>
+      <button class="tab-btn active" onclick="showTab(1)">العقود المسجلة</button>
+    </div>
+    <div class="tab-content" id="tab-add">
+      <form id="precontractForm">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div>
+            <label>اسم العميل</label>
+            <input type="text" name="client_name" required>
+          </div>
+          <div>
+            <label>رقم الوحدة</label>
+            <input type="text" name="unit_number" required>
+          </div>
+          <div>
+            <label>قيمة الإيجار</label>
+            <input type="number" name="rent_value" required>
+          </div>
+          <div>
+            <label>الدفعات</label>
+            <input type="text" name="payments" required>
+          </div>
+          <div>
+            <label>التأمين</label>
+            <input type="number" name="insurance">
+          </div>
+          <div>
+            <label>رقم الهاتف</label>
+            <input type="text" name="phone" required>
+          </div>
+          <div>
+            <label>البريد الإلكتروني</label>
+            <input type="email" name="email">
+          </div>
+          <div>
+            <label>عمولة المكتب</label>
+            <input type="number" name="office_commission">
+          </div>
+          <div>
+            <label>مصاريف الإدارة</label>
+            <input type="number" name="admin_expenses">
+          </div>
+          <div>
+            <label>قيمة الأونلاين</label>
+            <input type="number" name="online_value">
+          </div>
+          <div>
+            <label>الصرف الصحي</label>
+            <input type="number" name="sanitation">
+          </div>
+          <div>
+            <label>تفعيل الكهرباء</label>
+            <input type="number" name="extra_electricity">
+          </div>
+        </div>
+        <div style="margin-top: 16px;">
+          <label>تفاصيل إضافية</label>
+          <textarea name="details" rows="4"></textarea>
+        </div>
+        <button type="submit">حفظ العقد المبدئي</button>
+      </form>
+    </div>
+    <div class="tab-content active" id="tab-list">
+      <div id="precontractsTable"></div>
+    </div>
+  </div>
+  <script>
+    function showTab(idx) {
+      document.querySelectorAll('.tab-btn').forEach((btn, i) => btn.classList.toggle('active', i===idx));
+      document.querySelectorAll('.tab-content').forEach((tab, i) => tab.classList.toggle('active', i===idx));
+    }
+
+    // نموذج إضافة عقد مبدئي (باستخدام API)
+    const precontractsTable = document.getElementById('precontractsTable');
+
+    async function renderTable() {
+      const res = await fetch('/api/precontracts');
+      const precontracts = await res.json();
+      if (!precontracts.length) {
+        precontractsTable.innerHTML = '<p style="text-align:center;">لا يوجد عقود مبدئية بعد.</p>';
+        return;
+      }
+      let html = `<table><thead><tr><th>رقم العقد</th><th>اسم العميل</th><th>رقم الوحدة</th><th>قيمة الإيجار</th><th>الدفعات</th><th>التأمين</th><th>الهاتف</th><th>الإيميل</th><th>عمولة المكتب</th><th>الإدارة</th><th>أونلاين</th><th>صرف صحي</th><th>تفعيل كهرباء</th><th>تفاصيل</th><th>تاريخ الإضافة</th><th>حذف</th></tr></thead><tbody>`;
+      precontracts.forEach((c) => {
+        html += `<tr><td><b>${c.contract_number || ''}</b></td><td>${c.client_name}</td><td>${c.unit_number}</td><td>${c.rent_value}</td><td>${c.payments}</td><td>${c.insurance}</td><td>${c.phone}</td><td>${c.email}</td><td>${c.office_commission}</td><td>${c.admin_expenses}</td><td>${c.online_value}</td><td>${c.sanitation}</td><td>${c.extra_electricity}</td><td>${c.details}</td><td>${c.created_at || ''}</td><td><button onclick="deletePrecontract(${c.id})" style="color:red;">حذف</button></td></tr>`;
+      });
+      html += '</tbody></table>';
+      precontractsTable.innerHTML = html;
+    }
+
+    async function deletePrecontract(id) {
+      if (!confirm('هل أنت متأكد من حذف هذا العقد؟')) return;
+      await fetch(`/api/precontract/${id}`, {method:'DELETE'});
+      renderTable();
+    }
+
+    // معالجة إرسال نموذج العقد المبدئي
+    document.getElementById('precontractForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+      
+      // تحويل القيم الرقمية
+      const numericFields = ['rent_value', 'insurance', 'office_commission', 'admin_expenses', 'online_value', 'sanitation', 'extra_electricity'];
+      numericFields.forEach(field => {
+        if (data[field]) {
+          data[field] = parseFloat(data[field]);
+        }
+      });
+      
+      try {
+        const response = await fetch('/api/precontract', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+        
+        if (response.ok) {
+          const result = await response.json();
+          alert(`تم حفظ العقد المبدئي بنجاح!\nرقم العقد: ${result.contract_number}`);
+          this.reset(); // مسح النموذج
+          showTab(1); // الانتقال لتبويب العقود المسجلة
+          renderTable(); // تحديث الجدول
+        } else {
+          const error = await response.json();
+          alert(`حدث خطأ أثناء الحفظ: ${error.error}`);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('حدث خطأ في الاتصال بالخادم');
+      }
+    });
+
+    // تحميل الجدول عند تحميل الصفحة
+    document.addEventListener('DOMContentLoaded', function() {
+      renderTable();
+    });
+  </script>
+</body>
+</html> 

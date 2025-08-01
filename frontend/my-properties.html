@@ -1,0 +1,3799 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>عقاراتي | Golden House</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .header-buttons {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .btn-primary {
+      background: linear-gradient(45deg, #FFD700, #FFA500);
+      border: none;
+      border-radius: 25px;
+      padding: 10px 25px;
+      color: #333;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(45deg, #FFA500, #FF6347);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 165, 0, 0.4);
+      color: white;
+    }
+
+    .back-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 25px;
+      padding: 10px 25px;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .page-title {
+      color: white;
+      text-align: center;
+      font-size: 2.5em;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .page-subtitle {
+      color: rgba(255, 255, 255, 0.9);
+      text-align: center;
+      font-size: 1.2em;
+      margin-bottom: 40px;
+    }
+
+    .tabs-container {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      margin-bottom: 30px;
+    }
+
+    .nav-tabs {
+      border-bottom: 2px solid #FFD700;
+      margin-bottom: 30px;
+    }
+
+    .nav-tabs .nav-link {
+      border: none;
+      color: #666;
+      font-weight: 600;
+      padding: 15px 25px;
+      border-radius: 15px 15px 0 0;
+      transition: all 0.3s ease;
+    }
+
+    .nav-tabs .nav-link.active {
+      background: linear-gradient(45deg, #FFD700, #FFA500);
+      color: #333;
+      border: none;
+    }
+
+    .nav-tabs .nav-link:hover {
+      background: rgba(255, 215, 0, 0.1);
+      color: #333;
+    }
+
+    /* Payment Status Tab Styles */
+    .status-badge {
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 0.9em;
+    }
+
+    .status-pending {
+      background: linear-gradient(45deg, #ffecd2, #fcb69f);
+      color: #8b4513;
+    }
+
+    .status-paid-full {
+      background: linear-gradient(45deg, #a8e6cf, #56ab2f);
+      color: #fff;
+    }
+
+    .status-paid-partial {
+      background: linear-gradient(45deg, #ffecd2, #fcb69f);
+      color: #8b4513;
+    }
+
+    .status-overdue {
+      background: linear-gradient(45deg, #f093fb, #f5576c);
+      color: #fff;
+    }
+
+    .payment-card {
+      transition: transform 0.3s ease;
+    }
+
+    .payment-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .progress {
+      height: 8px;
+      border-radius: 10px;
+    }
+
+    .file-upload {
+      border: 2px dashed #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .file-upload:hover {
+      border-color: #667eea;
+      background: rgba(102, 126, 234, 0.1);
+    }
+
+    .file-upload.dragover {
+      border-color: #667eea;
+      background: rgba(102, 126, 234, 0.2);
+    }
+
+    .tab-content {
+      padding: 20px 0;
+    }
+
+    .add-card {
+      border: 2px solid #28a745;
+      background: linear-gradient(135deg, #f8fff9 0%, #e8f5e8 100%);
+      transition: all 0.3s ease;
+    }
+
+    .add-card .card-header {
+      background: linear-gradient(45deg, #28a745, #20c997);
+      color: white;
+      border-radius: 15px 15px 0 0 !important;
+    }
+
+    .view-card {
+      border: 2px solid #007bff;
+      background: linear-gradient(135deg, #f8f9ff 0%, #e8f0ff 100%);
+      transition: all 0.3s ease;
+    }
+
+    .view-card .card-header {
+      background: linear-gradient(45deg, #007bff, #0056b3);
+      color: white;
+      border-radius: 15px 15px 0 0 !important;
+    }
+
+    .add-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(40, 167, 69, 0.2);
+    }
+
+    .view-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 123, 255, 0.2);
+    }
+
+    .card-body {
+      padding: 1.5rem;
+    }
+
+    .card-text {
+      color: #666;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .btn {
+      border-radius: 25px;
+      font-weight: 600;
+      padding: 10px 20px;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Modal Styles */
+    .modal-content {
+      border-radius: 15px;
+      border: none;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .modal-header {
+      background: linear-gradient(45deg, #28a745, #20c997);
+      color: white;
+      border-radius: 15px 15px 0 0;
+      border: none;
+    }
+
+    .modal-header .btn-close {
+      filter: invert(1);
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-control {
+      border-radius: 8px;
+      border: 2px solid #e9ecef;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: #28a745;
+      box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+    }
+
+    .form-text {
+      color: #6c757d;
+      font-size: 0.875rem;
+    }
+
+    .modal-footer {
+      border-top: 1px solid #e9ecef;
+      padding: 1rem;
+    }
+
+    .modal-footer .btn {
+      border-radius: 25px;
+      padding: 8px 20px;
+      font-weight: 600;
+    }
+
+    .card {
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      margin-bottom: 20px;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .card-header {
+      background: linear-gradient(45deg, #FFD700, #FFA500);
+      color: #333;
+      border-radius: 15px 15px 0 0 !important;
+      font-weight: 700;
+    }
+
+    .status-available {
+      color: #28a745;
+      font-weight: 600;
+    }
+
+    .status-rented {
+      color: #dc3545;
+      font-weight: 600;
+    }
+
+    .status-sold {
+      color: #6c757d;
+      font-weight: 600;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #FFD700;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <img src="images/logo.png" alt="Golden House Logo" class="logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+      <div style="display:none; font-size: 2em;">🏠</div>
+      <div class="header-buttons">
+        <a href="/" class="back-btn">
+          <i class="fas fa-arrow-right"></i>
+          العودة للرئيسية
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <h1 class="page-title">عقاراتي</h1>
+    <p class="page-subtitle">إدارة عقاراتي وبناياتي ووحداتي</p>
+
+    <div class="tabs-container">
+      <!-- Tabs -->
+      <ul class="nav nav-tabs" id="myPropertiesTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="add-tab" data-bs-toggle="tab" data-bs-target="#add" type="button" role="tab">
+            <i class="fas fa-plus-circle"></i>
+            إضافة
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="view-tab" data-bs-toggle="tab" data-bs-target="#view" type="button" role="tab">
+            <i class="fas fa-eye"></i>
+            استعراض
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="payment-status-tab" data-bs-toggle="tab" data-bs-target="#payment-status" type="button" role="tab">
+            <i class="fas fa-credit-card"></i>
+            حالة الدفعات
+          </button>
+        </li>
+      </ul>
+
+      <!-- Tab Content -->
+      <div class="tab-content" id="myPropertiesTabContent">
+        <!-- Add Tab -->
+        <div class="tab-pane fade show active" id="add" role="tabpanel">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3><i class="fas fa-plus-circle"></i> إضافة بيانات جديدة</h3>
+          </div>
+          
+          <div class="row">
+            <!-- Add Building Card -->
+            <div class="col-md-6 col-lg-3 mb-4">
+              <div class="card add-card">
+                <div class="card-header">
+                  <h5 class="card-title mb-0">
+                    <i class="fas fa-building"></i>
+                    إضافة بناية
+                  </h5>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">أضف بناية جديدة مع تفاصيلها ومستنداتها</p>
+                  <button class="btn btn-success w-100" onclick="openAddBuildingModal()">
+                    <i class="fas fa-plus"></i>
+                    إضافة بناية
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+
+            
+            <!-- Add Payment Card -->
+            <div class="col-md-6 col-lg-3 mb-4">
+              <div class="card add-card">
+                <div class="card-header">
+                  <h5 class="card-title mb-0">
+                    <i class="fas fa-money-bill-wave"></i>
+                    إضافة دفعة
+                  </h5>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">أضف دفعة جديدة مع تفاصيلها ومستنداتها</p>
+                  <button class="btn btn-success w-100" onclick="openAddPaymentModal()">
+                    <i class="fas fa-plus"></i>
+                    إضافة دفعة
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Add Invoice Card -->
+            <div class="col-md-6 col-lg-3 mb-4">
+              <div class="card add-card">
+                <div class="card-header">
+                  <h5 class="card-title mb-0">
+                    <i class="fas fa-file-invoice"></i>
+                    إضافة فاتورة
+                  </h5>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">أضف فاتورة كهرباء أو صرف صحي</p>
+                  <button class="btn btn-success w-100" onclick="openAddInvoiceModal()">
+                    <i class="fas fa-plus"></i>
+                    إضافة فاتورة
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- View Tab -->
+        <div class="tab-pane fade" id="view" role="tabpanel">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3><i class="fas fa-search"></i> استعراض البيانات</h3>
+          </div>
+          
+          <div class="row">
+            <div class="col-12">
+              <div class="card view-card">
+                <div class="card-header">
+                  <h5 class="card-title mb-0">
+                    <i class="fas fa-search"></i>
+                    استعراض شامل للبيانات
+                  </h5>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-4 mb-3">
+                      <label for="viewBuildingSelect" class="form-label">
+                        <i class="fas fa-building"></i> اختر البناية
+                      </label>
+                      <select class="form-control" id="viewBuildingSelect" onchange="loadUnitsForView()">
+                        <option value="">اختر البناية لعرض تفاصيلها</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                      <label for="viewUnitSelect" class="form-label">
+                        <i class="fas fa-home"></i> اختر الوحدة
+                      </label>
+                      <select class="form-control" id="viewUnitSelect" onchange="loadUnitDetails()" disabled>
+                        <option value="">اختر الوحدة لعرض تفاصيلها</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                      <label for="viewDataType" class="form-label">
+                        <i class="fas fa-filter"></i> نوع البيانات
+                      </label>
+                      <select class="form-control" id="viewDataType" onchange="loadDataByType()">
+                        <option value="">اختر نوع البيانات</option>
+                        <option value="units">الوحدات</option>
+                        <option value="payments">الدفعات</option>
+                        <option value="invoices">الفواتير</option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <!-- Results Container -->
+                  <div id="viewResults" class="mt-4" style="display: none;">
+                    <div class="card">
+                      <div class="card-header bg-primary text-white">
+                        <h6 class="mb-0" id="resultsTitle">
+                          <i class="fas fa-list"></i> نتائج البحث
+                        </h6>
+                      </div>
+                      <div class="card-body">
+                        <div id="resultsContent">
+                          <!-- Results will be loaded here -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Quick Actions -->
+                  <div class="row mt-4">
+                    <div class="col-12">
+                      <h6 class="text-muted mb-3">
+                        <i class="fas fa-bolt"></i> إجراءات سريعة
+                      </h6>
+                      <div class="d-flex flex-wrap gap-2">
+                        <button class="btn btn-outline-primary btn-sm" onclick="loadAllBuildings()">
+                          <i class="fas fa-building"></i> جميع البنايات
+                        </button>
+                        <button class="btn btn-outline-success btn-sm" onclick="loadAllUnits()">
+                          <i class="fas fa-home"></i> جميع الوحدات
+                        </button>
+                        <button class="btn btn-outline-info btn-sm" onclick="loadAllPayments()">
+                          <i class="fas fa-money-bill-wave"></i> جميع الدفعات
+                        </button>
+                        <button class="btn btn-outline-warning btn-sm" onclick="loadAllInvoices()">
+                          <i class="fas fa-file-invoice"></i> جميع الفواتير
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment Status Tab -->
+        <div class="tab-pane fade" id="payment-status" role="tabpanel">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3><i class="fas fa-credit-card"></i> حالة الدفعات</h3>
+          </div>
+          
+          <div class="row">
+            <div class="col-12">
+              <div class="card view-card">
+                <div class="card-header">
+                  <h5 class="card-title mb-0">
+                    <i class="fas fa-credit-card"></i>
+                    تحديث حالة الدفعات وإضافة مستندات القبض
+                  </h5>
+                </div>
+                <div class="card-body">
+                  <!-- فلتر الوحدات -->
+                  <div class="row mb-4">
+                    <div class="col-md-6">
+                      <label class="form-label">اختر المبنى:</label>
+                      <select id="buildingSelect" class="form-select">
+                        <option value="">جميع المباني</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">اختر الوحدة:</label>
+                      <select id="unitSelect" class="form-select">
+                        <option value="">جميع الوحدات</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- قائمة الدفعات -->
+                  <div id="paymentsList" class="row">
+                    <!-- سيتم تحميل الدفعات هنا -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Building Modal -->
+  <div class="modal fade" id="addBuildingModal" tabindex="-1" aria-labelledby="addBuildingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addBuildingModalLabel">
+            <i class="fas fa-building"></i>
+            إضافة بناية جديدة
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addBuildingForm">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="buildingName" class="form-label">اسم البناية *</label>
+                <input type="text" class="form-control" id="buildingName" name="name" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="buildingAddress" class="form-label">عنوان البناية</label>
+                <input type="text" class="form-control" id="buildingAddress" name="address">
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="totalUnits" class="form-label">عدد الوحدات</label>
+                <input type="number" class="form-control" id="totalUnits" name="total_units" min="1">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="buildingDescription" class="form-label">وصف البناية</label>
+                <textarea class="form-control" id="buildingDescription" name="description" rows="3"></textarea>
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="buildingDocuments" class="form-label">مستندات البناية</label>
+              <input type="file" class="form-control" id="buildingDocuments" name="documents" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+              <div class="form-text">يمكنك رفع عدة ملفات (PDF, Word, صور)</div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+          <button type="button" class="btn btn-success" onclick="saveBuilding()">
+            <i class="fas fa-save"></i>
+            حفظ البناية
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- Add Payment Modal -->
+  <div class="modal fade" id="addPaymentModal" tabindex="-1" aria-labelledby="addPaymentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addPaymentModalLabel">
+            <i class="fas fa-money-bill-wave"></i>
+            إضافة دفعة جديدة
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addPaymentForm">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="paymentBuilding" class="form-label">البناية *</label>
+                <select class="form-control" id="paymentBuilding" name="building_id" required onchange="loadUnitsForPayment()">
+                  <option value="">اختر البناية</option>
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="paymentUnit" class="form-label">الوحدة *</label>
+                <select class="form-control" id="paymentUnit" name="unit_id" required disabled>
+                  <option value="">اختر الوحدة أولاً</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label for="paymentAmount" class="form-label">إجمالي المبلغ (درهم) *</label>
+                <input type="number" class="form-control" id="paymentAmount" name="amount" min="0" step="0.01" required onchange="generatePaymentInstallments()">
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="paymentDate" class="form-label">تاريخ الدفعة الأولية *</label>
+                <input type="date" class="form-control" id="paymentDate" name="payment_date" required>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="paymentInstallments" class="form-label">عدد الدفعات</label>
+                <input type="number" class="form-control" id="paymentInstallments" name="installments" min="1" value="1" onchange="generatePaymentInstallments()">
+              </div>
+            </div>
+            
+            <!-- منطقة الدفعات الديناميكية -->
+            <div id="paymentInstallmentsContainer" class="mb-3" style="display: none;">
+              <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i>
+                <strong>ملاحظة:</strong> سيتم تقسيم إجمالي المبلغ على عدد الدفعات المحدد. يمكنك تعديل قيمة كل دفعة حسب الحاجة.
+              </div>
+              <h6 class="text-primary mb-3">
+                <i class="fas fa-money-bill-wave"></i> تفاصيل الدفعات المتعددة
+              </h6>
+              <div id="paymentInstallmentsList">
+                <!-- سيتم إنشاء الدفعات هنا ديناميكياً -->
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="paymentType" class="form-label">نوع الدفعة</label>
+                <select class="form-control" id="paymentType" name="payment_type">
+                  <option value="">اختر النوع</option>
+                  <option value="rent">إيجار</option>
+                  <option value="sale">بيع</option>
+                  <option value="deposit">عربون</option>
+                  <option value="maintenance">صيانة</option>
+                  <option value="other">أخرى</option>
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="paymentMethod" class="form-label">طريقة الدفع</label>
+                <select class="form-control" id="paymentMethod" name="payment_method">
+                  <option value="">اختر الطريقة</option>
+                  <option value="cash">نقداً</option>
+                  <option value="bank_transfer">تحويل بنكي</option>
+                  <option value="check">شيك</option>
+                  <option value="card">بطاقة ائتمان</option>
+                  <option value="other">أخرى</option>
+                </select>
+              </div>
+            </div>
+            
+
+            
+
+            
+            <div class="mb-3">
+              <label for="paymentDescription" class="form-label">وصف الدفعة</label>
+              <textarea class="form-control" id="paymentDescription" name="description" rows="3"></textarea>
+            </div>
+            
+            <div class="mb-3">
+              <label for="paymentDocuments" class="form-label">مستندات الدفعة</label>
+              <input type="file" class="form-control" id="paymentDocuments" name="documents" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+              <div class="form-text">يمكنك رفع عدة ملفات (PDF, Word, صور)</div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+          <button type="button" class="btn btn-success" onclick="savePayment()">
+            <i class="fas fa-save"></i>
+            حفظ الدفعة
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Invoice Modal -->
+  <div class="modal fade" id="addInvoiceModal" tabindex="-1" aria-labelledby="addInvoiceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addInvoiceModalLabel">
+            <i class="fas fa-file-invoice"></i>
+            إضافة فاتورة جديدة
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addInvoiceForm">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="invoiceBuilding" class="form-label">البناية *</label>
+                <select class="form-control" id="invoiceBuilding" name="building_id" required onchange="loadUnitsForInvoice()">
+                  <option value="">اختر البناية</option>
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="invoiceUnit" class="form-label">الوحدة *</label>
+                <select class="form-control" id="invoiceUnit" name="unit_id" required disabled onchange="updateInvoiceTenant()">
+                  <option value="">اختر الوحدة أولاً</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="invoiceType" class="form-label">نوع الفاتورة *</label>
+                <select class="form-control" id="invoiceType" name="invoice_type" required>
+                  <option value="">اختر النوع</option>
+                  <option value="electricity">كهرباء</option>
+                  <option value="sewage">صرف صحي</option>
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="invoiceAmount" class="form-label">مبلغ الفاتورة (درهم) *</label>
+                <input type="number" class="form-control" id="invoiceAmount" name="amount" min="0" step="0.01" required>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="invoiceDate" class="form-label">تاريخ الفاتورة *</label>
+                <input type="date" class="form-control" id="invoiceDate" name="invoice_date" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="invoiceTenant" class="form-label">المبلغ على المستأجر</label>
+                <input type="text" class="form-control" id="invoiceTenant" name="tenant_name" readonly>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="invoiceStatus" class="form-label">حالة الفاتورة</label>
+                <select class="form-control" id="invoiceStatus" name="status">
+                  <option value="unpaid">غير مدفوع</option>
+                  <option value="paid">مدفوع</option>
+                  <option value="overdue">متأخر</option>
+                  <option value="cancelled">ملغي</option>
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="invoiceDueDate" class="form-label">تاريخ الاستحقاق</label>
+                <input type="date" class="form-control" id="invoiceDueDate" name="due_date">
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="invoiceNumber" class="form-label">رقم الفاتورة</label>
+                <input type="text" class="form-control" id="invoiceNumber" name="invoice_number">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="invoiceProvider" class="form-label">مزود الخدمة</label>
+                <input type="text" class="form-control" id="invoiceProvider" name="provider">
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="invoiceDescription" class="form-label">وصف الفاتورة</label>
+              <textarea class="form-control" id="invoiceDescription" name="description" rows="3"></textarea>
+            </div>
+            
+            <div class="mb-3">
+              <label for="invoiceDocuments" class="form-label">مستندات الفاتورة</label>
+              <input type="file" class="form-control" id="invoiceDocuments" name="documents" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+              <div class="form-text">يمكنك رفع عدة ملفات (PDF, Word, صور)</div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+          <button type="button" class="btn btn-success" onclick="saveInvoice()">
+            <i class="fas fa-save"></i>
+            حفظ الفاتورة
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Check user authentication
+    document.addEventListener('DOMContentLoaded', function() {
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      if (!user.id) {
+        window.location.href = '/login';
+        return;
+      }
+      
+      // Store user ID globally
+      window.currentUserId = user.id;
+      
+      // Load initial data for view system
+      loadBuildingsForView();
+    });
+
+    // Modal functions for Add operations
+    function openAddBuildingModal() {
+      // Reset form
+      document.getElementById('addBuildingForm').reset();
+      
+      // Show modal
+      const modal = new bootstrap.Modal(document.getElementById('addBuildingModal'));
+      modal.show();
+    }
+
+    // Save building function
+    async function saveBuilding() {
+      try {
+        const form = document.getElementById('addBuildingForm');
+        const formData = new FormData(form);
+        
+        // Validate required fields
+        const name = formData.get('name');
+        if (!name.trim()) {
+          alert('اسم البناية مطلوب');
+          return;
+        }
+        
+        // Show loading
+        const saveBtn = document.querySelector('#addBuildingModal .btn-success');
+        const originalText = saveBtn.innerHTML;
+        saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
+        saveBtn.disabled = true;
+        
+        // Get user token
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        
+        // Send request
+        const response = await fetch('/api/buildings?token=' + token, {
+          method: 'POST',
+          body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+          alert('تم إضافة البناية بنجاح!');
+          const modal = bootstrap.Modal.getInstance(document.getElementById('addBuildingModal'));
+          modal.hide();
+          form.reset();
+        } else {
+          alert('حدث خطأ: ' + (result.error || 'خطأ غير معروف'));
+        }
+      } catch (error) {
+        console.error('Error saving building:', error);
+        alert('حدث خطأ في حفظ البناية');
+      } finally {
+        // Reset button
+        const saveBtn = document.querySelector('#addBuildingModal .btn-success');
+        saveBtn.innerHTML = '<i class="fas fa-save"></i> حفظ البناية';
+        saveBtn.disabled = false;
+      }
+    }
+
+    async function openAddUnitModal() {
+      // Reset form
+      document.getElementById('addUnitForm').reset();
+      
+      // Load buildings for dropdown
+      await loadBuildingsForUnits();
+      
+      // Show modal
+      const modal = new bootstrap.Modal(document.getElementById('addUnitModal'));
+      modal.show();
+    }
+    
+
+    
+
+    
+
+
+    function openAddPaymentModal() {
+      // Reset form
+      document.getElementById('addPaymentForm').reset();
+      
+      // Load buildings for dropdown
+      loadBuildingsForPayments();
+      
+      // Disable unit selection until building is selected
+      document.getElementById('paymentUnit').disabled = true;
+      document.getElementById('paymentUnit').innerHTML = '<option value="">اختر الوحدة أولاً</option>';
+      
+      // Set default date to today
+      document.getElementById('paymentDate').value = new Date().toISOString().split('T')[0];
+      
+      // Hide installments container initially
+      document.getElementById('paymentInstallmentsContainer').style.display = 'none';
+      
+      // Show modal
+      const modal = new bootstrap.Modal(document.getElementById('addPaymentModal'));
+      modal.show();
+    }
+    
+    // دالة إنشاء الدفعات الديناميكية في نموذج إضافة الدفعة
+    function generatePaymentInstallments() {
+      const installmentsCount = parseInt(document.getElementById('paymentInstallments').value) || 1;
+      const paymentAmount = parseFloat(document.getElementById('paymentAmount').value) || 0;
+      const paymentDate = document.getElementById('paymentDate').value;
+      const paymentType = document.getElementById('paymentType').value;
+      const paymentMethod = document.getElementById('paymentMethod').value;
+      
+      const installmentsContainer = document.getElementById('paymentInstallmentsContainer');
+      const installmentsList = document.getElementById('paymentInstallmentsList');
+      
+      // إظهار/إخفاء منطقة الدفعات حسب العدد
+      if (installmentsCount > 1) {
+        installmentsContainer.style.display = 'block';
+        // إخفاء الحقول الأساسية عند وجود دفعات متعددة
+        document.getElementById('paymentAmount').readOnly = true;
+        document.getElementById('paymentAmount').style.backgroundColor = '#f8f9fa';
+      } else {
+        installmentsContainer.style.display = 'none';
+        // إعادة تفعيل الحقول الأساسية
+        document.getElementById('paymentAmount').readOnly = false;
+        document.getElementById('paymentAmount').style.backgroundColor = '';
+        return;
+      }
+      
+      // حساب قيمة كل دفعة
+      const installmentAmount = paymentAmount / installmentsCount;
+      
+      let installmentsHtml = '';
+      
+      for (let i = 1; i <= installmentsCount; i++) {
+        // حساب تاريخ الدفعة (شهر واحد بين كل دفعة)
+        const dueDate = new Date();
+        if (paymentDate) {
+          dueDate.setTime(new Date(paymentDate).getTime());
+        }
+        dueDate.setMonth(dueDate.getMonth() + i);
+        const formattedDueDate = dueDate.toISOString().split('T')[0];
+        
+        installmentsHtml += `
+          <div class="card mb-3 payment-installment-card">
+            <div class="card-header bg-info text-white">
+              <h6 class="mb-0">
+                <i class="fas fa-money-bill"></i> الدفعة رقم ${i} من ${installmentsCount}
+              </h6>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4 mb-2">
+                  <label class="form-label">قيمة الدفعة (درهم)</label>
+                  <input type="number" class="form-control payment-installment-amount" 
+                         name="payment_installment_amount_${i}" 
+                         value="${installmentAmount.toFixed(2)}" 
+                         min="0" step="0.01" required>
+                </div>
+                <div class="col-md-4 mb-2">
+                  <label class="form-label">تاريخ الاستحقاق</label>
+                  <input type="date" class="form-control payment-installment-due-date" 
+                         name="payment_installment_due_date_${i}" 
+                         value="${formattedDueDate}" required>
+                </div>
+                <div class="col-md-4 mb-2">
+                  <label class="form-label">حالة الدفعة</label>
+                  <select class="form-control payment-installment-status" name="payment_installment_status_${i}">
+                    <option value="pending">في الانتظار</option>
+                    <option value="paid">مدفوع</option>
+                    <option value="overdue">متأخر</option>
+                    <option value="cancelled">ملغي</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-2">
+                  <label class="form-label">نوع الدفعة</label>
+                  <select class="form-control payment-installment-type" name="payment_installment_type_${i}">
+                    <option value="rent" ${paymentType === 'rent' ? 'selected' : ''}>إيجار</option>
+                    <option value="sale" ${paymentType === 'sale' ? 'selected' : ''}>بيع</option>
+                    <option value="deposit" ${paymentType === 'deposit' ? 'selected' : ''}>عربون</option>
+                    <option value="maintenance" ${paymentType === 'maintenance' ? 'selected' : ''}>صيانة</option>
+                    <option value="other" ${paymentType === 'other' ? 'selected' : ''}>أخرى</option>
+                  </select>
+                </div>
+                <div class="col-md-6 mb-2">
+                  <label class="form-label">طريقة الدفع</label>
+                  <select class="form-control payment-installment-method" name="payment_installment_method_${i}">
+                    <option value="cash" ${paymentMethod === 'cash' ? 'selected' : ''}>نقداً</option>
+                    <option value="bank_transfer" ${paymentMethod === 'bank_transfer' ? 'selected' : ''}>تحويل بنكي</option>
+                    <option value="check" ${paymentMethod === 'check' ? 'selected' : ''}>شيك</option>
+                    <option value="card" ${paymentMethod === 'card' ? 'selected' : ''}>بطاقة ائتمان</option>
+                    <option value="other" ${paymentMethod === 'other' ? 'selected' : ''}>أخرى</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 mb-2">
+                  <label class="form-label">ملاحظات الدفعة</label>
+                  <input type="text" class="form-control payment-installment-notes" 
+                         name="payment_installment_notes_${i}" 
+                         placeholder="ملاحظات إضافية للدفعة">
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+      
+      installmentsList.innerHTML = installmentsHtml;
+      
+      // إضافة event listeners للدفعات
+      addPaymentInstallmentEventListeners();
+    }
+    
+    // دالة إضافة event listeners لدفعات الدفع
+    function addPaymentInstallmentEventListeners() {
+      const installmentCards = document.querySelectorAll('.payment-installment-card');
+      
+      installmentCards.forEach((card, index) => {
+        const amountInput = card.querySelector('.payment-installment-amount');
+        const dueDateInput = card.querySelector('.payment-installment-due-date');
+        
+        if (amountInput) {
+          amountInput.addEventListener('change', function() {
+            updatePaymentTotalAmount();
+          });
+        }
+        
+        if (dueDateInput) {
+          dueDateInput.addEventListener('change', function() {
+            validatePaymentDueDates();
+          });
+        }
+      });
+    }
+    
+    // دالة تحديث إجمالي مبلغ الدفعات
+    function updatePaymentTotalAmount() {
+      const amountInputs = document.querySelectorAll('.payment-installment-amount');
+      let total = 0;
+      
+      amountInputs.forEach(input => {
+        total += parseFloat(input.value) || 0;
+      });
+      
+      console.log('إجمالي دفعات الدفع:', total);
+    }
+    
+    // دالة التحقق من صحة تواريخ الدفعات
+    function validatePaymentDueDates() {
+      const dueDateInputs = document.querySelectorAll('.payment-installment-due-date');
+      const dates = [];
+      
+      dueDateInputs.forEach(input => {
+        if (input.value) {
+          dates.push(new Date(input.value));
+        }
+      });
+      
+      // التحقق من أن التواريخ مرتبة
+      for (let i = 1; i < dates.length; i++) {
+        if (dates[i] <= dates[i-1]) {
+          alert('يجب أن تكون تواريخ الاستحقاق مرتبة ترتيباً تصاعدياً');
+          return false;
+        }
+      }
+      
+      return true;
+    }
+
+    function openAddInvoiceModal() {
+      // Reset form
+      document.getElementById('addInvoiceForm').reset();
+      
+      // Load buildings for dropdown
+      loadBuildingsForInvoices();
+      
+      // Disable unit selection until building is selected
+      document.getElementById('invoiceUnit').disabled = true;
+      document.getElementById('invoiceUnit').innerHTML = '<option value="">اختر الوحدة أولاً</option>';
+      
+      // Set default date to today
+      document.getElementById('invoiceDate').value = new Date().toISOString().split('T')[0];
+      
+      // Show modal
+      const modal = new bootstrap.Modal(document.getElementById('addInvoiceModal'));
+      modal.show();
+    }
+
+    // Modal functions for View operations
+    function openViewBuildingsModal() {
+      alert('سيتم إضافة نافذة استعراض البنايات قريباً');
+    }
+
+    async function openViewUnitsModal() {
+      try {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        
+        const response = await fetch('/api/units?token=' + token);
+        const units = await response.json();
+        
+        // إنشاء modal ديناميكي
+        const modalHtml = `
+          <div class="modal fade" id="viewUnitsModal" tabindex="-1" aria-labelledby="viewUnitsModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="viewUnitsModalLabel">
+                    <i class="fas fa-home"></i>
+                    استعراض الوحدات
+                  </h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                      <thead class="table-dark">
+                        <tr>
+                          <th>رقم الوحدة</th>
+                          <th>نوع الوحدة</th>
+                          <th>قيمة الإيجار</th>
+                          <th>اسم المستأجر</th>
+                          <th>هاتف المستأجر</th>
+                          <th>البريد الإلكتروني</th>
+                          <th>عدد الدفعات</th>
+                          <th>بداية العقد</th>
+                          <th>نهاية العقد</th>
+                          <th>حساب الكهرباء</th>
+                          <th>حساب الماء</th>
+                          <th>الحالة</th>
+                          <th>الإجراءات</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        ${units.map(unit => `
+                          <tr>
+                            <td>${unit.unit_number || '-'}</td>
+                            <td>${getUnitTypeName(unit.unit_type)}</td>
+                            <td>${unit.rent_value ? formatPrice(unit.rent_value) : '-'}</td>
+                            <td>${unit.tenant_name || '-'}</td>
+                            <td>${unit.tenant_phone || '-'}</td>
+                            <td>${unit.tenant_email || '-'}</td>
+                            <td>${unit.installments || 1}</td>
+                            <td>${unit.contract_start_date || '-'}</td>
+                            <td>${unit.contract_end_date || '-'}</td>
+                            <td>${unit.electricity_account || '-'}</td>
+                            <td>${unit.water_account || '-'}</td>
+                            <td>
+                              <span class="badge ${unit.status === 'available' ? 'bg-success' : 'bg-warning'}">
+                                ${unit.status === 'available' ? 'متاحة' : 'مؤجرة'}
+                              </span>
+                            </td>
+                            <td>
+                              <button class="btn btn-sm btn-warning" onclick="editUnit(${unit.id})">
+                                <i class="fas fa-edit"></i>
+                              </button>
+                              <button class="btn btn-sm btn-danger" onclick="deleteUnit(${unit.id})">
+                                <i class="fas fa-trash"></i>
+                              </button>
+                            </td>
+                          </tr>
+                        `).join('')}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        // إزالة modal سابق إذا وجد
+        const existingModal = document.getElementById('viewUnitsModal');
+        if (existingModal) {
+          existingModal.remove();
+        }
+        
+        // إضافة modal جديد
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+        
+        // عرض modal
+        const modal = new bootstrap.Modal(document.getElementById('viewUnitsModal'));
+        modal.show();
+        
+      } catch (error) {
+        console.error('Error loading units:', error);
+        alert('حدث خطأ في تحميل الوحدات');
+      }
+    }
+    
+    function getUnitTypeName(type) {
+      const types = {
+        'studio': 'استديو',
+        '1-bedroom': 'غرفة وصالة',
+        '2-bedroom': 'غرفتين وصالة',
+        '3-bedroom': 'ثلاث غرف وصالة',
+        'commercial': 'تجاري',
+        'villa': 'فيلا'
+      };
+      return types[type] || type;
+    }
+    
+    function formatPrice(price) {
+      return new Intl.NumberFormat('ar-EG', {
+        style: 'currency',
+        currency: 'AED'
+      }).format(price);
+    }
+    
+    async function editUnit(unitId) {
+      try {
+        console.log('Starting editUnit for unitId:', unitId);
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        
+        // التحقق من وجود modal
+        const modalElement = document.getElementById('addUnitModal');
+        if (!modalElement) {
+          console.error('Modal addUnitModal not found!');
+          alert('خطأ في تحميل النموذج');
+          return;
+        }
+        
+        console.log('Loading buildings...');
+        // تحميل البنايات أولاً
+        await loadBuildingsForUnits();
+        console.log('Buildings loaded successfully');
+        
+        console.log('Fetching unit data...');
+        const response = await fetch(`/api/units/${unitId}?token=${token}`);
+        const unit = await response.json();
+        console.log('Unit data:', unit);
+        
+        if (response.ok) {
+          console.log('Filling form with unit data...');
+          
+          // التحقق من وجود جميع العناصر
+          const elements = {
+            unitName: document.getElementById('unitName'),
+            unitBuilding: document.getElementById('unitBuilding'),
+            unitType: document.getElementById('unitType'),
+            unitRentValue: document.getElementById('unitRentValue'),
+            unitTenantName: document.getElementById('unitTenantName'),
+            unitTenantPhone: document.getElementById('unitTenantPhone'),
+            unitTenantEmail: document.getElementById('unitTenantEmail'),
+            unitContractStart: document.getElementById('unitContractStart'),
+            unitContractEnd: document.getElementById('unitContractEnd'),
+            unitElectricityAccount: document.getElementById('unitElectricityAccount'),
+            unitWaterAccount: document.getElementById('unitWaterAccount'),
+            unitDescription: document.getElementById('unitDescription')
+          };
+          
+          // التحقق من وجود جميع العناصر
+          for (const [key, element] of Object.entries(elements)) {
+            if (!element) {
+              console.error(`Element ${key} not found!`);
+              alert(`خطأ في تحميل النموذج: ${key} غير موجود`);
+              return;
+            }
+          }
+          
+          // ملء نموذج التعديل
+          elements.unitName.value = unit.unit_number || '';
+          elements.unitBuilding.value = unit.building_id || '';
+          elements.unitType.value = unit.unit_type || '';
+          elements.unitRentValue.value = unit.rent_value || '';
+          elements.unitTenantName.value = unit.tenant_name || '';
+          elements.unitTenantPhone.value = unit.tenant_phone || '';
+          elements.unitTenantEmail.value = unit.tenant_email || '';
+          elements.unitContractStart.value = unit.contract_start_date || '';
+          elements.unitContractEnd.value = unit.contract_end_date || '';
+          elements.unitElectricityAccount.value = unit.electricity_account || '';
+          elements.unitWaterAccount.value = unit.water_account || '';
+          elements.unitDescription.value = unit.description || '';
+          
+          console.log('Form filled successfully');
+          
+          // تغيير عنوان modal
+          const modalLabel = document.getElementById('addUnitModalLabel');
+          if (modalLabel) {
+            modalLabel.innerHTML = '<i class="fas fa-edit"></i> تعديل الوحدة';
+          }
+          
+          // إضافة معرف الوحدة للنموذج
+          const form = document.getElementById('addUnitForm');
+          if (form) {
+            form.setAttribute('data-edit-id', unitId);
+          }
+          
+          // تغيير زر الحفظ
+          const saveBtn = document.querySelector('#addUnitModal .btn-success');
+          if (saveBtn) {
+            saveBtn.innerHTML = '<i class="fas fa-save"></i> حفظ التعديلات';
+            saveBtn.onclick = updateUnit;
+          }
+          
+          console.log('Showing modal...');
+          // عرض modal
+          const modal = new bootstrap.Modal(modalElement);
+          modal.show();
+          console.log('Modal shown successfully');
+        } else {
+          console.error('Error response:', response.status, response.statusText);
+          alert('حدث خطأ في تحميل بيانات الوحدة');
+        }
+      } catch (error) {
+        console.error('Error loading unit:', error);
+        alert('حدث خطأ في تحميل بيانات الوحدة');
+      }
+    }
+    
+    async function updateUnit() {
+      try {
+        const form = document.getElementById('addUnitForm');
+        const unitId = form.getAttribute('data-edit-id');
+        
+        if (!unitId) {
+          alert('معرف الوحدة غير موجود');
+          return;
+        }
+        
+        const formData = new FormData(form);
+        
+        // التحقق من الحقول المطلوبة
+        const unitNumber = formData.get('unit_number');
+        const unitType = formData.get('unit_type');
+        const buildingId = formData.get('building_id');
+        const rentValue = formData.get('rent_value');
+        const tenantName = formData.get('tenant_name');
+        const tenantPhone = formData.get('tenant_phone');
+        
+        if (!unitNumber || !unitNumber.trim()) {
+          alert('رقم الوحدة مطلوب');
+          return;
+        }
+        
+        if (!unitType) {
+          alert('نوع الوحدة مطلوب');
+          return;
+        }
+        
+        if (!buildingId) {
+          alert('اختر البناية');
+          return;
+        }
+        
+        if (!rentValue || rentValue <= 0) {
+          alert('قيمة الإيجار مطلوبة');
+          return;
+        }
+        
+        if (!tenantName || !tenantName.trim()) {
+          alert('اسم المستأجر مطلوب');
+          return;
+        }
+        
+        if (!tenantPhone || !tenantPhone.trim()) {
+          alert('هاتف المستأجر مطلوب');
+          return;
+        }
+        
+        // إظهار التحميل
+        const saveBtn = document.querySelector('#addUnitModal .btn-success');
+        saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
+        saveBtn.disabled = true;
+        
+        // الحصول على token المستخدم
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        
+        // إرسال الطلب
+        const response = await fetch(`/api/units/${unitId}?token=${token}`, {
+          method: 'PUT',
+          body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+          alert('تم تحديث الوحدة بنجاح!');
+          const modal = bootstrap.Modal.getInstance(document.getElementById('addUnitModal'));
+          modal.hide();
+          form.reset();
+          
+          // إعادة تعيين النموذج
+          // document.getElementById('addUnitModalLabel').innerHTML = '<i class="fas fa-home"></i> إضافة وحدة جديدة';
+          form.removeAttribute('data-edit-id');
+          saveBtn.innerHTML = '<i class="fas fa-save"></i> حفظ الوحدة';
+          saveBtn.onclick = saveUnit;
+        } else {
+          alert('حدث خطأ: ' + (result.error || 'خطأ غير معروف'));
+        }
+      } catch (error) {
+        console.error('Error updating unit:', error);
+        alert('حدث خطأ في تحديث الوحدة');
+      } finally {
+        // إعادة تعيين الزر
+        const saveBtn = document.querySelector('#addUnitModal .btn-success');
+        saveBtn.innerHTML = '<i class="fas fa-save"></i> حفظ الوحدة';
+        saveBtn.disabled = false;
+      }
+    }
+    
+    async function deleteUnit(unitId) {
+      if (!confirm('هل أنت متأكد من حذف هذه الوحدة؟')) {
+        return;
+      }
+      
+      try {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        
+        const response = await fetch(`/api/units/${unitId}?token=${token}`, {
+          method: 'DELETE'
+        });
+        
+        if (response.ok) {
+          alert('تم حذف الوحدة بنجاح!');
+          // إعادة تحميل الوحدات
+          openViewUnitsModal();
+        } else {
+          const result = await response.json();
+          alert('حدث خطأ: ' + (result.error || 'خطأ غير معروف'));
+        }
+      } catch (error) {
+        console.error('Error deleting unit:', error);
+        alert('حدث خطأ في حذف الوحدة');
+      }
+    }
+
+    async function openViewPaymentsModal() {
+      try {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        
+        const response = await fetch('/api/payments?token=' + token);
+        const payments = await response.json();
+        
+        // إنشاء modal ديناميكي
+        const modalHtml = `
+          <div class="modal fade" id="viewPaymentsModal" tabindex="-1" aria-labelledby="viewPaymentsModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="viewPaymentsModalLabel">
+                    <i class="fas fa-money-bill-wave"></i>
+                    استعراض الدفعات
+                  </h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                      <thead class="table-dark">
+                        <tr>
+                          <th>البناية</th>
+                          <th>الوحدة</th>
+                          <th>قيمة الدفعة</th>
+                          <th>نوع الدفعة</th>
+                          <th>تاريخ الدفعة</th>
+                          <th>طريقة الدفع</th>
+                          <th>حالة الدفع</th>
+                          <th>تاريخ الاستحقاق</th>
+                          <th>الوصف</th>
+                          <th>الإجراءات</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        ${payments.map(payment => `
+                          <tr>
+                            <td>${payment.building_name || '-'}</td>
+                            <td>${payment.unit_number || '-'}</td>
+                            <td>${payment.amount ? formatPrice(payment.amount) : '-'}</td>
+                            <td>${getPaymentTypeName(payment.payment_type)}</td>
+                            <td>${payment.payment_date || '-'}</td>
+                            <td>${getPaymentMethodName(payment.payment_method)}</td>
+                            <td>
+                              <span class="badge ${getPaymentStatusBadge(payment.status)}">
+                                ${getPaymentStatusName(payment.status)}
+                              </span>
+                            </td>
+                            <td>${payment.due_date || '-'}</td>
+                            <td>${payment.description || '-'}</td>
+                            <td>
+                              <button class="btn btn-sm btn-warning" onclick="editPayment(${payment.id})">
+                                <i class="fas fa-edit"></i>
+                              </button>
+                              <button class="btn btn-sm btn-danger" onclick="deletePayment(${payment.id})">
+                                <i class="fas fa-trash"></i>
+                              </button>
+                            </td>
+                          </tr>
+                        `).join('')}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        // إزالة modal سابق إذا وجد
+        const existingModal = document.getElementById('viewPaymentsModal');
+        if (existingModal) {
+          existingModal.remove();
+        }
+        
+        // إضافة modal جديد
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+        
+        // عرض modal
+        const modal = new bootstrap.Modal(document.getElementById('viewPaymentsModal'));
+        modal.show();
+        
+      } catch (error) {
+        console.error('Error loading payments:', error);
+        alert('حدث خطأ في تحميل الدفعات');
+      }
+    }
+    
+    function getPaymentTypeName(type) {
+      const types = {
+        'rent': 'إيجار',
+        'sale': 'بيع',
+        'deposit': 'عربون',
+        'maintenance': 'صيانة',
+        'other': 'أخرى'
+      };
+      return types[type] || type;
+    }
+    
+    function getPaymentMethodName(method) {
+      const methods = {
+        'cash': 'نقداً',
+        'bank_transfer': 'تحويل بنكي',
+        'check': 'شيك',
+        'card': 'بطاقة ائتمان',
+        'other': 'أخرى'
+      };
+      return methods[method] || method;
+    }
+    
+    function getPaymentStatusName(status) {
+      const statuses = {
+        'paid': 'مدفوع',
+        'pending': 'معلق',
+        'overdue': 'متأخر'
+      };
+      return statuses[status] || status;
+    }
+    
+    function getPaymentStatusBadge(status) {
+      const badges = {
+        'paid': 'bg-success',
+        'pending': 'bg-warning',
+        'overdue': 'bg-danger'
+      };
+      return badges[status] || 'bg-secondary';
+    }
+    
+    async function editPayment(paymentId) {
+      try {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        
+        const response = await fetch(`/api/payments/${paymentId}?token=${token}`);
+        const payment = await response.json();
+        
+        if (response.ok) {
+          // تحميل البنايات أولاً
+          await loadBuildingsForPayments();
+          
+          // تحميل الوحدات للبناية المحددة
+          if (payment.building_id) {
+            await loadUnitsForPayment();
+          }
+          
+          // ملء نموذج التعديل بعد تحميل البيانات
+          document.getElementById('paymentBuilding').value = payment.building_id || '';
+          document.getElementById('paymentUnit').value = payment.unit_id || '';
+          document.getElementById('paymentAmount').value = payment.amount || '';
+          document.getElementById('paymentDate').value = payment.payment_date || '';
+          document.getElementById('paymentType').value = payment.payment_type || '';
+          document.getElementById('paymentMethod').value = payment.payment_method || '';
+          document.getElementById('paymentDescription').value = payment.description || '';
+          
+          // إعادة تفعيل حقل إجمالي المبلغ
+          document.getElementById('paymentAmount').readOnly = false;
+          document.getElementById('paymentAmount').style.backgroundColor = '';
+          
+          // إخفاء منطقة الدفعات الديناميكية
+          document.getElementById('paymentInstallmentsContainer').style.display = 'none';
+          
+          // تغيير عنوان modal
+          document.getElementById('addPaymentModalLabel').innerHTML = '<i class="fas fa-edit"></i> تعديل الدفعة';
+          
+          // إضافة معرف الدفعة للنموذج
+          const form = document.getElementById('addPaymentForm');
+          form.setAttribute('data-edit-id', paymentId);
+          
+          // تغيير زر الحفظ
+          const saveBtn = document.querySelector('#addPaymentModal .btn-success');
+          saveBtn.innerHTML = '<i class="fas fa-save"></i> حفظ التعديلات';
+          saveBtn.onclick = updatePayment;
+          
+          // عرض modal
+          const modal = new bootstrap.Modal(document.getElementById('addPaymentModal'));
+          modal.show();
+        } else {
+          alert('حدث خطأ في تحميل بيانات الدفعة');
+        }
+      } catch (error) {
+        console.error('Error loading payment:', error);
+        alert('حدث خطأ في تحميل بيانات الدفعة');
+      }
+    }
+    
+    async function updatePayment() {
+      try {
+        const form = document.getElementById('addPaymentForm');
+        const paymentId = form.getAttribute('data-edit-id');
+        
+        if (!paymentId) {
+          alert('معرف الدفعة غير موجود');
+          return;
+        }
+        
+        const formData = new FormData(form);
+        
+        // التحقق من الحقول المطلوبة
+        const buildingId = formData.get('building_id');
+        const unitId = formData.get('unit_id');
+        const amount = formData.get('amount');
+        const paymentDate = formData.get('payment_date');
+        
+        if (!buildingId) {
+          alert('اختر البناية');
+          return;
+        }
+        if (!unitId) {
+          alert('اختر الوحدة');
+          return;
+        }
+        if (!amount || amount <= 0) {
+          alert('قيمة الدفعة مطلوبة');
+          return;
+        }
+        if (!paymentDate) {
+          alert('تاريخ الدفعة مطلوب');
+          return;
+        }
+        
+        // إظهار التحميل
+        const saveBtn = document.querySelector('#addPaymentModal .btn-success');
+        saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
+        saveBtn.disabled = true;
+        
+        // الحصول على token المستخدم
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        
+        // إرسال الطلب
+        const response = await fetch(`/api/payments/${paymentId}?token=${token}`, {
+          method: 'PUT',
+          body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+          alert('تم تحديث الدفعة بنجاح!');
+          const modal = bootstrap.Modal.getInstance(document.getElementById('addPaymentModal'));
+          modal.hide();
+          form.reset();
+          
+          // إعادة تعيين النموذج
+          document.getElementById('addPaymentModalLabel').innerHTML = '<i class="fas fa-money-bill-wave"></i> إضافة دفعة جديدة';
+          form.removeAttribute('data-edit-id');
+          saveBtn.innerHTML = '<i class="fas fa-save"></i> حفظ الدفعة';
+          saveBtn.onclick = savePayment;
+        } else {
+          alert('حدث خطأ: ' + (result.error || 'خطأ غير معروف'));
+        }
+      } catch (error) {
+        console.error('Error updating payment:', error);
+        alert('حدث خطأ في تحديث الدفعة');
+      } finally {
+        // إعادة تعيين الزر
+        const saveBtn = document.querySelector('#addPaymentModal .btn-success');
+        saveBtn.innerHTML = '<i class="fas fa-save"></i> حفظ الدفعة';
+        saveBtn.disabled = false;
+      }
+    }
+    
+    async function deletePayment(paymentId) {
+      if (!confirm('هل أنت متأكد من حذف هذه الدفعة؟')) {
+        return;
+      }
+      try {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        const response = await fetch(`/api/payments/${paymentId}?token=${token}`, {
+          method: 'DELETE'
+        });
+        let result = null;
+        try {
+          const contentType = response.headers.get('content-type');
+          if (contentType && contentType.includes('application/json')) {
+            result = await response.json();
+          } else {
+            throw new Error('الرد من السيرفر ليس JSON (قد تكون الدفعة غير موجودة أو حدث خطأ بالخادم)');
+          }
+        } catch (jsonErr) {
+          alert('تعذر حذف الدفعة: قد تكون الدفعة غير موجودة أو حدث خطأ بالخادم.');
+          return;
+        }
+        if (response.ok) {
+          alert('تم حذف الدفعة بنجاح!');
+          openViewPaymentsModal();
+        } else {
+          alert('حدث خطأ: ' + (result && result.error ? result.error : 'خطأ غير معروف'));
+        }
+      } catch (error) {
+        console.error('Error deleting payment:', error);
+        alert('حدث خطأ في حذف الدفعة');
+      }
+    }
+
+    async function openViewInvoicesModal() {
+      try {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        
+        const response = await fetch('/api/invoices?token=' + token);
+        const invoices = await response.json();
+        
+        // إنشاء modal ديناميكي
+        const modalHtml = `
+          <div class="modal fade" id="viewInvoicesModal" tabindex="-1" aria-labelledby="viewInvoicesModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="viewInvoicesModalLabel">
+                    <i class="fas fa-file-invoice"></i>
+                    استعراض الفواتير
+                  </h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                      <thead class="table-dark">
+                        <tr>
+                          <th>البناية</th>
+                          <th>الوحدة</th>
+                          <th>نوع الفاتورة</th>
+                          <th>مبلغ الفاتورة</th>
+                          <th>تاريخ الفاتورة</th>
+                          <th>المستأجر</th>
+                          <th>حالة الفاتورة</th>
+                          <th>تاريخ الاستحقاق</th>
+                          <th>رقم الفاتورة</th>
+                          <th>مزود الخدمة</th>
+                          <th>الإجراءات</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        ${invoices.map(invoice => `
+                          <tr>
+                            <td>${invoice.building_name || '-'}</td>
+                            <td>${invoice.unit_number || '-'}</td>
+                            <td>${getInvoiceTypeName(invoice.invoice_type)}</td>
+                            <td>${invoice.amount ? formatPrice(invoice.amount) : '-'}</td>
+                            <td>${invoice.invoice_date || '-'}</td>
+                            <td>${invoice.tenant_name || '-'}</td>
+                            <td>
+                              <span class="badge ${getInvoiceStatusBadge(invoice.status)}">
+                                ${getInvoiceStatusName(invoice.status)}
+                              </span>
+                            </td>
+                            <td>${invoice.due_date || '-'}</td>
+                            <td>${invoice.invoice_number || '-'}</td>
+                            <td>${invoice.provider || '-'}</td>
+                            <td>
+                              <button class="btn btn-sm btn-warning" onclick="editInvoice(${invoice.id})">
+                                <i class="fas fa-edit"></i>
+                              </button>
+                              <button class="btn btn-sm btn-danger" onclick="deleteInvoice(${invoice.id})">
+                                <i class="fas fa-trash"></i>
+                              </button>
+                            </td>
+                          </tr>
+                        `).join('')}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+        
+        // إزالة modal سابق إذا وجد
+        const existingModal = document.getElementById('viewInvoicesModal');
+        if (existingModal) {
+          existingModal.remove();
+        }
+        
+        // إضافة modal جديد
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+        
+        // عرض modal
+        const modal = new bootstrap.Modal(document.getElementById('viewInvoicesModal'));
+        modal.show();
+        
+      } catch (error) {
+        console.error('Error loading invoices:', error);
+        alert('حدث خطأ في تحميل الفواتير');
+      }
+    }
+    
+    function getInvoiceTypeName(type) {
+      const types = {
+        'electricity': 'كهرباء',
+        'sewage': 'صرف صحي',
+        'water': 'مياه',
+        'gas': 'غاز',
+        'internet': 'إنترنت',
+        'other': 'أخرى'
+      };
+      return types[type] || type;
+    }
+    
+    function getInvoiceStatusName(status) {
+      const statuses = {
+        'unpaid': 'غير مدفوع',
+        'paid': 'مدفوع',
+        'overdue': 'متأخر',
+        'cancelled': 'ملغي'
+      };
+      return statuses[status] || status;
+    }
+    
+    function getInvoiceStatusBadge(status) {
+      const badges = {
+        'unpaid': 'bg-warning',
+        'paid': 'bg-success',
+        'overdue': 'bg-danger',
+        'cancelled': 'bg-secondary'
+      };
+      return badges[status] || 'bg-secondary';
+    }
+    
+    function getInstallmentStatusName(status) {
+      const statuses = {
+        'pending': 'في الانتظار',
+        'paid': 'مدفوع',
+        'overdue': 'متأخر',
+        'cancelled': 'ملغي'
+      };
+      return statuses[status] || status;
+    }
+    
+    function getInstallmentStatusBadge(status) {
+      const badges = {
+        'pending': 'bg-warning',
+        'paid': 'bg-success',
+        'overdue': 'bg-danger',
+        'cancelled': 'bg-secondary'
+      };
+      return badges[status] || 'bg-secondary';
+    }
+    
+    // New View System Functions
+    async function loadBuildingsForView() {
+      try {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        
+        console.log('Loading buildings for view...'); // للتأكد من بدء التحميل
+        
+        const response = await fetch('/api/buildings?token=' + token);
+        const buildings = await response.json();
+        
+        console.log('Buildings loaded:', buildings); // للتأكد من البيانات
+        
+        const select = document.getElementById('viewBuildingSelect');
+        select.innerHTML = '<option value="">اختر البناية لعرض تفاصيلها</option>';
+        
+        if (buildings && buildings.length > 0) {
+          buildings.forEach(building => {
+            const option = document.createElement('option');
+            option.value = building.id;
+            option.textContent = building.name;
+            select.appendChild(option);
+          });
+          
+          console.log(`Loaded ${buildings.length} buildings`);
+        } else {
+          select.innerHTML = '<option value="">لا توجد بنايات متاحة</option>';
+          console.log('No buildings found');
+        }
+      } catch (error) {
+        console.error('Error loading buildings for view:', error);
+        const select = document.getElementById('viewBuildingSelect');
+        select.innerHTML = '<option value="">خطأ في تحميل البنايات</option>';
+      }
+    }
+    
+    async function loadUnitsForView() {
+      try {
+        const buildingId = document.getElementById('viewBuildingSelect').value;
+        const unitSelect = document.getElementById('viewUnitSelect');
+        
+        if (!buildingId) {
+          unitSelect.innerHTML = '<option value="">اختر الوحدة لعرض تفاصيلها</option>';
+          unitSelect.disabled = true;
+          hideResults();
+          return;
+        }
+        
+        // إظهار رسالة تحميل
+        unitSelect.innerHTML = '<option value="">جاري تحميل الوحدات...</option>';
+        unitSelect.disabled = true;
+        
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        
+        console.log('Loading units for building ID:', buildingId); // للتأكد من ID البناية
+        
+        const response = await fetch(`/api/units?token=${token}&building_id=${buildingId}`);
+        let units = null;
+        
+        try {
+          const contentType = response.headers.get('content-type');
+          if (contentType && contentType.includes('application/json')) {
+            units = await response.json();
+          } else {
+            throw new Error('الرد من السيرفر ليس JSON (قد لا توجد بيانات أو حدث خطأ بالخادم)');
+          }
+        } catch (jsonErr) {
+          console.error('Error parsing units:', jsonErr);
+          unitSelect.innerHTML = '<option value="">خطأ في تحميل الوحدات</option>';
+          unitSelect.disabled = true;
+          hideResults();
+          return;
+        }
+        
+        console.log('Units loaded:', units); // للتأكد من البيانات
+        
+        unitSelect.innerHTML = '<option value="">اختر الوحدة لعرض تفاصيلها</option>';
+        unitSelect.disabled = false;
+        
+        if (units && units.length > 0) {
+          units.forEach(unit => {
+            const option = document.createElement('option');
+            option.value = unit.id;
+            option.textContent = `${unit.unit_number || 'غير محدد'} - ${getUnitTypeName(unit.unit_type)} - ${unit.tenant_name || 'غير محدد'}`;
+            unitSelect.appendChild(option);
+          });
+          
+          console.log(`Loaded ${units.length} units for building ${buildingId}`);
+        } else {
+          unitSelect.innerHTML = '<option value="">لا توجد وحدات في هذه البناية</option>';
+          console.log('No units found for building:', buildingId);
+        }
+        
+        hideResults();
+      } catch (error) {
+        console.error('Error loading units for view:', error);
+        const unitSelect = document.getElementById('viewUnitSelect');
+        unitSelect.innerHTML = '<option value="">خطأ في تحميل الوحدات</option>';
+        unitSelect.disabled = true;
+        hideResults();
+      }
+    }
+    
+    async function loadUnitDetails() {
+      try {
+        const unitId = document.getElementById('viewUnitSelect').value;
+        if (!unitId) {
+          hideResults();
+          return;
+        }
+        
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        
+        console.log('Loading unit details for ID:', unitId); // للتأكد من ID الوحدة
+        
+        // إظهار رسالة تحميل
+        const resultsContainer = document.getElementById('viewResults');
+        const resultsTitle = document.getElementById('resultsTitle');
+        const resultsContent = document.getElementById('resultsContent');
+        
+        resultsTitle.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري تحميل تفاصيل الوحدة...';
+        resultsContent.innerHTML = '<div class="text-center"><div class="spinner-border" role="status"></div><p>جاري تحميل البيانات...</p></div>';
+        resultsContainer.style.display = 'block';
+        
+        const response = await fetch(`/api/units/${unitId}?token=${token}`);
+        let unit = null;
+        
+        try {
+          const contentType = response.headers.get('content-type');
+          if (contentType && contentType.includes('application/json')) {
+            unit = await response.json();
+          } else {
+            throw new Error('الرد من السيرفر ليس JSON (قد تكون الوحدة غير موجودة أو حدث خطأ بالخادم)');
+          }
+        } catch (jsonErr) {
+          console.error('Error parsing unit details:', jsonErr);
+          alert('تعذر تحميل تفاصيل الوحدة: قد تكون الوحدة غير موجودة أو حدث خطأ بالخادم.');
+          hideResults();
+          return;
+        }
+        
+        if (response.ok && unit) {
+          console.log('Unit details loaded successfully:', unit); // للتأكد من البيانات
+          showUnitDetails(unit);
+          
+          // تحميل البيانات المرتبطة تلقائياً
+          await loadRelatedData(unitId);
+        } else {
+          console.error('Failed to load unit details. Response status:', response.status);
+          hideResults();
+        }
+      } catch (error) {
+        console.error('Error loading unit details:', error);
+        hideResults();
+      }
+    }
+    
+    async function loadRelatedData(unitId) {
+      try {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        
+        // تحميل الدفعات المرتبطة بالوحدة
+        const paymentsResponse = await fetch(`/api/payments?token=${token}&unit_id=${unitId}`);
+        let payments = [];
+        try {
+          const contentType = paymentsResponse.headers.get('content-type');
+          if (contentType && contentType.includes('application/json')) {
+            payments = await paymentsResponse.json();
+          }
+        } catch (e) {
+          console.error('Error loading payments:', e);
+        }
+        
+        // تحميل الفواتير المرتبطة بالوحدة
+        const invoicesResponse = await fetch(`/api/invoices?token=${token}&unit_id=${unitId}`);
+        let invoices = [];
+        try {
+          const contentType = invoicesResponse.headers.get('content-type');
+          if (contentType && contentType.includes('application/json')) {
+            invoices = await invoicesResponse.json();
+          }
+        } catch (e) {
+          console.error('Error loading invoices:', e);
+        }
+        
+        // عرض ملخص البيانات المرتبطة
+        showRelatedDataSummary(payments, invoices);
+        
+      } catch (error) {
+        console.error('Error loading related data:', error);
+      }
+    }
+    
+    function showRelatedDataSummary(payments, invoices) {
+      const resultsContent = document.getElementById('resultsContent');
+      const currentContent = resultsContent.innerHTML;
+      
+      console.log('Showing related data summary - Payments:', payments.length, 'Invoices:', invoices.length);
+      
+      const summaryHtml = `
+        <div class="row mt-3">
+          <div class="col-12">
+            <h6 class="text-primary">
+              <i class="fas fa-chart-bar"></i> ملخص البيانات المرتبطة
+            </h6>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card bg-light">
+                  <div class="card-body text-center">
+                    <h5 class="card-title text-primary">
+                      <i class="fas fa-money-bill-wave"></i> الدفعات
+                    </h5>
+                    <h3 class="text-success">${payments.length}</h3>
+                    <p class="card-text">إجمالي الدفعات المرتبطة بالوحدة</p>
+                    <button class="btn btn-info btn-sm" onclick="loadDataByType('payments')">
+                      <i class="fas fa-eye"></i> عرض التفاصيل
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card bg-light">
+                  <div class="card-body text-center">
+                    <h5 class="card-title text-primary">
+                      <i class="fas fa-file-invoice"></i> الفواتير
+                    </h5>
+                    <h3 class="text-warning">${invoices.length}</h3>
+                    <p class="card-text">إجمالي الفواتير المرتبطة بالوحدة</p>
+                    <button class="btn btn-info btn-sm" onclick="loadDataByType('invoices')">
+                      <i class="fas fa-eye"></i> عرض التفاصيل
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-12">
+                <div class="alert alert-success">
+                  <i class="fas fa-check-circle"></i> تم تحميل البيانات المرتبطة بنجاح
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      resultsContent.innerHTML = currentContent + summaryHtml;
+    }
+    
+    function showUnitDetails(unit) {
+      const resultsContainer = document.getElementById('viewResults');
+      const resultsTitle = document.getElementById('resultsTitle');
+      const resultsContent = document.getElementById('resultsContent');
+      
+      console.log('Showing unit details:', unit); // للتأكد من البيانات
+      
+      resultsTitle.innerHTML = '<i class="fas fa-home"></i> تفاصيل الوحدة';
+      
+      const detailsHtml = `
+        <div class="alert alert-info">
+          <i class="fas fa-info-circle"></i> تم تحميل تفاصيل الوحدة بنجاح
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <h6 class="text-primary">
+              <i class="fas fa-building"></i> معلومات الوحدة
+            </h6>
+            <table class="table table-borderless table-striped">
+              <tr><td><strong>رقم الوحدة:</strong></td><td>${unit.unit_number || 'غير محدد'}</td></tr>
+              <tr><td><strong>نوع الوحدة:</strong></td><td>${getUnitTypeName(unit.unit_type)}</td></tr>
+              <tr><td><strong>قيمة الإيجار:</strong></td><td>${unit.rent_value ? formatPrice(unit.rent_value) : 'غير محدد'}</td></tr>
+              <tr><td><strong>البناية:</strong></td><td>${unit.building_name || 'غير محدد'}</td></tr>
+              <tr><td><strong>الحالة:</strong></td><td><span class="badge ${unit.status === 'available' ? 'bg-success' : 'bg-warning'}">${unit.status === 'available' ? 'متاحة' : 'مؤجرة'}</span></td></tr>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <h6 class="text-primary">
+              <i class="fas fa-user"></i> معلومات المستأجر
+            </h6>
+            <table class="table table-borderless table-striped">
+              <tr><td><strong>اسم المستأجر:</strong></td><td>${unit.tenant_name || 'غير محدد'}</td></tr>
+              <tr><td><strong>هاتف المستأجر:</strong></td><td>${unit.tenant_phone || 'غير محدد'}</td></tr>
+              <tr><td><strong>البريد الإلكتروني:</strong></td><td>${unit.tenant_email || 'غير محدد'}</td></tr>
+              <tr><td><strong>عدد الدفعات:</strong></td><td>${unit.installments || 1}</td></tr>
+              <tr><td><strong>بداية العقد:</strong></td><td>${unit.contract_start_date || 'غير محدد'}</td></tr>
+              <tr><td><strong>نهاية العقد:</strong></td><td>${unit.contract_end_date || 'غير محدد'}</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-6">
+            <h6 class="text-primary">
+              <i class="fas fa-tools"></i> معلومات الحسابات
+            </h6>
+            <table class="table table-borderless table-striped">
+              <tr><td><strong>حساب الكهرباء:</strong></td><td>${unit.electricity_account || 'غير محدد'}</td></tr>
+              <tr><td><strong>حساب الماء:</strong></td><td>${unit.water_account || 'غير محدد'}</td></tr>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <h6 class="text-primary">
+              <i class="fas fa-cogs"></i> الإجراءات
+            </h6>
+            <div class="d-flex gap-2">
+              <button class="btn btn-warning btn-sm" onclick="editUnit(${unit.id})">
+                <i class="fas fa-edit"></i> تعديل الوحدة
+              </button>
+              <button class="btn btn-danger btn-sm" onclick="deleteUnit(${unit.id})">
+                <i class="fas fa-trash"></i> حذف الوحدة
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-12">
+            <div class="alert alert-success">
+              <i class="fas fa-check-circle"></i> تم استرجاع جميع البيانات بنجاح
+              <br>
+              <small>اسم المستأجر: ${unit.tenant_name || 'غير محدد'} | هاتف المستأجر: ${unit.tenant_phone || 'غير محدد'}</small>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      resultsContent.innerHTML = detailsHtml;
+      resultsContainer.style.display = 'block';
+    }
+    
+    async function loadDataByType(dataType = null) {
+      try {
+        const selectedDataType = dataType || document.getElementById('viewDataType').value;
+        const buildingId = document.getElementById('viewBuildingSelect').value;
+        const unitId = document.getElementById('viewUnitSelect').value;
+        
+        if (!selectedDataType) {
+          hideResults();
+          return;
+        }
+        
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        let url = '';
+        let title = '';
+        
+        switch (selectedDataType) {
+          case 'units':
+            url = buildingId ? `/api/units?token=${token}&building_id=${buildingId}` : `/api/units?token=${token}`;
+            title = 'الوحدات';
+            break;
+          case 'payments':
+            url = unitId ? `/api/payments?token=${token}&unit_id=${unitId}` : `/api/payments?token=${token}`;
+            title = 'الدفعات';
+            break;
+          case 'invoices':
+            url = unitId ? `/api/invoices?token=${token}&unit_id=${unitId}` : `/api/invoices?token=${token}`;
+            title = 'الفواتير';
+            break;
+        }
+        
+        console.log('Loading data from URL:', url); // للتأكد من URL
+        
+        const response = await fetch(url);
+        let data = null;
+        
+        try {
+          const contentType = response.headers.get('content-type');
+          if (contentType && contentType.includes('application/json')) {
+            data = await response.json();
+          } else {
+            throw new Error('الرد من السيرفر ليس JSON (قد لا توجد بيانات أو حدث خطأ بالخادم)');
+          }
+        } catch (jsonErr) {
+          console.error('JSON parsing error:', jsonErr);
+          showDataResults([], selectedDataType, title); // عرض لا توجد بيانات
+          return;
+        }
+        
+        console.log('Data loaded:', data); // للتأكد من البيانات
+        showDataResults(data, selectedDataType, title);
+        
+      } catch (error) {
+        console.error('Error loading data by type:', error);
+        showDataResults([], dataType || document.getElementById('viewDataType').value, '');
+      }
+    }
+    
+    function showDataResults(data, dataType, title) {
+      const resultsContainer = document.getElementById('viewResults');
+      const resultsTitle = document.getElementById('resultsTitle');
+      const resultsContent = document.getElementById('resultsContent');
+      
+      console.log('Showing data results:', { dataType, title, dataLength: data ? data.length : 0 });
+      
+      resultsTitle.innerHTML = `<i class="fas fa-list"></i> ${title}`;
+      
+      if (!data || data.length === 0) {
+        resultsContent.innerHTML = `
+          <div class="text-center text-muted">
+            <i class="fas fa-info-circle"></i> لا توجد بيانات
+            <br>
+            <small>لم يتم العثور على ${title} مرتبطة بالوحدة المحددة</small>
+          </div>
+        `;
+        resultsContainer.style.display = 'block';
+        return;
+      }
+      
+      let tableHtml = '';
+      
+      switch (dataType) {
+        case 'units':
+          tableHtml = createUnitsTable(data);
+          break;
+        case 'payments':
+          tableHtml = createPaymentsTable(data);
+          break;
+        case 'invoices':
+          tableHtml = createInvoicesTable(data);
+          break;
+      }
+      
+      resultsContent.innerHTML = `
+        <div class="alert alert-success">
+          <i class="fas fa-check-circle"></i> تم العثور على ${data.length} ${title}
+        </div>
+        ${tableHtml}
+      `;
+      resultsContainer.style.display = 'block';
+    }
+    
+    function createUnitsTable(units) {
+      return `
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <thead class="table-dark">
+              <tr>
+                <th>رقم الوحدة</th>
+                <th>نوع الوحدة</th>
+                <th>قيمة الإيجار</th>
+                <th>اسم المستأجر</th>
+                <th>هاتف المستأجر</th>
+                <th>البريد الإلكتروني</th>
+                <th>عدد الدفعات</th>
+                <th>بداية العقد</th>
+                <th>نهاية العقد</th>
+                <th>حساب الكهرباء</th>
+                <th>حساب الماء</th>
+                <th>الحالة</th>
+                <th>الإجراءات</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${units.map(unit => `
+                <tr>
+                  <td><strong>${unit.unit_number || '-'}</strong></td>
+                  <td>${getUnitTypeName(unit.unit_type)}</td>
+                  <td><span class="text-success fw-bold">${unit.rent_value ? formatPrice(unit.rent_value) : '-'}</span></td>
+                  <td><span class="text-primary">${unit.tenant_name || '-'}</span></td>
+                  <td><span class="text-info">${unit.tenant_phone || '-'}</span></td>
+                  <td>${unit.tenant_email || '-'}</td>
+                  <td><span class="badge bg-secondary">${unit.installments || 1}</span></td>
+                  <td>${unit.contract_start_date || '-'}</td>
+                  <td>${unit.contract_end_date || '-'}</td>
+                  <td><span class="text-warning">${unit.electricity_account || '-'}</span></td>
+                  <td><span class="text-info">${unit.water_account || '-'}</span></td>
+                  <td>
+                    <span class="badge ${unit.status === 'available' ? 'bg-success' : 'bg-warning'}">
+                      ${unit.status === 'available' ? 'متاحة' : 'مؤجرة'}
+                    </span>
+                  </td>
+                  <td>
+                    <button class="btn btn-sm btn-warning" onclick="editUnit(${unit.id})">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteUnit(${unit.id})">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+        <div class="mt-3">
+          <div class="alert alert-info">
+            <i class="fas fa-info-circle"></i> تم عرض ${units.length} وحدة مع جميع تفاصيلها
+          </div>
+        </div>
+      `;
+    }
+    
+    function createPaymentsTable(payments) {
+      return `
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <thead class="table-dark">
+              <tr>
+                <th>البناية</th>
+                <th>الوحدة</th>
+                <th>قيمة الدفعة</th>
+                <th>نوع الدفعة</th>
+                <th>تاريخ الدفعة</th>
+                <th>طريقة الدفع</th>
+                <th>حالة الدفع</th>
+                <th>تاريخ الاستحقاق</th>
+                <th>الوصف</th>
+                <th>الإجراءات</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${payments.map(payment => `
+                <tr>
+                  <td>${payment.building_name || '-'}</td>
+                  <td>${payment.unit_number || '-'}</td>
+                  <td>${payment.amount ? formatPrice(payment.amount) : '-'}</td>
+                  <td>${getPaymentTypeName(payment.payment_type)}</td>
+                  <td>${payment.payment_date || '-'}</td>
+                  <td>${getPaymentMethodName(payment.payment_method)}</td>
+                  <td>
+                    <span class="badge ${getPaymentStatusBadge(payment.status)}">
+                      ${getPaymentStatusName(payment.status)}
+                    </span>
+                  </td>
+                  <td>${payment.due_date || '-'}</td>
+                  <td>${payment.description || '-'}</td>
+                  <td>
+                    <button class="btn btn-sm btn-warning" onclick="editPayment(${payment.id})">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger" onclick="deletePayment(${payment.id})">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+    
+    function createInvoicesTable(invoices) {
+      return `
+        <div class="table-responsive">
+          <table class="table table-striped table-hover">
+            <thead class="table-dark">
+              <tr>
+                <th>البناية</th>
+                <th>الوحدة</th>
+                <th>نوع الفاتورة</th>
+                <th>مبلغ الفاتورة</th>
+                <th>تاريخ الفاتورة</th>
+                <th>المستأجر</th>
+                <th>حالة الفاتورة</th>
+                <th>تاريخ الاستحقاق</th>
+                <th>رقم الفاتورة</th>
+                <th>مزود الخدمة</th>
+                <th>الإجراءات</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${invoices.map(invoice => `
+                <tr>
+                  <td>${invoice.building_name || '-'}</td>
+                  <td>${invoice.unit_number || '-'}</td>
+                  <td>${getInvoiceTypeName(invoice.invoice_type)}</td>
+                  <td>${invoice.amount ? formatPrice(invoice.amount) : '-'}</td>
+                  <td>${invoice.invoice_date || '-'}</td>
+                  <td>${invoice.tenant_name || '-'}</td>
+                  <td>
+                    <span class="badge ${getInvoiceStatusBadge(invoice.status)}">
+                      ${getInvoiceStatusName(invoice.status)}
+                    </span>
+                  </td>
+                  <td>${invoice.due_date || '-'}</td>
+                  <td>${invoice.invoice_number || '-'}</td>
+                  <td>${invoice.provider || '-'}</td>
+                  <td>
+                    <button class="btn btn-sm btn-warning" onclick="editInvoice(${invoice.id})">
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn btn-sm btn-danger" onclick="deleteInvoice(${invoice.id})">
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+    
+    function hideResults() {
+      const resultsContainer = document.getElementById('viewResults');
+      if (resultsContainer) {
+        resultsContainer.style.display = 'none';
+        console.log('Results hidden');
+      }
+    }
+    
+    // Quick Actions Functions
+    async function loadAllBuildings() {
+      try {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        
+        const response = await fetch('/api/buildings?token=' + token);
+        const buildings = await response.json();
+        
+        showDataResults(buildings, 'buildings', 'جميع البنايات');
+      } catch (error) {
+        console.error('Error loading all buildings:', error);
+        alert('حدث خطأ في تحميل البنايات');
+      }
+    }
+    
+    async function loadAllUnits() {
+      try {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        const response = await fetch('/api/units?token=' + token);
+        let units = null;
+        try {
+          const contentType = response.headers.get('content-type');
+          if (contentType && contentType.includes('application/json')) {
+            units = await response.json();
+          } else {
+            throw new Error('الرد من السيرفر ليس JSON (قد لا توجد بيانات أو حدث خطأ بالخادم)');
+          }
+        } catch (jsonErr) {
+          showDataResults([], 'units', 'جميع الوحدات');
+          return;
+        }
+        showDataResults(units, 'units', 'جميع الوحدات');
+      } catch (error) {
+        console.error('Error loading all units:', error);
+        showDataResults([], 'units', 'جميع الوحدات');
+      }
+    }
+    
+    async function loadAllPayments() {
+      try {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        const response = await fetch('/api/payments?token=' + token);
+        let payments = null;
+        try {
+          const contentType = response.headers.get('content-type');
+          if (contentType && contentType.includes('application/json')) {
+            payments = await response.json();
+          } else {
+            throw new Error('الرد من السيرفر ليس JSON (قد لا توجد بيانات أو حدث خطأ بالخادم)');
+          }
+        } catch (jsonErr) {
+          showDataResults([], 'payments', 'جميع الدفعات');
+          return;
+        }
+        showDataResults(payments, 'payments', 'جميع الدفعات');
+      } catch (error) {
+        console.error('Error loading all payments:', error);
+        showDataResults([], 'payments', 'جميع الدفعات');
+      }
+    }
+    
+    async function loadAllInvoices() {
+      try {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        const response = await fetch('/api/invoices?token=' + token);
+        let invoices = null;
+        try {
+          const contentType = response.headers.get('content-type');
+          if (contentType && contentType.includes('application/json')) {
+            invoices = await response.json();
+          } else {
+            throw new Error('الرد من السيرفر ليس JSON (قد لا توجد بيانات أو حدث خطأ بالخادم)');
+          }
+        } catch (jsonErr) {
+          showDataResults([], 'invoices', 'جميع الفواتير');
+          return;
+        }
+        showDataResults(invoices, 'invoices', 'جميع الفواتير');
+      } catch (error) {
+        console.error('Error loading all invoices:', error);
+        showDataResults([], 'invoices', 'جميع الفواتير');
+      }
+    }
+
+    // Helper functions to load dropdowns
+    async function loadBuildingsForUnits() {
+      try {
+        console.log('loadBuildingsForUnits: Starting...');
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        console.log('loadBuildingsForUnits: Token:', token);
+        
+        const response = await fetch('/api/buildings?token=' + token);
+        console.log('loadBuildingsForUnits: Response status:', response.status);
+        const buildings = await response.json();
+        console.log('loadBuildingsForUnits: Buildings data:', buildings);
+        
+        const select = document.getElementById('unitBuilding');
+        console.log('loadBuildingsForUnits: Found select element:', select);
+        
+        if (!select) {
+          console.error('loadBuildingsForUnits: unitBuilding element not found!');
+          return;
+        }
+        
+        select.innerHTML = '<option value="">اختر البناية</option>';
+        
+        if (buildings && buildings.length > 0) {
+          console.log('loadBuildingsForUnits: Adding', buildings.length, 'buildings to dropdown');
+          buildings.forEach(building => {
+            const option = document.createElement('option');
+            option.value = building.id;
+            option.textContent = building.name;
+            select.appendChild(option);
+          });
+          console.log('loadBuildingsForUnits: Dropdown populated successfully');
+        } else {
+          console.log('loadBuildingsForUnits: No buildings found');
+          select.innerHTML = '<option value="">لا توجد بنايات متاحة</option>';
+        }
+      } catch (error) {
+        console.error('Error loading buildings:', error);
+        const select = document.getElementById('unitBuilding');
+        if (select) {
+          select.innerHTML = '<option value="">خطأ في تحميل البنايات</option>';
+        }
+      }
+    }
+    
+    async function loadBuildingsForPayments() {
+      try {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        
+        const response = await fetch('/api/buildings?token=' + token);
+        const buildings = await response.json();
+        
+        const select = document.getElementById('paymentBuilding');
+        select.innerHTML = '<option value="">اختر البناية</option>';
+        
+        if (buildings && buildings.length > 0) {
+          buildings.forEach(building => {
+            const option = document.createElement('option');
+            option.value = building.id;
+            option.textContent = building.name;
+            select.appendChild(option);
+          });
+        } else {
+          select.innerHTML = '<option value="">لا توجد بنايات متاحة</option>';
+        }
+      } catch (error) {
+        console.error('Error loading buildings for payments:', error);
+        const select = document.getElementById('paymentBuilding');
+        select.innerHTML = '<option value="">خطأ في تحميل البنايات</option>';
+      }
+    }
+    
+    async function loadBuildingsForInvoices() {
+      try {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        
+        const response = await fetch('/api/buildings?token=' + token);
+        const buildings = await response.json();
+        
+        const select = document.getElementById('invoiceBuilding');
+        select.innerHTML = '<option value="">اختر البناية</option>';
+        
+        if (buildings && buildings.length > 0) {
+          buildings.forEach(building => {
+            const option = document.createElement('option');
+            option.value = building.id;
+            option.textContent = building.name;
+            select.appendChild(option);
+          });
+        } else {
+          select.innerHTML = '<option value="">لا توجد بنايات متاحة</option>';
+        }
+      } catch (error) {
+        console.error('Error loading buildings for invoices:', error);
+        const select = document.getElementById('invoiceBuilding');
+        select.innerHTML = '<option value="">خطأ في تحميل البنايات</option>';
+      }
+    }
+    
+    async function loadUnitsForInvoice() {
+      try {
+        const buildingId = document.getElementById('invoiceBuilding').value;
+        const unitSelect = document.getElementById('invoiceUnit');
+        
+        if (!buildingId) {
+          unitSelect.innerHTML = '<option value="">اختر الوحدة أولاً</option>';
+          unitSelect.disabled = true;
+          // إعادة تعيين اسم المستأجر
+          document.getElementById('invoiceTenant').value = '';
+          return;
+        }
+        
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        
+        const response = await fetch(`/api/units?token=${token}&building_id=${buildingId}`);
+        const units = await response.json();
+        
+        unitSelect.innerHTML = '<option value="">اختر الوحدة</option>';
+        unitSelect.disabled = false;
+        
+        if (units && units.length > 0) {
+          units.forEach(unit => {
+            const option = document.createElement('option');
+            option.value = unit.id;
+            option.textContent = `${unit.unit_number || 'غير محدد'} - ${getUnitTypeName(unit.unit_type)} - ${unit.tenant_name || 'غير محدد'}`;
+            unitSelect.appendChild(option);
+          });
+        } else {
+          unitSelect.innerHTML = '<option value="">لا توجد وحدات في هذه البناية</option>';
+        }
+        
+        // إعادة تعيين اسم المستأجر
+        document.getElementById('invoiceTenant').value = '';
+      } catch (error) {
+        console.error('Error loading units for invoice:', error);
+        const unitSelect = document.getElementById('invoiceUnit');
+        unitSelect.innerHTML = '<option value="">خطأ في تحميل الوحدات</option>';
+        unitSelect.disabled = true;
+        // إعادة تعيين اسم المستأجر
+        document.getElementById('invoiceTenant').value = '';
+      }
+    }
+    
+    async function updateInvoiceTenant() {
+      try {
+        const unitId = document.getElementById('invoiceUnit').value;
+        
+        if (!unitId) {
+          document.getElementById('invoiceTenant').value = '';
+          return;
+        }
+        
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        
+        const response = await fetch(`/api/units/${unitId}?token=${token}`);
+        const unit = await response.json();
+        
+        if (response.ok && unit) {
+          document.getElementById('invoiceTenant').value = unit.tenant_name || 'غير محدد';
+        } else {
+          document.getElementById('invoiceTenant').value = 'غير محدد';
+        }
+      } catch (error) {
+        console.error('Error loading unit details:', error);
+        document.getElementById('invoiceTenant').value = 'غير محدد';
+      }
+    }
+    
+    async function loadUnitsForPayment() {
+      try {
+        const buildingId = document.getElementById('paymentBuilding').value;
+        const unitSelect = document.getElementById('paymentUnit');
+        
+        if (!buildingId) {
+          unitSelect.innerHTML = '<option value="">اختر الوحدة أولاً</option>';
+          unitSelect.disabled = true;
+          return;
+        }
+        
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        
+        const response = await fetch(`/api/units?token=${token}&building_id=${buildingId}`);
+        const units = await response.json();
+        
+        unitSelect.innerHTML = '<option value="">اختر الوحدة</option>';
+        unitSelect.disabled = false;
+        
+        if (units && units.length > 0) {
+          units.forEach(unit => {
+            const option = document.createElement('option');
+            option.value = unit.id;
+            option.textContent = `${unit.unit_number || 'غير محدد'} - ${getUnitTypeName(unit.unit_type)} - ${unit.tenant_name || 'غير محدد'}`;
+            unitSelect.appendChild(option);
+          });
+        } else {
+          unitSelect.innerHTML = '<option value="">لا توجد وحدات في هذه البناية</option>';
+        }
+      } catch (error) {
+        console.error('Error loading units for payment:', error);
+        const unitSelect = document.getElementById('paymentUnit');
+        unitSelect.innerHTML = '<option value="">خطأ في تحميل الوحدات</option>';
+        unitSelect.disabled = true;
+      }
+    }
+
+    async function loadUnitsForPayments() {
+      try {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        
+        const response = await fetch('/api/units?token=' + token);
+        const units = await response.json();
+        
+        const select = document.getElementById('paymentUnit');
+        select.innerHTML = '<option value="">اختر الوحدة</option>';
+        
+        if (units && units.length > 0) {
+          units.forEach(unit => {
+            const option = document.createElement('option');
+            option.value = unit.id;
+            option.textContent = `${unit.unit_number || 'غير محدد'} - ${getUnitTypeName(unit.unit_type)}`;
+            select.appendChild(option);
+          });
+        } else {
+          select.innerHTML = '<option value="">لا توجد وحدات متاحة</option>';
+        }
+      } catch (error) {
+        console.error('Error loading units:', error);
+        const select = document.getElementById('paymentUnit');
+        select.innerHTML = '<option value="">خطأ في تحميل الوحدات</option>';
+      }
+    }
+
+    async function loadUnitsForInvoices() {
+      try {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        
+        const response = await fetch('/api/units?token=' + token);
+        const units = await response.json();
+        
+        const select = document.getElementById('invoiceUnit');
+        select.innerHTML = '<option value="">اختر الوحدة</option>';
+        
+        if (units && units.length > 0) {
+          units.forEach(unit => {
+            const option = document.createElement('option');
+            option.value = unit.id;
+            option.textContent = `${unit.unit_number || 'غير محدد'} - ${getUnitTypeName(unit.unit_type)}`;
+            select.appendChild(option);
+          });
+        } else {
+          select.innerHTML = '<option value="">لا توجد وحدات متاحة</option>';
+        }
+      } catch (error) {
+        console.error('Error loading units:', error);
+        const select = document.getElementById('invoiceUnit');
+        select.innerHTML = '<option value="">خطأ في تحميل الوحدات</option>';
+      }
+    }
+
+    // Save functions
+    async function saveUnit() {
+      try {
+        const form = document.getElementById('addUnitForm');
+        const formData = new FormData(form);
+        
+        // Validate required fields
+        const unitNumber = formData.get('unit_number');
+        const unitType = formData.get('unit_type');
+        const buildingId = formData.get('building_id');
+        const rentValue = formData.get('rent_value');
+        const tenantName = formData.get('tenant_name');
+        const tenantPhone = formData.get('tenant_phone');
+        
+        if (!unitNumber || !unitNumber.trim()) {
+          alert('رقم الوحدة مطلوب');
+          return;
+        }
+        
+        if (!unitType) {
+          alert('نوع الوحدة مطلوب');
+          return;
+        }
+        
+        if (!buildingId) {
+          alert('اختر البناية');
+          return;
+        }
+        
+        if (!rentValue || rentValue <= 0) {
+          alert('قيمة الإيجار مطلوبة');
+          return;
+        }
+        
+        if (!tenantName || !tenantName.trim()) {
+          alert('اسم المستأجر مطلوب');
+          return;
+        }
+        
+        if (!tenantPhone || !tenantPhone.trim()) {
+          alert('هاتف المستأجر مطلوب');
+          return;
+        }
+        
+        // Show loading
+        const saveBtn = document.querySelector('#addUnitModal .btn-success');
+        saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
+        saveBtn.disabled = true;
+        
+        // Get user token
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        
+        // Send request
+        const response = await fetch('/api/units?token=' + token, {
+          method: 'POST',
+          body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+          alert('تم إضافة الوحدة بنجاح!');
+          const modal = bootstrap.Modal.getInstance(document.getElementById('addUnitModal'));
+          modal.hide();
+          form.reset();
+        } else {
+          alert('حدث خطأ: ' + (result.error || 'خطأ غير معروف'));
+        }
+      } catch (error) {
+        console.error('Error saving unit:', error);
+        alert('حدث خطأ في حفظ الوحدة');
+      } finally {
+        // Reset button
+        const saveBtn = document.querySelector('#addUnitModal .btn-success');
+        saveBtn.innerHTML = '<i class="fas fa-save"></i> حفظ الوحدة';
+        saveBtn.disabled = false;
+      }
+    }
+
+    async function savePayment() {
+      try {
+        const form = document.getElementById('addPaymentForm');
+        const formData = new FormData(form);
+        
+        // Validate required fields
+        const buildingId = formData.get('building_id');
+        const unitId = formData.get('unit_id');
+        const amount = formData.get('amount');
+        const paymentDate = formData.get('payment_date');
+        const installmentsCount = parseInt(formData.get('installments')) || 1;
+        
+        if (!buildingId) {
+          alert('اختر البناية');
+          return;
+        }
+        if (!unitId) {
+          alert('اختر الوحدة');
+          return;
+        }
+        if (!amount || amount <= 0) {
+          alert('قيمة الدفعة مطلوبة');
+          return;
+        }
+        if (!paymentDate) {
+          alert('تاريخ الدفعة مطلوب');
+          return;
+        }
+        
+        // إذا كان عدد الدفعات > 1، أضف بيانات الدفعات الديناميكية
+        if (installmentsCount > 1) {
+          const installmentsContainer = document.getElementById('paymentInstallmentsContainer');
+          if (installmentsContainer.style.display !== 'none') {
+            console.log(`Processing ${installmentsCount} installments...`);
+            
+            // إزالة حقل amount الأساسي لتجنب تضمينه في الطلب
+            formData.delete('amount');
+            
+            // إضافة بيانات الدفعات الديناميكية
+            for (let i = 1; i <= installmentsCount; i++) {
+              const installmentAmount = document.querySelector(`input[name="payment_installment_amount_${i}"]`);
+              const installmentDueDate = document.querySelector(`input[name="payment_installment_due_date_${i}"]`);
+              const installmentStatus = document.querySelector(`select[name="payment_installment_status_${i}"]`);
+              const installmentType = document.querySelector(`select[name="payment_installment_type_${i}"]`);
+              const installmentMethod = document.querySelector(`select[name="payment_installment_method_${i}"]`);
+              const installmentNotes = document.querySelector(`input[name="payment_installment_notes_${i}"]`);
+              
+              console.log(`Installment ${i} elements:`, {
+                amount: installmentAmount,
+                dueDate: installmentDueDate,
+                status: installmentStatus,
+                type: installmentType,
+                method: installmentMethod,
+                notes: installmentNotes
+              });
+              
+              // طباعة تفاصيل إضافية للتشخيص
+              if (installmentAmount) {
+                console.log(`Installment ${i} amount element found:`, installmentAmount.value);
+              } else {
+                console.log(`Installment ${i} amount element NOT found`);
+              }
+              
+              if (installmentDueDate) {
+                console.log(`Installment ${i} due date element found:`, installmentDueDate.value);
+              } else {
+                console.log(`Installment ${i} due date element NOT found`);
+              }
+              
+              if (installmentAmount && installmentDueDate) {
+                const amountValue = installmentAmount.value;
+                const dueDateValue = installmentDueDate.value;
+                const statusValue = installmentStatus ? installmentStatus.value : 'pending';
+                const typeValue = installmentType ? installmentType.value : formData.get('payment_type');
+                const methodValue = installmentMethod ? installmentMethod.value : formData.get('payment_method');
+                const notesValue = installmentNotes ? installmentNotes.value : '';
+                
+                console.log(`Adding installment ${i} data:`, {
+                  amount: amountValue,
+                  dueDate: dueDateValue,
+                  status: statusValue,
+                  type: typeValue,
+                  method: methodValue,
+                  notes: notesValue
+                });
+                
+                formData.append(`payment_installment_amount_${i}`, amountValue);
+                formData.append(`payment_installment_due_date_${i}`, dueDateValue);
+                formData.append(`payment_installment_status_${i}`, statusValue);
+                formData.append(`payment_installment_type_${i}`, typeValue);
+                formData.append(`payment_installment_method_${i}`, methodValue);
+                formData.append(`payment_installment_notes_${i}`, notesValue);
+              } else {
+                console.log(`Skipping installment ${i} - missing required elements`);
+              }
+            }
+            
+            // طباعة جميع البيانات المرسلة
+            console.log('FormData contents:');
+            for (let [key, value] of formData.entries()) {
+              console.log(`${key}: ${value}`);
+            }
+          }
+        }
+        
+        // Show loading
+        const saveBtn = document.querySelector('#addPaymentModal .btn-success');
+        saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
+        saveBtn.disabled = true;
+        
+        // Get user token
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        
+        // Send request
+        const response = await fetch('/api/payments?token=' + token, {
+          method: 'POST',
+          body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+          const paymentsAdded = result.paymentsAdded || 1;
+          alert(`تم إضافة ${paymentsAdded} دفعة بنجاح!`);
+          const modal = bootstrap.Modal.getInstance(document.getElementById('addPaymentModal'));
+          modal.hide();
+          form.reset();
+          
+          // إعادة تعيين منطقة الدفعات الديناميكية
+          document.getElementById('paymentInstallmentsContainer').style.display = 'none';
+          document.getElementById('paymentAmount').readOnly = false;
+          document.getElementById('paymentAmount').style.backgroundColor = '';
+        } else {
+          alert('حدث خطأ: ' + (result.error || 'خطأ غير معروف'));
+        }
+      } catch (error) {
+        console.error('Error saving payment:', error);
+        alert('حدث خطأ في حفظ الدفعة');
+      } finally {
+        // Reset button
+        const saveBtn = document.querySelector('#addPaymentModal .btn-success');
+        saveBtn.innerHTML = '<i class="fas fa-save"></i> حفظ الدفعة';
+        saveBtn.disabled = false;
+      }
+    }
+
+    async function saveInvoice() {
+      try {
+        const form = document.getElementById('addInvoiceForm');
+        const formData = new FormData(form);
+        
+        // Validate required fields
+        const buildingId = formData.get('building_id');
+        const unitId = formData.get('unit_id');
+        const invoiceType = formData.get('invoice_type');
+        const amount = formData.get('amount');
+        const invoiceDate = formData.get('invoice_date');
+        
+        if (!buildingId) {
+          alert('اختر البناية');
+          return;
+        }
+        if (!unitId) {
+          alert('اختر الوحدة');
+          return;
+        }
+        if (!invoiceType) {
+          alert('نوع الفاتورة مطلوب');
+          return;
+        }
+        if (!amount || amount <= 0) {
+          alert('مبلغ الفاتورة مطلوب');
+          return;
+        }
+        if (!invoiceDate) {
+          alert('تاريخ الفاتورة مطلوب');
+          return;
+        }
+        
+        // Show loading
+        const saveBtn = document.querySelector('#addInvoiceModal .btn-success');
+        saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الحفظ...';
+        saveBtn.disabled = true;
+        
+        // Get user token
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        const token = user.id;
+        
+        // Send request
+        const response = await fetch('/api/invoices?token=' + token, {
+          method: 'POST',
+          body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (response.ok) {
+          alert('تم إضافة الفاتورة بنجاح!');
+          const modal = bootstrap.Modal.getInstance(document.getElementById('addInvoiceModal'));
+          modal.hide();
+          form.reset();
+        } else {
+          alert('حدث خطأ: ' + (result.error || 'خطأ غير معروف'));
+        }
+      } catch (error) {
+        console.error('Error saving invoice:', error);
+        alert('حدث خطأ في حفظ الفاتورة');
+      } finally {
+        // Reset button
+        const saveBtn = document.querySelector('#addInvoiceModal .btn-success');
+        saveBtn.innerHTML = '<i class="fas fa-save"></i> حفظ الفاتورة';
+        saveBtn.disabled = false;
+      }
+    }
+
+    // Payment Status Functions
+    let currentUser = null;
+    let payments = [];
+
+    // تحميل بيانات المستخدم
+    async function loadUser() {
+      try {
+        // الحصول على token من localStorage أو من URL
+        let token = localStorage.getItem('token');
+        if (!token) {
+          // محاولة الحصول من URL
+          const urlParams = new URLSearchParams(window.location.search);
+          token = urlParams.get('token');
+        }
+        
+        if (!token) {
+          console.log('No token found, skipping user load');
+          return;
+        }
+
+        const response = await fetch(`/api/users?token=${token}`);
+        const users = await response.json();
+        currentUser = users.find(user => user.id == token);
+        
+        if (!currentUser) {
+          console.log('User not found, skipping user load');
+          return;
+        }
+      } catch (error) {
+        console.error('Error loading user:', error);
+        // لا نعيد التوجيه، فقط نطبع الخطأ
+      }
+    }
+
+    // تحميل المباني
+    async function loadBuildings() {
+      try {
+        console.log('Loading buildings...');
+        // الحصول على token من localStorage أو من URL
+        let token = localStorage.getItem('token');
+        if (!token) {
+          const urlParams = new URLSearchParams(window.location.search);
+          token = urlParams.get('token');
+        }
+        
+        if (!token) {
+          console.log('No token found, skipping buildings load');
+          return;
+        }
+        
+        console.log('Fetching buildings with token:', token);
+        const response = await fetch(`/api/buildings?token=${token}`);
+        console.log('Buildings response status:', response.status);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const buildings = await response.json();
+        console.log('Buildings loaded:', buildings.length);
+        console.log('Buildings data:', buildings);
+        
+        const buildingSelect = document.getElementById('buildingSelect');
+        if (buildingSelect) {
+          buildingSelect.innerHTML = '<option value="">جميع المباني</option>';
+          
+          buildings.forEach(building => {
+            const option = document.createElement('option');
+            option.value = building.id;
+            option.textContent = building.name;
+            buildingSelect.appendChild(option);
+          });
+          console.log('Buildings dropdown populated with', buildings.length, 'buildings');
+        } else {
+          console.error('buildingSelect element not found');
+        }
+      } catch (error) {
+        console.error('Error loading buildings:', error);
+      }
+    }
+
+    // تحميل الوحدات
+    async function loadUnits(buildingId = '') {
+      try {
+        // الحصول على token من localStorage أو من URL
+        let token = localStorage.getItem('token');
+        if (!token) {
+          const urlParams = new URLSearchParams(window.location.search);
+          token = urlParams.get('token');
+        }
+        
+        if (!token) {
+          console.log('No token found, skipping units load');
+          return;
+        }
+        
+        let url = `/api/units?token=${token}`;
+        if (buildingId) {
+          url += `&building_id=${buildingId}`;
+        }
+        
+        const response = await fetch(url);
+        const units = await response.json();
+        
+        const unitSelect = document.getElementById('unitSelect');
+        if (unitSelect) {
+          unitSelect.innerHTML = '<option value="">جميع الوحدات</option>';
+          
+          units.forEach(unit => {
+            const option = document.createElement('option');
+            option.value = unit.id;
+            option.textContent = `${unit.unit_number} - ${unit.unit_type}`;
+            unitSelect.appendChild(option);
+          });
+        }
+      } catch (error) {
+        console.error('Error loading units:', error);
+      }
+    }
+
+    // تحميل الدفعات
+    async function loadPayments() {
+      try {
+        console.log('Loading payments...');
+        // الحصول على token من localStorage أو من URL
+        let token = localStorage.getItem('token');
+        if (!token) {
+          const urlParams = new URLSearchParams(window.location.search);
+          token = urlParams.get('token');
+        }
+        
+        if (!token) {
+          console.log('No token found, skipping payments load');
+          return;
+        }
+        
+        const unitId = document.getElementById('unitSelect')?.value || '';
+        
+        let url = `/api/payments?token=${token}`;
+        if (unitId) {
+          url += `&unit_id=${unitId}`;
+        }
+        
+        console.log('Fetching payments from:', url);
+        const response = await fetch(url);
+        console.log('Payments response status:', response.status);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const payments = await response.json();
+        console.log('Payments loaded:', payments.length);
+        console.log('Payments data:', payments);
+        
+        displayPayments(payments);
+      } catch (error) {
+        console.error('Error loading payments:', error);
+      }
+    }
+
+    // عرض الدفعات
+    function displayPayments(payments) {
+      console.log('Displaying payments:', payments);
+      const paymentsList = document.getElementById('paymentsList');
+      if (!paymentsList) {
+        console.error('paymentsList element not found');
+        return;
+      }
+      
+      console.log('Found paymentsList element, clearing content...');
+      paymentsList.innerHTML = '';
+      
+      if (!payments || payments.length === 0) {
+        console.log('No payments to display');
+        paymentsList.innerHTML = `
+          <div class="col-12 text-center">
+            <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+            <p class="text-muted">لا توجد دفعات</p>
+          </div>
+        `;
+        return;
+      }
+      
+      console.log('Creating payment cards for', payments.length, 'payments');
+      payments.forEach((payment, index) => {
+        console.log(`Creating card for payment ${index + 1}:`, payment);
+        const paymentCard = createPaymentCard(payment);
+        paymentsList.appendChild(paymentCard);
+      });
+      
+      console.log('Payment cards created successfully');
+    }
+
+    // إنشاء بطاقة الدفع
+    function createPaymentCard(payment) {
+      console.log('Creating payment card for payment:', payment);
+      
+      const col = document.createElement('div');
+      col.className = 'col-md-6 col-lg-4 mb-4';
+      
+      const statusClass = getStatusClass(payment.calculated_status);
+      const progressPercent = payment.payment_percentage || 0;
+      
+      console.log('Payment card data:', {
+        id: payment.id,
+        unit_number: payment.unit_number,
+        amount: payment.amount,
+        paid_amount: payment.paid_amount,
+        remaining_amount: payment.remaining_amount,
+        calculated_status: payment.calculated_status,
+        status_arabic: payment.status_arabic,
+        progressPercent: progressPercent
+      });
+      
+      col.innerHTML = `
+        <div class="card payment-card h-100">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h6 class="mb-0">
+              <i class="fas fa-credit-card"></i>
+              دفعة #${payment.id}
+            </h6>
+            <span class="status-badge ${statusClass}">
+              ${payment.status_arabic}
+            </span>
+          </div>
+          <div class="card-body">
+            <div class="mb-3">
+              <strong>الوحدة:</strong> ${payment.unit_number}
+            </div>
+            <div class="mb-3">
+              <strong>المبلغ الإجمالي:</strong> ${payment.amount} درهم
+            </div>
+            <div class="mb-3">
+              <strong>المبلغ المدفوع:</strong> ${payment.paid_amount || 0} درهم
+            </div>
+            <div class="mb-3">
+              <strong>المبلغ المتبقي:</strong> ${payment.remaining_amount} درهم
+            </div>
+            <div class="mb-3">
+              <strong>نسبة الدفع:</strong>
+              <div class="progress">
+                <div class="progress-bar" style="width: ${progressPercent}%"></div>
+              </div>
+              <small class="text-muted">${progressPercent}%</small>
+            </div>
+            <div class="mb-3">
+              <strong>تاريخ الاستحقاق:</strong> ${payment.due_date}
+            </div>
+            <div class="mb-3">
+              <strong>الوصف:</strong> ${payment.description || 'لا يوجد وصف'}
+            </div>
+            ${payment.receipt_documents ? `
+              <div class="mb-3">
+                <strong>مستندات القبض:</strong>
+                <div class="mt-2">
+                  ${payment.receipt_documents.split(',').map(doc => 
+                    `<a href="/uploads/${doc}" target="_blank" class="btn btn-sm btn-outline-primary me-2">
+                      <i class="fas fa-file"></i> ${doc}
+                    </a>`
+                  ).join('')}
+                </div>
+              </div>
+            ` : ''}
+          </div>
+          <div class="card-footer">
+            <button class="btn btn-primary btn-sm w-100" onclick="openUpdateModal(${payment.id})">
+              <i class="fas fa-edit"></i>
+              تحديث الحالة
+            </button>
+          </div>
+        </div>
+      `;
+      
+      console.log('Payment card created successfully');
+      return col;
+    }
+
+    // الحصول على فئة الحالة
+    function getStatusClass(status) {
+      switch (status) {
+        case 'paid_full':
+          return 'status-paid-full';
+        case 'paid_partial':
+          return 'status-paid-partial';
+        case 'overdue':
+          return 'status-overdue';
+        default:
+          return 'status-pending';
+      }
+    }
+
+    // فتح modal التحديث
+    async function openUpdateModal(paymentId) {
+      try {
+        // الحصول على token من localStorage أو من URL
+        let token = localStorage.getItem('token');
+        if (!token) {
+          const urlParams = new URLSearchParams(window.location.search);
+          token = urlParams.get('token');
+        }
+        
+        if (!token) {
+          alert('لم يتم العثور على رمز المستخدم');
+          return;
+        }
+        
+        const response = await fetch(`/api/payments/${paymentId}/details?token=${token}`);
+        const payment = await response.json();
+        
+        document.getElementById('paymentId').value = payment.id;
+        document.getElementById('totalAmount').value = payment.amount;
+        document.getElementById('paidAmount').value = payment.paid_amount || 0;
+        document.getElementById('paymentStatus').value = payment.payment_status || 'pending';
+        document.getElementById('paymentDateActual').value = payment.payment_date_actual || '';
+        document.getElementById('paymentNotes').value = '';
+        document.getElementById('selectedFiles').innerHTML = '';
+        
+        const modal = new bootstrap.Modal(document.getElementById('updatePaymentModal'));
+        modal.show();
+      } catch (error) {
+        console.error('Error loading payment details:', error);
+        alert('حدث خطأ أثناء تحميل تفاصيل الدفع');
+      }
+    }
+
+    // تحديث الدفع
+    async function updatePayment() {
+      const paymentId = document.getElementById('paymentId').value;
+      const paidAmount = parseFloat(document.getElementById('paidAmount').value);
+      const paymentStatus = document.getElementById('paymentStatus').value;
+      const paymentDateActual = document.getElementById('paymentDateActual').value;
+      const notes = document.getElementById('paymentNotes').value;
+      
+      if (!paidAmount || paidAmount < 0) {
+        alert('يرجى إدخال مبلغ صحيح');
+        return;
+      }
+      
+      const formData = new FormData();
+      formData.append('paid_amount', paidAmount);
+      formData.append('payment_status', paymentStatus);
+      if (paymentDateActual) {
+        formData.append('payment_date_actual', paymentDateActual);
+      }
+      if (notes) {
+        formData.append('notes', notes);
+      }
+      
+      // إضافة الملفات المحددة
+      const fileInput = document.getElementById('receiptDocuments');
+      for (let file of fileInput.files) {
+        formData.append('receipt_documents', file);
+      }
+      
+      try {
+        // الحصول على token من localStorage أو من URL
+        let token = localStorage.getItem('token');
+        if (!token) {
+          const urlParams = new URLSearchParams(window.location.search);
+          token = urlParams.get('token');
+        }
+        
+        if (!token) {
+          alert('لم يتم العثور على رمز المستخدم');
+          return;
+        }
+        
+        const response = await fetch(`/api/payments/${paymentId}/payment-status?token=${token}`, {
+          method: 'PUT',
+          body: formData
+        });
+        
+        if (response.ok) {
+          const result = await response.json();
+          alert('تم تحديث حالة الدفع بنجاح');
+          
+          // إغلاق Modal وتحديث القائمة
+          bootstrap.Modal.getInstance(document.getElementById('updatePaymentModal')).hide();
+          await loadPayments();
+        } else {
+          const error = await response.json();
+          alert('خطأ: ' + error.error);
+        }
+      } catch (error) {
+        console.error('Error updating payment:', error);
+        alert('حدث خطأ أثناء تحديث الدفع');
+      }
+    }
+
+    // إعداد drag and drop للملفات
+    function setupFileUpload() {
+      const fileUpload = document.getElementById('fileUpload');
+      const fileInput = document.getElementById('receiptDocuments');
+      const selectedFiles = document.getElementById('selectedFiles');
+      
+      fileUpload.addEventListener('click', () => fileInput.click());
+      
+      fileUpload.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        fileUpload.classList.add('dragover');
+      });
+      
+      fileUpload.addEventListener('dragleave', () => {
+        fileUpload.classList.remove('dragover');
+      });
+      
+      fileUpload.addEventListener('drop', (e) => {
+        e.preventDefault();
+        fileUpload.classList.remove('dragover');
+        fileInput.files = e.dataTransfer.files;
+        updateSelectedFiles();
+      });
+      
+      fileInput.addEventListener('change', updateSelectedFiles);
+      
+      function updateSelectedFiles() {
+        selectedFiles.innerHTML = '';
+        for (let file of fileInput.files) {
+          const fileDiv = document.createElement('div');
+          fileDiv.className = 'alert alert-info d-flex justify-content-between align-items-center';
+          fileDiv.innerHTML = `
+            <span><i class="fas fa-file"></i> ${file.name}</span>
+            <button type="button" class="btn btn-sm btn-outline-danger" onclick="this.parentElement.remove()">
+              <i class="fas fa-times"></i>
+            </button>
+          `;
+          selectedFiles.appendChild(fileDiv);
+        }
+      }
+    }
+
+    // إعداد event listeners للتبويب الجديد
+    document.addEventListener('DOMContentLoaded', function() {
+      // إضافة event listeners للتبويب الجديد
+      const buildingSelect = document.getElementById('buildingSelect');
+      const unitSelect = document.getElementById('unitSelect');
+      
+      if (buildingSelect) {
+        buildingSelect.addEventListener('change', function() {
+          loadUnits(this.value);
+        });
+      }
+      
+      if (unitSelect) {
+        unitSelect.addEventListener('change', loadPayments);
+      }
+
+      // تهيئة التبويب الجديد عند فتحه
+      const paymentStatusTab = document.getElementById('payment-status-tab');
+      if (paymentStatusTab) {
+        paymentStatusTab.addEventListener('shown.bs.tab', async function() {
+          console.log('Payment status tab opened');
+          try {
+            console.log('Starting to load data for payment status tab...');
+            await loadUser();
+            console.log('User loaded successfully');
+            await loadBuildings();
+            console.log('Buildings loaded successfully');
+            await loadUnits();
+            console.log('Units loaded successfully');
+            await loadPayments();
+            console.log('Payments loaded successfully');
+            setupFileUpload();
+            console.log('File upload setup completed');
+          } catch (error) {
+            console.error('Error initializing payment status tab:', error);
+          }
+        });
+      }
+      
+      // تحميل البيانات مباشرة عند تحميل الصفحة إذا كان التبويب مفتوح
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM loaded, checking if payment status tab is active...');
+        const paymentStatusTab = document.getElementById('payment-status-tab');
+        const paymentStatusPane = document.getElementById('payment-status');
+        
+        if (paymentStatusTab && paymentStatusTab.classList.contains('active')) {
+          console.log('Payment status tab is active, loading data...');
+          loadUser().then(() => {
+            loadBuildings().then(() => {
+              loadUnits().then(() => {
+                loadPayments();
+              });
+            });
+          });
+        }
+      });
+    });
+  </script>
+
+  <!-- Modal تحديث حالة الدفع -->
+  <div class="modal fade" id="updatePaymentModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title">
+            <i class="fas fa-edit"></i>
+            تحديث حالة الدفع
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="updatePaymentForm">
+            <input type="hidden" id="paymentId">
+            
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label">المبلغ الإجمالي:</label>
+                  <input type="text" id="totalAmount" class="form-control" readonly>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label">المبلغ المدفوع:</label>
+                  <input type="number" id="paidAmount" class="form-control" step="0.01" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label">حالة الدفع:</label>
+                  <select id="paymentStatus" class="form-select" required>
+                    <option value="pending">معلق</option>
+                    <option value="paid_partial">دفع جزئي</option>
+                    <option value="paid_full">دفع كلي</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label class="form-label">تاريخ الدفع الفعلي:</label>
+                  <input type="date" id="paymentDateActual" class="form-control">
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">مستندات القبض:</label>
+              <div class="file-upload" id="fileUpload">
+                <i class="fas fa-cloud-upload-alt fa-3x text-muted mb-3"></i>
+                <p class="text-muted">اسحب الملفات هنا أو اضغط لاختيار الملفات</p>
+                <input type="file" id="receiptDocuments" multiple accept="image/*,.pdf" style="display: none;">
+                <div id="selectedFiles" class="mt-3"></div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">ملاحظات:</label>
+              <textarea id="paymentNotes" class="form-control" rows="3"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+          <button type="button" class="btn btn-primary" onclick="updatePayment()">
+            <i class="fas fa-save"></i>
+            حفظ التغييرات
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html> 
