@@ -4,7 +4,7 @@
   "description": "Golden House Property Management System",
   "main": "index.js",
   "scripts": {
-    "start": "bash start.sh",
+    "start": "node index.js",
     "dev": "nodemon index.js",
     "start:prod": "NODE_ENV=production node index.js",
     "build": "echo 'No build step required'",
